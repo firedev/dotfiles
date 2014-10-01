@@ -3,6 +3,10 @@ let g:mapleader = ","
 nmap <leader>w :w!<cr>
 nmap <leader>q :q<cr>
 nmap <leader>r gg=G
+
+" Pathogen
+execute pathogen#infect()
+
 set encoding=utf-8
 
 " Fix backspace
@@ -78,8 +82,6 @@ function! HLNext (blinktime)
   redraw
 endfunction
 
-" Pathogen
-execute pathogen#infect()
 
 " NERDTree
 let NERDTreeMinimalUI=1
@@ -129,7 +131,7 @@ set directory=~/.vim/swap/
 set nocompatible   " Disable vi-compatibility
 
 " Show (partial) command in the status line
-" set showcmd
+set showcmd
 
 " Remove search results
 command! H let @/=""
@@ -143,10 +145,6 @@ nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
-
-" Quickly go forward or backward to buffer
-nmap :bp :BufSurfBack<cr>
-nmap :bn :BufSurfForward<cr>
 
 " Down is really the next line
 nnoremap j gj
