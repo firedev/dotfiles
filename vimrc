@@ -74,7 +74,7 @@ function! HLNext (blinktime)
 endfunction
 
 " Pathogen
-" execute pathogen#infect()
+execute pathogen#infect()
 
 " NERDTree
 let NERDTreeMinimalUI=1
