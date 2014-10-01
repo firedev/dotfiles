@@ -1,3 +1,6 @@
+let mapleader = ","
+let g:mapleader = ","
+nmap <leader>w :w!<cr>     " Fast saves
 set encoding=utf-8
 
 " Fix backspace
@@ -87,10 +90,6 @@ map <C-n> :NERDTreeToggle<CR>
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
 
 " CTRL-P
 let g:ctrlp_extensions = ['funky']
@@ -119,7 +118,6 @@ set smartcase                   " ignore case if search pattern is all lowercase
 set autowrite  "Save on buffer switch
 set mouse=a
 
-nmap <leader>w :w!<cr>     " Fast saves
 nmap <leader>r gg=G        " Reindent
 
 "Auto change directory to match current file ,cd
