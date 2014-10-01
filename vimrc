@@ -1,6 +1,8 @@
 let mapleader = ","
 let g:mapleader = ","
-nmap <leader>w :w!<cr>     " Fast saves
+nmap <leader>w :w!<cr>
+nmap <leader>q :q<cr>
+nmap <leader>r gg=G
 set encoding=utf-8
 
 " Fix backspace
@@ -105,8 +107,6 @@ set t_Co=256
 " Autoread
 set autoread
 
-" Fast quit
-nmap <leader>q :q<cr>
 
 " Jeffrey Way https://gist.github.com/JeffreyWay/6753834
 
@@ -118,7 +118,6 @@ set smartcase                   " ignore case if search pattern is all lowercase
 set autowrite  "Save on buffer switch
 set mouse=a
 
-nmap <leader>r gg=G        " Reindent
 
 "Auto change directory to match current file ,cd
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
