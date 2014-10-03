@@ -1,48 +1,147 @@
-let mapleader = ","
-let g:mapleader = ","
-nmap <leader>w :w!<cr>
-nmap <leader>q :q<cr>
-nmap <leader>r gg=G
-
-" Pathogen
-execute pathogen#infect()
-
 set encoding=utf-8
 
-" Fix backspace
-set backspace=indent,eol,start
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VUNDLE START
+" https://github.com/gmarik/Vundle.vim
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" Fix clipboard
-set clipboard=unnamed
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-" Line numbers
-set number
-highlight LineNr ctermfg=darkgrey
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
-" Highlight search results
+" Molokai theme
+Bundle 'tomasr/molokai'
+" Powerline
+Bundle 'bling/vim-airline'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+" filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+ """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" BEHAVIOUR
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set expandtab           " Change TABS to SPACES
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2       " when hitting <BS>, pretend like a tab is removed, even if spaces
+set autoindent          " always set autoindenting on
+set copyindent          " copy the previous indentation on autoindenting
+set number              " always show line numbers
+set ignorecase          " ignore case when searching
+set smartcase           " ignore case if search pattern is all lowercase,
+set mouse=a             " Use mouse
+set clipboard=unnamed   " Use system clipboard
+set backspace=indent,eol,start " Backspace over everything
+set nowrap              " Disable Wrap
+set showcmd             " Show (partial) command in the status line
+
+set autoread            " Autoread
+set autowrite           " Save on buffer switch
+
+" Searching
 set hlsearch
+set incsearch
+set ignorecase
+set smartcase
 
-" Persistent undo
-set undofile
-set undodir=~/.vim/undo/
-
-" Highlight 81st column
-highlight ColorColumn ctermbg=darkgrey
-call matchadd('ColorColumn', '\%81v', 100)
-
-" Syntax highlight
-syntax on
-filetype plugin indent on
+" Tab completio n
+set wildmode=list:longest,list:full
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
 " Automatically reload .vimrc on save
 au! BufWritePost .vimrc source %
 
+" Highlight matches when jumping to next
+nnoremap <silent> n n:call HLNext(0.5)<cr>
+nnoremap <silent> N N:call HLNext(0.5)<cr>
+
+" Blink the matching line
+function! HLNext (blinktime)
+  set invcursorline
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 100) . 'm'
+  set invcursorline
+  redraw
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" KEYBOARD
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Map <Leader> to ,
+let mapleader = ","
+let g:mapleader = ","
+
+" Remove highlights with leader + enter
+nmap <Leader><CR> :nohlsearch<cr>
+" Quick write
+nmap <leader>w :w!<cr>
+" Quick quit
+nmap <leader>q :q<cr>
+" Quick reindent
+nmap <leader>r gg=Ggi
+
+" Buffer switching
+map <leader>p :bp<CR> " \p previous buffer
+map <leader>n :bn<CR> " \n next buffer
+map <leader>d :bd<CR> " \d delete buffer
+
 " Remap ; to :
 nnoremap ; :
 
-" https://github.com/Yggdroot/indentLine
-let g:indentLine_char = '︙'
-" let g:indentLine_char = '┆'
+" easier window navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
+" Down is really the next line
+nnoremap j gj
+nnoremap k gk
+
+" Disable arrow keys
+inoremap  <Up>     <NOP>
+inoremap  <Down>   <NOP>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
+
+" Removing escape
+ino jj <esc>
+cno jj <c-c>
+vno v <esc>
+
+" Auto change directory to match current file ,cd
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Add an empty line when saving
 function! AddLastLine()
@@ -55,6 +154,21 @@ autocmd BufWritePre * call AddLastLine()
 " Strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SYNTAX HIGHLIGHTING
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
+set t_Co=256
+
+" Highlight 81st column
+highlight ColorColumn ctermbg=darkgrey
+call matchadd('ColorColumn', '\%81v', 100)
+
 " See invisibles
 exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
 set list
@@ -63,92 +177,45 @@ hi GroupB ctermfg=darkgray
 match GroupA / \+$/
 2match GroupB /\t/
 
-"Change TABS to SPACES
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2 " when hitting <BS>, pretend like a tab is removed, even if spaces
+" highlight the current line
+" set cursorline
+" Highlight active column
+" set cuc cul"
 
-"=====[ Highlight matches when jumping to next ]=============
-nnoremap <silent> n n:call HLNext(0.4)<cr>
-nnoremap <silent> N N:call HLNext(0.4)<cr>
-
-"=====[ Blink the matching line ]=============
-function! HLNext (blinktime)
-  set invcursorline
-  redraw
-  exec 'sleep ' . float2nr(a:blinktime * 100) . 'm'
-  set invcursorline
-  redraw
-endfunction
-
-
-" NERDTree
-let NERDTreeMinimalUI=1
-let NERDTreeDirArrows=1
-
-"Q. How can I map a specific key or shortcut to open NERDTree?
-map <C-n> :NERDTreeToggle<CR>
-
-"Q. How can I close vim if the only window left open is a NERDTree?
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" Configs to make Molokai look great
+colorscheme molokai
+set background=dark
+let g:molokai_original=1
+let g:rehash256=1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
-" CTRL-P
-let g:ctrlp_extensions = ['funky']
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-
-" Airline
-set laststatus=2
-let g:airline_powerline_fonts = 1
-set t_Co=256
-
-" Autoread
-set autoread
-
-
-" Jeffrey Way https://gist.github.com/JeffreyWay/6753834
-
-set autoindent                  " always set autoindenting on
-set copyindent                  " copy the previous indentation on autoindenting
-set number                      " always show line numbers
-set ignorecase                  " ignore case when searching
-set smartcase                   " ignore case if search pattern is all lowercase,
-set autowrite  "Save on buffer switch
-set mouse=a
-
-
-"Auto change directory to match current file ,cd
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
-
-" Swap files out of the project root
-set backupdir=~/.vim/backup/
-set directory=~/.vim/swap/
-
-set nocompatible   " Disable vi-compatibility
-
-" Show (partial) command in the status line
-set showcmd
-
-" Remove search results
-command! H let @/=""
+" Persistent undo
+set undofile
+set undodir=~/.vimundo/
+set backupdir=~/.vimbackup/
+set directory=~/.vimswap/
+set viminfo+=n~/.vim/viminfo
 
 " Open splits
 nmap vs :vsplit<cr>
 nmap sp :split<cr>
 
-" easier window navigation
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
 
-" Down is really the next line
-nnoremap j gj
-nnoremap k gk
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" AIRLINE
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2
+let g:airline_powerline_fonts = 1
 
-" end Jeffrey Way
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Inspiration
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" https://github.com/janjiss/rcfiles/blob/master/vim/vimrc
+" Jeffrey Way https://gist.github.com/JeffreyWay/6753834
 
