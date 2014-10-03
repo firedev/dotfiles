@@ -14,7 +14,6 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-
 " Molokai theme
 Bundle 'tomasr/molokai'
 " Powerline
@@ -86,6 +85,12 @@ function! HLNext (blinktime)
   redraw
 endfunction
 
+" Persistent undo
+set undofile
+set undodir=~/.vim/undo//
+" No backup or swap
+set nobackup
+set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -191,12 +196,6 @@ let g:rehash256=1
 
 
 
-" Persistent undo
-set undofile
-set undodir=~/.vimundo/
-set backupdir=~/.vimbackup/
-set directory=~/.vimswap/
-set viminfo+=n~/.vim/viminfo
 
 " Open splits
 nmap vs :vsplit<cr>
@@ -209,7 +208,6 @@ nmap sp :split<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 let g:airline_powerline_fonts = 1
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
