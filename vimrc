@@ -7,7 +7,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/vundle
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -18,9 +18,15 @@ Plugin 'gmarik/Vundle.vim'
 
 Bundle 'tomasr/molokai'
 Bundle 'bling/vim-airline'
+Plugin 'bling/vim-bufferline'
 Plugin 'ctrlp.vim'
 Plugin 'bundler.vim'
 Plugin 'rails.vim'
+Plugin 'tComment'
+Plugin 'fugitive.vim'
+Plugin 'Syntastic'
+Plugin 'tpope/vim-dispatch'
+Plugin 'edkolev/tmuxline.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -36,7 +42,7 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
- """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
@@ -94,7 +100,6 @@ set undodir=~/.vim/undo//
 " No backup or swap
 set nobackup
 set noswapfile
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
@@ -151,19 +156,11 @@ vno v <esc>
 " Auto change directory to match current file ,cd
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
-" Add an empty line when saving
-function! AddLastLine()
-  if getline('$') !~ "^$"
-    call append(line('$'), '')
-  endif
-endfunction
-autocmd BufWritePre * call AddLastLine()
-
 " Strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" Yank till the end of line
+nnoremap Y y$
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -191,11 +188,10 @@ match GroupA / \+$/
 " set cuc cul"
 
 " Configs to make Molokai look great
-colorscheme molokai
 set background=dark
 let g:molokai_original=1
 let g:rehash256=1
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+colorscheme molokai
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -212,6 +208,17 @@ nmap <C-v> :vertical resize +5<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tmuxline#enabled = 1
+
+let g:tmuxline_separators = {
+    \ 'left' : '',
+    \ 'left_alt': '',
+    \ 'right' : '',
+    \ 'right_alt' : '',
+    \ 'space' : ' '}
+    " \ 'left_alt': '',
+    " \ 'right_alt' : '',
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTRLP
@@ -219,6 +226,16 @@ let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_working_path_mode = ''
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SYNTASTIC
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_style_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
+let g:syntastic_style_warning_symbol = "⚠"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Inspiration
