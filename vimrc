@@ -18,7 +18,8 @@ Plugin 'gmarik/Vundle.vim'
 Bundle 'tomasr/molokai'
 " Powerline
 Bundle 'bling/vim-airline'
-
+" CtrlP
+Plugin 'ctrlp.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -55,7 +56,7 @@ set clipboard=unnamed   " Use system clipboard
 set backspace=indent,eol,start " Backspace over everything
 set nowrap              " Disable Wrap
 set showcmd             " Show (partial) command in the status line
-
+set showmatch           " See matching brackets
 set autoread            " Autoread
 set autowrite           " Save on buffer switch
 
@@ -65,9 +66,9 @@ set incsearch
 set ignorecase
 set smartcase
 
-" Tab completio n
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+" Tab completion
+set wildmode=longest:full,full
+set wildignore+=.git,vendor/gems/*
 
 " Automatically reload .vimrc on save
 au! BufWritePost .vimrc source %
@@ -195,12 +196,13 @@ let g:rehash256=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-
-
-" Open splits
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SPLITS
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap vs :vsplit<cr>
 nmap sp :split<cr>
-
+nmap <C-v> :vertical resize +5<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AIRLINE
@@ -209,6 +211,12 @@ nmap sp :split<cr>
 set laststatus=2
 let g:airline_powerline_fonts = 1
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CTRLP
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+let g:ctrlp_working_path_mode = ''
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Inspiration
@@ -216,4 +224,5 @@ let g:airline_powerline_fonts = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/janjiss/rcfiles/blob/master/vim/vimrc
 " Jeffrey Way https://gist.github.com/JeffreyWay/6753834
+" https://github.com/tpope/tpope/blob/master/.vimrc
 
