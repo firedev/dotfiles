@@ -1,50 +1,5 @@
 set encoding=utf-8
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VUNDLE START
-" https://github.com/gmarik/Vundle.vim
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/vundle
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-" Molokai theme
-
-Bundle 'tomasr/molokai'
-Bundle 'bling/vim-airline'
-Plugin 'bling/vim-bufferline'
-Plugin 'ctrlp.vim'
-Plugin 'bundler.vim'
-Plugin 'rails.vim'
-Plugin 'tComment'
-Plugin 'fugitive.vim'
-Plugin 'Syntastic'
-Plugin 'tpope/vim-dispatch'
-Plugin 'edkolev/tmuxline.vim'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-" filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
+source ~/dotfiles/bundles.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOUR
@@ -78,6 +33,21 @@ set smartcase
 set wildmode=longest:full,full
 set wildignore+=.git,vendor/gems/*
 
+" Tab completion
+" will insert tab at beginning of line,
+" will use completion if not at beginning
+set wildmode=list:longest,list:full
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
+inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <S-Tab> <c-n>
+
 " Automatically reload .vimrc on save
 au! BufWritePost .vimrc source %
 
@@ -101,15 +71,28 @@ set undodir=~/.vim/undo//
 set nobackup
 set noswapfile
 
+augroup vimrcEx
+  autocmd!
 
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " Allow stylesheets to autocomplete hyphenated words
+  autocmd FileType css,scss,sass setlocal iskeyword+=-
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEYBOARD
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Map <Leader> to ,
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = " "
+let g:mapleader = " "
 
 " Remove highlights with leader + enter
 nmap <Leader><CR> :nohlsearch<cr>
@@ -162,6 +145,14 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Yank till the end of line
 nnoremap Y y$
 
+" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
+let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
+
+" Index ctags from any project, including those outside Rails
+map <Leader>ct :!ctags -R .<CR>
+
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTAX HIGHLIGHTING
@@ -195,12 +186,20 @@ colorscheme molokai
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SPLITS
+" WINDOWS / SPLITS
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap vs :vsplit<cr>
 nmap sp :split<cr>
 nmap <C-v> :vertical resize +5<cr>
+" Open new split panes to right and bottom, which feels more natural
+set splitbelow
+set splitright
+
+" Always use vertical diffs
+set diffopt+=vertical
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AIRLINE
@@ -224,8 +223,19 @@ let g:tmuxline_separators = {
 " CTRLP
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+"let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:ctrlp_working_path_mode = ''
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = ['ag %s -l --nocolor -g ""']
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTASTIC
@@ -244,4 +254,6 @@ let g:syntastic_style_warning_symbol = "⚠"
 " https://github.com/janjiss/rcfiles/blob/master/vim/vimrc
 " Jeffrey Way https://gist.github.com/JeffreyWay/6753834
 " https://github.com/tpope/tpope/blob/master/.vimrc
-
+" https://github.com/thoughtbot/dotfiles/blob/master/vimrc
+" https://github.com/gmarik/Vundle.vim/wiki/Examples
+" https://github.com/tlhunter/vimrc/blob/master/vimrc
