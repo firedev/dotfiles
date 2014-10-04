@@ -154,6 +154,10 @@ map <Leader>ct :!ctags -R .<CR>
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
+" Indentation
+vmap > >gv
+vmap < <gv
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTAX HIGHLIGHTING
 "
@@ -257,3 +261,4 @@ let g:syntastic_style_warning_symbol = "⚠"
 " https://github.com/thoughtbot/dotfiles/blob/master/vimrc
 " https://github.com/gmarik/Vundle.vim/wiki/Examples
 " https://github.com/tlhunter/vimrc/blob/master/vimrc
+" https://github.com/nelstrom/dotfiles/blob/448f710b855970a8565388c6665a96ddf4976f9f/vimrc
