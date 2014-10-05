@@ -262,3 +262,5 @@ let g:syntastic_style_warning_symbol = "⚠"
 " https://github.com/gmarik/Vundle.vim/wiki/Examples
 " https://github.com/tlhunter/vimrc/blob/master/vimrc
 " https://github.com/nelstrom/dotfiles/blob/448f710b855970a8565388c6665a96ddf4976f9f/vimrc
+" https://github.com/kshenoy/dotvim/blob/master/bundle.vim#L167-L187
+"
