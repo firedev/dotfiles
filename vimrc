@@ -20,6 +20,7 @@ set backspace=indent,eol,start " Backspace over everything
 set nowrap              " Disable Wrap
 set showcmd             " Show (partial) command in the status line
 set showmatch           " See matching brackets
+set matchtime=1
 set autoread            " Autoread
 set autowrite           " Save on buffer switch
 
@@ -212,7 +213,7 @@ set diffopt+=vertical
 set laststatus=2
 " let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tmuxline#enabled = 1
+" let g:airline#extensions#tmuxline#enabled = 1
 
 "" airline settings
 " remove separators
@@ -228,14 +229,14 @@ let g:airline_section_c=""
 let g:airline_section_x=""
 " put filetype in fifth section
 let g:airline_section_y="%Y"
-let g:tmuxline_separators = {
-      \ 'left' : '',
-      \ 'left_alt': '',
-      \ 'right' : '',
-      \ 'right_alt' : '',
-      \ 'space' : ' '}
-" \ 'left_alt': '',
-" \ 'right_alt' : '',
+" let g:tmuxline_separators = {
+"       \ 'left' : '',
+"       \ 'left_alt': '',
+"       \ 'right' : '',
+"       \ 'right_alt' : '',
+"       \ 'space' : ' '}
+" " \ 'left_alt': '',
+" " \ 'right_alt' : '',
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTRLP
