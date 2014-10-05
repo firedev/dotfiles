@@ -47,7 +47,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git sublime tmux vundle rails ruby)
+plugins=(git sublime tmux vundle rails ruby heroku)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -75,4 +75,5 @@ alias mysql='/usr/local/mysql/bin/mysql'
 
 export BUNDLER_EDITOR=subl
 export LC_CTYPE="en_US.UTF-8"
+
 tmux attach -d || tmux new
