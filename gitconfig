@@ -1,0 +1,24 @@
+[user]
+	name = Nick
+	email = nick@firedev.com
+[color]
+	branch = auto
+	ui = true
+	diff = auto
+	status = auto
+[core]
+	quotepath = false
+	excludesfile = /Users/pain/.gitignore
+	pager = less -r
+	editor = /usr/bin/vim
+[diff]
+	algorithm = patience
+[pull]
+	rebase = false
+[fetch]
+	prune = true
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[push]
+	default = simple
