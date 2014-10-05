@@ -75,4 +75,4 @@ alias mysql='/usr/local/mysql/bin/mysql'
 
 export BUNDLER_EDITOR=subl
 export LC_CTYPE="en_US.UTF-8"
-
+tmux attach -d || tmux new
