@@ -49,10 +49,12 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git sublime tmux vundle rails ruby heroku)
 
+ZSH_TMUX_AUTOSTART=true
+TERM="xterm-256color"
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
 export PATH="/Users/pain/.rbenv/shims:/Users/pain/.rbenv/bin:/usr/local/bin:/usr/local/share/npm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -69,6 +71,7 @@ export PATH="/Users/pain/.rbenv/shims:/Users/pain/.rbenv/bin:/usr/local/bin:/usr
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
+
 export PATH=./bin:${PATH}:/usr/local/mysql/bin
 alias mysql='/usr/local/mysql/bin/mysql'
 . `brew --prefix`/etc/profile.d/z.sh
@@ -76,4 +79,4 @@ alias mysql='/usr/local/mysql/bin/mysql'
 export BUNDLER_EDITOR=subl
 export LC_CTYPE="en_US.UTF-8"
 
-tmux attach -d || tmux new
+# tmux attach -d || tmux new

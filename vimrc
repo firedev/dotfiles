@@ -105,8 +105,8 @@ nmap <leader>q :q<cr>
 nmap <leader>r gg=Ggi
 
 " Buffer switching
-map <leader>p :bp<CR> " \p previous buffer
-map <leader>n :bn<CR> " \n next buffer
+map <leader>p :bp!<CR> " \p previous buffer
+map <leader>n :bn!<CR> " \n next buffer
 map <leader>d :bd<CR> " \d delete buffer
 
 " Remap ; to :
