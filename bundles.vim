@@ -14,12 +14,12 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 " Molokai theme
 
-Bundle 'bling/vim-airline'
-Bundle 'tomasr/molokai'
+Plugin 'bling/vim-airline'
+Plugin 'tomasr/molokai'
 Plugin 'Syntastic'
 Plugin 'bling/vim-bufferline'
 Plugin 'ctrlp.vim'
-" Plugin 'edkolev/tmuxline.vim'
+Plugin 'edkolev/tmuxline.vim'
 Plugin 'fugitive.vim'
 Plugin 'rails.vim'
 Plugin 'slim-template/vim-slim'
@@ -31,7 +31,11 @@ Plugin 'tpope/vim-surround'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/ctags.vim'
 Plugin 'airblade/vim-gitgutter'
-Bundle 'christoomey/vim-tmux-navigator'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'rking/ag.vim'
+Plugin 'kana/vim-fakeclip'
+Plugin 'The-NERD-tree'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

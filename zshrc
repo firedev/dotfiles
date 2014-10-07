@@ -49,7 +49,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git sublime tmux vundle rails ruby heroku)
 
-ZSH_TMUX_AUTOSTART=true
+# ZSH_TMUX_AUTOSTART=true
 TERM="xterm-256color"
 
 source $ZSH/oh-my-zsh.sh

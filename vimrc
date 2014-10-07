@@ -50,7 +50,10 @@ inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <S-Tab> <c-n>
 
 " Automatically reload .vimrc on save
+command! Reload source ~/.vimrc
 au! BufWritePost .vimrc source %
+au! BufWritePost bundles.vim :Reload
+au! BufWritePost vimrc :Reload
 
 " Highlight matches when jumping to next
 nnoremap <silent> n n:call HLNext(0.5)<cr>
@@ -213,8 +216,8 @@ set diffopt+=vertical
 set laststatus=2
 " let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tmuxline#enabled = 1
-
+let g:airline#extensions#tmuxline#enabled = 1
+let g:tmuxline_powerline_separators = 0
 "" airline settings
 " remove separators
 let g:airline_left_sep=''
@@ -266,6 +269,9 @@ let g:syntastic_style_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_style_warning_symbol = "⚠"
 
+" Fakeclip
+let g:fakeclip_terminal_multiplexer_type = "tmux"
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Inspiration
 "
@@ -278,4 +284,5 @@ let g:syntastic_style_warning_symbol = "⚠"
 " https://github.com/tlhunter/vimrc/blob/master/vimrc
 " https://github.com/nelstrom/dotfiles/blob/448f710b855970a8565388c6665a96ddf4976f9f/vimrc
 " https://github.com/kshenoy/dotvim/blob/master/bundle.vim#L167-L187
+" https://github.com/tsironis/maximum-awesome-squared
 "
