@@ -23,7 +23,7 @@ set showmatch           " See matching brackets
 set matchtime=1
 set autoread            " Autoread
 set autowrite           " Save on buffer switch
-
+set timeout timeoutlen=200 ttimeoutlen=100
 " Searching
 set hlsearch
 set incsearch
@@ -245,15 +245,15 @@ let g:airline_section_y="%Y"
 " CTRLP
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_user_command='git --git-dir=%s/.git ls-files -oc --exclude-standard'
+let g:ctrlp_working_path_mode=0
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
@@ -283,7 +283,7 @@ nmap <leader>nt :NERDTreeFind<cr>
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/janjiss/rcfiles/blob/master/vim/vimrc
-" Jeffrey Way https://gist.github.com/JeffreyWay/6753834
+" https://gist.github.com/JeffreyWay/6753834
 " https://github.com/tpope/tpope/blob/master/.vimrc
 " https://github.com/thoughtbot/dotfiles/blob/master/vimrc
 " https://github.com/gmarik/Vundle.vim/wiki/Examples
