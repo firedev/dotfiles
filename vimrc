@@ -272,6 +272,12 @@ let g:syntastic_style_warning_symbol = "⚠"
 " Fakeclip
 let g:fakeclip_terminal_multiplexer_type = "tmux"
 
+" Ruby Object
+runtime macros/matchit.vim
+
+" NerdTree
+nmap <leader>nt :NERDTreeFind<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Inspiration
 "
@@ -282,7 +288,8 @@ let g:fakeclip_terminal_multiplexer_type = "tmux"
 " https://github.com/thoughtbot/dotfiles/blob/master/vimrc
 " https://github.com/gmarik/Vundle.vim/wiki/Examples
 " https://github.com/tlhunter/vimrc/blob/master/vimrc
-" https://github.com/nelstrom/dotfiles/blob/448f710b855970a8565388c6665a96ddf4976f9f/vimrc
+" https://github.com/nelstrom/dotfiles/blob/master/vimrc
 " https://github.com/kshenoy/dotvim/blob/master/bundle.vim#L167-L187
 " https://github.com/tsironis/maximum-awesome-squared
+" https://github.com/livingsocial/ls-pair
 "

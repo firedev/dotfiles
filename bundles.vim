@@ -36,6 +36,8 @@ Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'rking/ag.vim'
 Plugin 'kana/vim-fakeclip'
 Plugin 'The-NERD-tree'
+Plugin 'kana/vim-textobj-user'
+Plugin 'nelstrom/vim-textobj-rubyblock'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
