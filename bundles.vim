@@ -15,7 +15,8 @@ Plugin 'gmarik/Vundle.vim'
 " Molokai theme
 
 Plugin 'bling/vim-airline'
-Plugin 'tomasr/molokai'
+Bundle 'croaky/vim-colors-github'
+" Plugin 'tomasr/molokai'
 Plugin 'Syntastic'
 Plugin 'bling/vim-bufferline'
 Plugin 'ctrlp.vim'

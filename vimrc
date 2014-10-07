@@ -29,7 +29,7 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-
+set pastetoggle=<F2>
 " Tab completion
 set wildmode=longest:full,full
 set wildignore+=.git,vendor/gems/*
@@ -187,10 +187,10 @@ match GroupA / \+$/
 " set cuc cul"
 
 " Configs to make Molokai look great
-set background=dark
-let g:molokai_original=1
-let g:rehash256=1
-colorscheme molokai
+" set background=dark
+" let g:molokai_original=1
+" let g:rehash256=1
+" colorscheme molokai
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -277,6 +277,13 @@ runtime macros/matchit.vim
 
 " NerdTree
 nmap <leader>nt :NERDTreeFind<cr>
+
+" GitGutter
+highlight clear SignColumn
+highlight GitGutterAdd ctermfg=green guibg=bg
+highlight GitGutterDelete guifg=red guibg=bg
+highlight GitGutterChange ctermfg=yellow guibg=bg
+highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Inspiration
