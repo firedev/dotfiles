@@ -12,15 +12,13 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-" Molokai theme
-
+Plugin 'tomasr/molokai'
 Plugin 'bling/vim-airline'
-Bundle 'croaky/vim-colors-github'
-" Plugin 'tomasr/molokai'
-Plugin 'Syntastic'
 Plugin 'bling/vim-bufferline'
-Plugin 'ctrlp.vim'
 Plugin 'edkolev/tmuxline.vim'
+
+Plugin 'Syntastic'
+Plugin 'ctrlp.vim'
 Plugin 'fugitive.vim'
 Plugin 'rails.vim'
 Plugin 'slim-template/vim-slim'
