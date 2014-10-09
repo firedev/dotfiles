@@ -105,11 +105,11 @@ nmap <leader>w :w!<cr>
 " Quick quit
 nmap <leader>q :q<cr>
 " Quick reindent
-nmap <leader>r gg=Ggi
+nmap <leader>r mrgg=Gg`r
 
 " Buffer switching
-map <leader>p :bp!<CR> " \p previous buffer
-map <leader>n :bn!<CR> " \n next buffer
+" map <leader>p :bp!<CR> " \p previous buffer
+" map <leader>n :bn!<CR> " \n next buffer
 map <leader>d :bd<CR> " \d delete buffer
 
 " Remap ; to :
@@ -192,6 +192,8 @@ let g:molokai_original=1
 let g:rehash256=1
 colorscheme molokai
 
+"Custom colors
+hi CursorLine ctermbg=black
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " WINDOWS / SPLITS
