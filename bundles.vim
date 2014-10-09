@@ -14,38 +14,38 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
 " SnipMate
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
 " Optional:
-Bundle "honza/vim-snippets"
+Bundle 'honza/vim-snippets'
 
 Plugin 'tomasr/molokai'
 Plugin 'bling/vim-airline'
 Plugin 'bling/vim-bufferline'
 Plugin 'edkolev/tmuxline.vim'
 
-Plugin 'Syntastic'
-Plugin 'ctrlp.vim'
-Plugin 'fugitive.vim'
-Plugin 'rails.vim'
+" Plugin 'kana/vim-fakeclip'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'kana/vim-textobj-user'
+Plugin 'kien/ctrlp.vim'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'rking/ag.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
 Plugin 'slim-template/vim-slim'
-Plugin 'tComment'
+Plugin 'tomtom/tcomment_vim'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/ctags.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'rking/ag.vim'
-" Plugin 'kana/vim-fakeclip'
-Plugin 'The-NERD-tree'
-Plugin 'kana/vim-textobj-user'
-Plugin 'nelstrom/vim-textobj-rubyblock'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
