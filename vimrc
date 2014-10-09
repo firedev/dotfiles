@@ -105,7 +105,7 @@ nmap <leader>w :w!<cr>
 " Quick quit
 nmap <leader>q :q<cr>
 " Quick reindent
-nmap <leader>r mrgg=Gg`r
+nmap === mrgg=Gg`r
 
 " Buffer switching
 " map <leader>p :bp!<CR> " \p previous buffer
