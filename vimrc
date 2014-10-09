@@ -1,5 +1,61 @@
-set encoding=utf-8
-source ~/dotfiles/bundles.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VUNDLE START
+" https://github.com/gmarik/Vundle.vim
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/vundle
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/vundle'
+
+" SnipMate
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
+" Optional:
+Bundle 'honza/vim-snippets'
+
+Plugin 'tomasr/molokai'
+Plugin 'bling/vim-airline'
+Plugin 'bling/vim-bufferline'
+Plugin 'edkolev/tmuxline.vim'
+
+" Plugin 'kana/vim-fakeclip'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'kana/vim-textobj-user'
+" Plugin 'kien/ctrlp.vim'
+Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'rking/ag.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'slim-template/vim-slim'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'vim-scripts/ctags.vim'
+Plugin 'wincent/Command-T'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" Put your non-Plugin stuff after this line
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOUR
@@ -23,7 +79,12 @@ set showmatch           " See matching brackets
 set matchtime=1
 set autoread            " Autoread
 set autowrite           " Save on buffer switch
-set timeout timeoutlen=200 ttimeoutlen=100
+set timeout
+set timeoutlen=300
+" (Hopefully) removes the delay when hitting esc in insert mode
+set noesckeys
+set ttimeoutlen=1
+
 " Searching
 set hlsearch
 set incsearch
@@ -32,8 +93,7 @@ set smartcase
 set pastetoggle=<F2>
 " Tab completion
 set wildmode=longest:full,full
-set wildignore+=.git,vendor/gems/*
-
+set wildignore+=.git,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
 " Tab completion
 " will insert tab at beginning of line,
 " will use completion if not at beginning
@@ -52,7 +112,6 @@ inoremap <S-Tab> <c-n>
 " Automatically reload .vimrc on save
 command! Reload source ~/.vimrc
 au! BufWritePost .vimrc source %
-au! BufWritePost bundles.vim :Reload
 au! BufWritePost vimrc :Reload
 
 " Highlight matches when jumping to next
@@ -88,6 +147,17 @@ augroup vimrcEx
 
   " Allow stylesheets to autocomplete hyphenated words
   autocmd FileType css,scss,sass setlocal iskeyword+=-
+augroup END
+
+augroup myfiletypes
+  " Clear old autocmds in group
+  autocmd!
+  " autoindent with two spaces, always expand tabs
+  autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
+  autocmd FileType ruby,eruby,yaml setlocal path+=lib
+  " Make ?s part of words
+  autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -161,6 +231,25 @@ nnoremap <leader><leader> <c-^>
 " Indentation
 vmap > >gv
 vmap < <gv
+
+" Edit another file in the same directory as the current file
+" uses expression to extract path from current file's path
+map <Leader>e :e <C-R>=escape(expand("%:p:h"),' ') . '/'<CR>
+map <Leader>s :split <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+map <Leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+
+" Note that remapping C-s requires flow control to be disabled
+" (e.g. in .bashrc or .zshrc)
+map <C-s> <esc>:w<CR>
+imap <C-s> <esc>:w<CR>
+map <C-t> <esc>:tabnew<CR>
+map <C-x> <C-w>c
+map <C-n> :cn<CR>
+map <C-p> :cp<CR>
+
+" Emacs-like beginning and end of line.
+imap <c-e> <c-o>$
+imap <c-a> <c-o>^
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTAX HIGHLIGHTING
@@ -243,10 +332,7 @@ let g:airline_section_y="%Y"
 " " \ 'left_alt': '',
 " " \ 'right_alt' : '',
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTRLP
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_user_command='git --git-dir=%s/.git ls-files -oc --exclude-standard'
 let g:ctrlp_working_path_mode=0
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
@@ -260,6 +346,11 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+
+" Command t
+let g:CommandTMaxHeight=50
+let g:CommandTMatchWindowAtTop=1
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTASTIC
@@ -301,4 +392,5 @@ highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
 " https://github.com/kshenoy/dotvim/blob/master/bundle.vim#L167-L187
 " https://github.com/tsironis/maximum-awesome-squared
 " https://github.com/livingsocial/ls-pair
+" https://github.com/r00k/dotfiles/blob/master/vimrc
 "
