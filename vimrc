@@ -30,7 +30,7 @@ Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'kana/vim-textobj-user'
-" Plugin 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdtree'
@@ -47,7 +47,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/ctags.vim'
-Plugin 'wincent/Command-T'
+" Plugin 'wincent/Command-T'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
