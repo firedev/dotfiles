@@ -22,7 +22,7 @@ Bundle 'honza/vim-snippets'
 
 Plugin 'tomasr/molokai'
 Plugin 'bling/vim-airline'
-Plugin 'bling/vim-bufferline'
+" Plugin 'bling/vim-bufferline'
 Plugin 'edkolev/tmuxline.vim'
 
 " Plugin 'kana/vim-fakeclip'
@@ -84,8 +84,6 @@ set autoread            " Autoread
 set autowrite           " Save on buffer switch
 set timeout
 set timeoutlen=300
-" (Hopefully) removes the delay when hitting esc in insert mode
-set noesckeys
 set ttimeoutlen=1
 
 " Searching
@@ -199,10 +197,10 @@ nnoremap j gj
 nnoremap k gk
 
 " Disable arrow keys
-inoremap  <Up>     <NOP>
-inoremap  <Down>   <NOP>
-inoremap  <Left>   <NOP>
-inoremap  <Right>  <NOP>
+" inoremap  <Up>     <NOP>
+" inoremap  <Down>   <NOP>
+" inoremap  <Left>   <NOP>
+" inoremap  <Right>  <NOP>
 noremap   <Up>     :resize +5<cr>
 noremap   <Down>   :resize -5<cr>
 noremap   <Left>   :vertical resize -5<cr>
@@ -313,16 +311,18 @@ let g:tmuxline_powerline_separators = 0
 " remove separators
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+let g:airline_left_alt_sep=''
+let g:airline_right_alt_sep=''
 " remove unused modes
 let g:airline_enable_fugitive=1
 let g:airline_enable_syntastic=1
 " set second section to filename
-let g:airline_section_b="%f"
+" let g:airline_section_b="%f"
 " empty third and fourth sections
-let g:airline_section_c=""
-let g:airline_section_x=""
+" let g:airline_section_c=""
+" let g:airline_section_x=""
 " put filetype in fifth section
-let g:airline_section_y="%Y"
+" let g:airline_section_y="%Y"
 " let g:tmuxline_separators = {
 "       \ 'left' : '',
 "       \ 'left_alt': '',
