@@ -60,7 +60,7 @@ source $ZSH/oh-my-zsh.sh
 stty start undef
 stty stop undef
 
-export PATH="/Users/pain/.rbenv/shims:/Users/pain/.rbenv/bin:/usr/local/bin:/usr/local/share/npm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
+export PATH="/Users/pain/.rbenv/shims:/Users/pain/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
