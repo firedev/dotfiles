@@ -323,26 +323,25 @@ let g:airline_enable_syntastic=1
 " let g:airline_section_x=""
 " put filetype in fifth section
 " let g:airline_section_y="%Y"
-" let g:tmuxline_separators = {
-"       \ 'left' : '',
-"       \ 'left_alt': '',
-"       \ 'right' : '',
-"       \ 'right_alt' : '',
-"       \ 'space' : ' '}
+let g:tmuxline_separators = {
+  \ 'left' : '',
+  \ 'left_alt': '',
+  \ 'right' : '',
+  \ 'right_alt' : '',
+  \ 'space' : ' '}
 " " \ 'left_alt': '',
 " " \ 'right_alt' : '',
 
 " CTRLP
-let g:ctrlp_user_command='git --git-dir=%s/.git ls-files -oc --exclude-standard'
-let g:ctrlp_working_path_mode=0
+" let g:ctrlp_user_command='git --git-dir=%s/.git ls-files -oc --exclude-standard'
+" let g:ctrlp_working_path_mode=0
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
@@ -369,6 +368,7 @@ let g:fakeclip_terminal_multiplexer_type = "tmux"
 runtime macros/matchit.vim
 
 " NerdTree
+let NERDTreeQuitOnOpen=1
 nmap <leader>nt :NERDTreeFind<cr>
 " GitGutter
 "
