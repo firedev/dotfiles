@@ -49,7 +49,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git sublime tmux vundle rails ruby heroku)
 
-# ZSH_TMUX_AUTOSTART=true
+ZSH_TMUX_AUTOSTART=true
 TERM="xterm-256color"
 
 source $ZSH/oh-my-zsh.sh
@@ -61,6 +61,7 @@ stty start undef
 stty stop undef
 
 export PATH="/Users/pain/.rbenv/shims:/Users/pain/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
+export EDITOR='vim'
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
