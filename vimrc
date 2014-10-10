@@ -203,10 +203,10 @@ inoremap  <Up>     <NOP>
 inoremap  <Down>   <NOP>
 inoremap  <Left>   <NOP>
 inoremap  <Right>  <NOP>
-noremap   <Up>     <NOP>
-noremap   <Down>   <NOP>
-noremap   <Left>   <NOP>
-noremap   <Right>  <NOP>
+noremap   <Up>     :resize +5<cr>
+noremap   <Down>   :resize -5<cr>
+noremap   <Left>   :vertical resize -5<cr>
+noremap   <Right>  :vertical resize +5<cr>
 
 " Removing escape
 ino jj <esc>
@@ -291,9 +291,6 @@ hi CursorLine ctermbg=black
 " WINDOWS / SPLITS
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap vs :vsplit<cr>
-nmap sp :split<cr>
-nmap <C-v> :vertical resize +5<cr>
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
