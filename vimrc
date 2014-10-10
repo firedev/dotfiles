@@ -396,4 +396,5 @@ highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
 " https://github.com/tsironis/maximum-awesome-squared
 " https://github.com/livingsocial/ls-pair
 " https://github.com/r00k/dotfiles/blob/master/vimrc
+" https://github.com/justinmk/config/blob/master/.vimrc
 "
