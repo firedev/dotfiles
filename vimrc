@@ -211,9 +211,9 @@ noremap   <Right>  :vertical resize +5<cr>
 
 " Removing escape
 ino kk <esc>
-ino kk <esc>
+ino jj <esc>
 cno jj <c-c>
-cno jj <c-c>
+cno kk <c-c>
 vno v <esc>
 
 " Auto change directory to match current file ,cd
