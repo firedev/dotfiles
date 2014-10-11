@@ -20,13 +20,19 @@ Bundle 'garbas/vim-snipmate'
 " Optional:
 Bundle 'honza/vim-snippets'
 
-Plugin 'tomasr/molokai'
+" Plugin 'tomasr/molokai'
+Plugin 'flazz/vim-colorschemes'
 Plugin 'bling/vim-airline'
 " Plugin 'bling/vim-bufferline'
 Plugin 'edkolev/tmuxline.vim'
 
 " Plugin 'kana/vim-fakeclip'
+" Plugin 'wincent/Command-T'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'AndrewRadev/switch.vim'
+Plugin 'MHordecki/vim-subword'
+Plugin 'Yggdroot/indentLine'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'kana/vim-textobj-user'
@@ -38,19 +44,16 @@ Plugin 'scrooloose/syntastic'
 Plugin 'slim-template/vim-slim'
 Plugin 'szw/vim-tags'
 Plugin 'tomtom/tcomment_vim'
-Plugin 'Yggdroot/indentLine'
-"= Plugin 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/ctags.vim'
-" Plugin 'wincent/Command-T'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -207,7 +210,9 @@ noremap   <Left>   :vertical resize -5<cr>
 noremap   <Right>  :vertical resize +5<cr>
 
 " Removing escape
-ino jj <esc>
+ino kk <esc>
+ino kk <esc>
+cno jj <c-c>
 cno jj <c-c>
 vno v <esc>
 
@@ -247,7 +252,6 @@ map <Leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
 map <C-s> <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
 map <C-t> <esc>:tabnew<CR>
-map <C-x> <C-w>c
 map <C-n> :cn<CR>
 map <C-p> :cp<CR>
 
@@ -279,11 +283,13 @@ match GroupA / \+$/
 " Highlight active column
 " set cuc cul"
 " colorscheme github
-" Configs to make Molokai look great
 set background=dark
+
+" Configs to make Molokai look great
 let g:molokai_original=1
 let g:rehash256=1
 colorscheme molokai
+" colorscheme solarized
 
 "Custom colors
 hi CursorLine ctermbg=black
@@ -299,16 +305,13 @@ set splitright
 " Always use vertical diffs
 set diffopt+=vertical
 
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AIRLINE
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 " let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tmuxline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 let g:tmuxline_powerline_separators = 0
 "" airline settings
 " remove separators
@@ -326,16 +329,29 @@ let g:airline_enable_syntastic=1
 " let g:airline_section_x=""
 " put filetype in fifth section
 " let g:airline_section_y="%Y"
-let g:tmuxline_separators = {
-  \ 'left' : '',
-  \ 'left_alt': '',
-  \ 'right' : '',
-  \ 'right_alt' : '',
-  \ 'space' : ' '}
+
+" edkolev/tmuxline.vim
+" let g:tmuxline_preset = 'tmux'
+" let g:tmuxline_separators = {
+"   \ 'left' : '',
+"   \ 'left_alt': '',
+"   \ 'right' : '',
+"   \ 'right_alt' : '',
+"   \ 'space' : ' '}
 " " \ 'left_alt': '',
 " " \ 'right_alt' : '',
+" let g:tmuxline_preset='jellybeans'
+" Disable plugin since config was generated and stored in .tmux.conf
+let g:airline#extensions#tmuxline#enabled=0
+
+" tpope/vim-fugitive
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>gr :Gread<cr>
 
 " CTRLP
+" kien/ctrlp.vim
 " let g:ctrlp_user_command='git --git-dir=%s/.git ls-files -oc --exclude-standard'
 " let g:ctrlp_working_path_mode=0
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
@@ -348,6 +364,10 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+let g:ctrlp_custom_ignore = '\v[\/](cache|cached)|(\.(swp|ico|git|svn))$'
+nnoremap <leader>ef :CtrlP<cr>
+nnoremap <leader>er :CtrlPMRUFiles<cr>
+nnoremap <leader>eb :CtrlPBuffer<cr>
 
 " Command t
 let g:CommandTMaxHeight=50
@@ -370,11 +390,13 @@ let g:fakeclip_terminal_multiplexer_type = "tmux"
 " Ruby Object
 runtime macros/matchit.vim
 
-" NerdTree
+" scrooloose/nerdtree
 let NERDTreeQuitOnOpen=1
-nmap <leader>nt :NERDTreeFind<cr>
+nnoremap <leader>nt :NERDTreeToggle<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
+nnoremap <leader>nc :NERDTreeCWD<cr>
+
 " GitGutter
-"
 highlight clear SignColumn
 highlight GitGutterAdd ctermfg=green guibg=bg
 highlight GitGutterDelete ctermfg=red guibg=bg
@@ -396,4 +418,4 @@ highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
 " https://github.com/tsironis/maximum-awesome-squared
 " https://github.com/livingsocial/ls-pair
 " https://github.com/r00k/dotfiles/blob/master/vimrc
-"
+" https://github.com/mddubs/dotfiles/blob/master/vimrc
