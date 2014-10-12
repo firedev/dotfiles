@@ -52,6 +52,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-haml'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/ctags.vim'
 
@@ -288,8 +289,9 @@ set background=dark
 " Configs to make Molokai look great
 let g:molokai_original=1
 let g:rehash256=1
-colorscheme molokai
+" colorscheme molokai
 " colorscheme solarized
+colorscheme Tomorrow-Night
 
 "Custom colors
 hi CursorLine ctermbg=black
