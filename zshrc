@@ -55,9 +55,9 @@ export TERM=xterm-256color
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-if [ -n $VIM ]; then
-  echo "----------------------------------------------------------------------------------"
-fi
+# if [ -n $VIM ]; then
+#   echo "----------------------------------------------------------------------------------"
+# fi
 # Disable flow control commands (keeps C-s from freezing everything)
 stty start undef
 stty stop undef
