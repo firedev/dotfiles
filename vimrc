@@ -79,7 +79,7 @@ set number              " always show line numbers
 set ignorecase          " ignore case when searching
 set smartcase           " ignore case if search pattern is all lowercase,
 set mouse=a             " Use mouse
-set clipboard=unnamed   " Use system clipboard
+" set clipboard=unnamed   " Use system clipboard
 set backspace=indent,eol,start " Backspace over everything
 set nowrap              " Disable Wrap
 set showcmd             " Show (partial) command in the status line
@@ -170,6 +170,14 @@ augroup END
 " KEYBOARD
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" System clipboard
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
 " Map <Leader> to ,
 let mapleader = " "
 let g:mapleader = " "
@@ -422,3 +430,5 @@ highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
 " https://github.com/livingsocial/ls-pair
 " https://github.com/r00k/dotfiles/blob/master/vimrc
 " https://github.com/mddubs/dotfiles/blob/master/vimrc
+" https://github.com/joom/vim-starter/blob/master/vimrc
+"
