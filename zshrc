@@ -60,7 +60,7 @@ stty stop undef
 
 export PATH="/Users/pain/.rbenv/shims:/Users/pain/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 export EDITOR='vim'
-
+alias viber=/Applications/Viber.app/Contents/MacOS/Viber
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
@@ -84,4 +84,3 @@ alias mysql='/usr/local/mysql/bin/mysql'
 export BUNDLER_EDITOR=subl
 export LC_CTYPE="en_US.UTF-8"
 
-# tmux attach -d || tmux new
