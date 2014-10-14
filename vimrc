@@ -44,6 +44,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'slim-template/vim-slim'
 Plugin 'szw/vim-tags'
 Plugin 'tomtom/tcomment_vim'
+Plugin 'terryma/vim-expand-region'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
@@ -95,7 +96,7 @@ set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-set pastetoggle=<F2>
+
 " Tab completion
 set wildmode=longest:full,full
 set wildignore+=.git,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
@@ -169,16 +170,6 @@ augroup END
 " KEYBOARD
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" System clipboard
-nmap <Leader>yy "*yy
-nmap <Leader>dd "*dd
-vmap <Leader>y "*y
-vmap <Leader>d "*d
-nmap <Leader>p "*p
-nmap <Leader>P "*P
-vmap <Leader>p "*p
-vmap <Leader>P "*P
-
 " Map <Leader> to ,
 let mapleader = " "
 let g:mapleader = " "
@@ -233,8 +224,39 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 " Strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COPY AND PASTE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set pastetoggle=<F2>
+
+" Stay at the bottom line after visual yank
+vno y ygv<esc>
+
 " Yank till the end of line
 nnoremap Y y$
+
+" Jump to the end of paste
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+" Quickly select text you just pasted:
+noremap gV `[v`]
+
+" System clipboard
+nmap <Leader>yy "+yy
+nmap <Leader>dd "+dd
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" Type 12<Enter> to go to line 12 (12G breaks my wrist)
+" Hit Enter to go to end of file.
+" Hit Backspace to go to beginning of file.nnoremap <CR> G
+nnoremap <BS> gg
 
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
@@ -270,10 +292,7 @@ map <C-p> :cp<CR>
 imap <c-e> <c-o>$
 imap <c-a> <c-o>^
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTAX HIGHLIGHTING
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
 set t_Co=256
 
@@ -306,10 +325,8 @@ colorscheme Tomorrow-Night
 "Custom colors
 hi CursorLine ctermbg=black
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " WINDOWS / SPLITS
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
@@ -317,10 +334,7 @@ set splitright
 " Always use vertical diffs
 set diffopt+=vertical
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AIRLINE
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 " let g:airline_powerline_fonts = 1
 " let g:airline#extensions#tabline#enabled = 1
@@ -377,6 +391,8 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 let g:ctrlp_custom_ignore = '\v[\/](cache|cached)|(\.(swp|ico|git|svn))$'
+
+nnoremap <leader>o :CtrlP<cr>
 nnoremap <leader>ef :CtrlP<cr>
 nnoremap <leader>er :CtrlPMRUFiles<cr>
 nnoremap <leader>eb :CtrlPBuffer<cr>
@@ -415,6 +431,10 @@ highlight GitGutterDelete ctermfg=red guibg=bg
 highlight GitGutterChange ctermfg=yellow guibg=bg
 highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
 
+" Expand region
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Inspiration
 "
@@ -432,4 +452,5 @@ highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
 " https://github.com/r00k/dotfiles/blob/master/vimrc
 " https://github.com/mddubs/dotfiles/blob/master/vimrc
 " https://github.com/joom/vim-starter/blob/master/vimrc
+" http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 "
