@@ -76,6 +76,17 @@ alias viber=/Applications/Viber.app/Contents/MacOS/Viber
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
 
 export PATH=./bin:${PATH}:/usr/local/mysql/bin
 alias mysql='/usr/local/mysql/bin/mysql'
