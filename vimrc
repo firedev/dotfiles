@@ -96,6 +96,13 @@ set incsearch
 set ignorecase
 set smartcase
 
+" Faster redraw?
+" Syntax coloring lines that are too long just slows down the world
+set synmaxcol=128
+set ttyfast " u got a fast terminal
+set ttyscroll=3
+set lazyredraw " to avoid scrolling problems
+
 " Tab completion
 set wildmode=longest:full,full
 set wildignore+=.git,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
