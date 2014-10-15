@@ -31,7 +31,6 @@ Plugin 'edkolev/tmuxline.vim'
 " Plugin 'Valloric/YouCompleteMe'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'AndrewRadev/switch.vim'
-Plugin 'MHordecki/vim-subword'
 Plugin 'Yggdroot/indentLine'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -88,7 +87,7 @@ set matchtime=1
 set autoread            " Autoread
 set autowrite           " Save on buffer switch
 set timeout
-set timeoutlen=300
+set timeoutlen=600
 set ttimeoutlen=1
 
 " Searching
@@ -201,6 +200,15 @@ nmap <C-l> <C-w>l
 nnoremap j gj
 nnoremap k gk
 
+" Russian vim
+nnoremap ш i
+nnoremap ф a
+nnoremap р h
+nnoremap д l
+nnoremap о gj
+nnoremap л gk
+nnoremap ж :
+
 " Disable arrow keys
 " inoremap  <Up>     <NOP>
 " inoremap  <Down>   <NOP>
@@ -255,7 +263,8 @@ vmap <Leader>P "+P
 
 " Type 12<Enter> to go to line 12 (12G breaks my wrist)
 " Hit Enter to go to end of file.
-" Hit Backspace to go to beginning of file.nnoremap <CR> G
+" Hit Backspace to go to beginning of file.
+nnoremap <CR> G
 nnoremap <BS> gg
 
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
@@ -453,4 +462,5 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " https://github.com/mddubs/dotfiles/blob/master/vimrc
 " https://github.com/joom/vim-starter/blob/master/vimrc
 " http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+" https://github.com/amix/vimrc
 "
