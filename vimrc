@@ -73,6 +73,7 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2       " when hitting <BS>, pretend like a tab is removed, even if spaces
 set autoindent          " always set autoindenting on
+set smartindent
 set copyindent          " copy the previous indentation on autoindenting
 set number              " always show line numbers
 set ignorecase          " ignore case when searching
@@ -90,18 +91,14 @@ set timeout
 set timeoutlen=600
 set ttimeoutlen=1
 
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
 " Searching
 set hlsearch
 set incsearch
 set ignorecase
 set smartcase
-
-" Faster redraw?
-" Syntax coloring lines that are too long just slows down the world
-set synmaxcol=128
-set ttyfast " u got a fast terminal
-set ttyscroll=3
-set lazyredraw " to avoid scrolling problems
 
 " Tab completion
 set wildmode=longest:full,full
@@ -145,6 +142,7 @@ set undodir=~/.vim/undo//
 " No backup or swap
 set nobackup
 set noswapfile
+set nowb
 
 augroup vimrcEx
   autocmd!
@@ -189,19 +187,9 @@ nmap <leader>q :q<cr>
 " Quick reindent
 nmap === mrgg=Gg`r
 
-" Buffer switching
-" map <leader>p :bp!<CR> " \p previous buffer
-" map <leader>n :bn!<CR> " \n next buffer
-map <leader>d :bd<CR> " \d delete buffer
 
 " Remap ; to :
 nnoremap ; :
-
-" easier window navigation
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
 
 " Down is really the next line
 nnoremap j gj
@@ -341,7 +329,9 @@ colorscheme Tomorrow-Night
 "Custom colors
 hi CursorLine ctermbg=black
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " WINDOWS / SPLITS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -350,6 +340,65 @@ set splitright
 " Always use vertical diffs
 set diffopt+=vertical
 
+" Buffer switching
+" map <leader>p :bp!<CR> " \p previous buffer
+" map <leader>n :bn!<CR> " \n next buffer
+map <leader>d :bd<CR> " \d delete buffer
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" easier window navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+
+" Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
+" Remember info about open buffers on close
+set viminfo^=%
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PLUGINS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AIRLINE
 set laststatus=2
 " let g:airline_powerline_fonts = 1
