@@ -289,8 +289,8 @@ map <Leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
 map <C-s> <esc>:w<CR>
 imap <C-s> <esc>:w<CR>
 map <C-t> <esc>:tabnew<CR>
-map <C-n> :cn<CR>
-map <C-p> :cp<CR>
+" map <C-n> :cn<CR>
+" map <C-p> :cp<CR>
 
 " Emacs-like beginning and end of line.
 imap <c-e> <c-o>$
