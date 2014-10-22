@@ -1,5 +1,3 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" VUNDLE START
 " https://github.com/gmarik/Vundle.vim
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -14,21 +12,14 @@ call vundle#begin()
 Plugin 'gmarik/vundle'
 
 " SnipMate
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
-" Optional:
-Bundle 'honza/vim-snippets'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
 
-" Plugin 'tomasr/molokai'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'bling/vim-airline'
-" Plugin 'bling/vim-bufferline'
 Plugin 'edkolev/tmuxline.vim'
-
-" Plugin 'kana/vim-fakeclip'
-" Plugin 'wincent/Command-T'
-" Plugin 'Valloric/YouCompleteMe'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'Yggdroot/indentLine'
@@ -56,18 +47,18 @@ Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-endwise'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/ctags.vim'
-" Plugin 'majutsushi/tagbar'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOUR
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" set clipboard=unnamed   " Use system clipboard
 set expandtab           " Change TABS to SPACES
 set tabstop=2
 set shiftwidth=2
@@ -79,20 +70,19 @@ set number              " always show line numbers
 set ignorecase          " ignore case when searching
 set smartcase           " ignore case if search pattern is all lowercase,
 set mouse=a             " Use mouse
-" set clipboard=unnamed   " Use system clipboard
 set backspace=indent,eol,start " Backspace over everything
 set nowrap              " Disable Wrap
 set showcmd             " Show (partial) command in the status line
 set showmatch           " See matching brackets
 set matchtime=1
 set autoread            " Autoread
-set autowriteall           " Save on buffer switch
+set autowriteall        " Save on buffer switch
 set timeout
 set timeoutlen=600
 set ttimeoutlen=1
 
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+" Set lines to the cursor - when moving vertically using j/k
+set so=5
 
 " Searching
 set hlsearch
@@ -101,12 +91,11 @@ set ignorecase
 set smartcase
 
 " Tab completion
-set wildmode=longest:full,full
 set wildignore+=.git,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
-" Tab completion
+set wildmode=list:longest,list:full
+
 " will insert tab at beginning of line,
 " will use completion if not at beginning
-set wildmode=list:longest,list:full
 function! InsertTabWrapper()
   let col = col('.') - 1
   if !col || getline('.')[col - 1] !~ '\k'
@@ -139,6 +128,7 @@ endfunction
 " Persistent undo
 set undofile
 set undodir=~/.vim/undo//
+
 " No backup or swap
 set nobackup
 set noswapfile
@@ -154,7 +144,6 @@ augroup vimrcEx
         \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
         \   exe "normal g`\"" |
         \ endif
-
   " Allow stylesheets to autocomplete hyphenated words
 augroup END
 
@@ -166,11 +155,8 @@ augroup myfiletypes
   autocmd FileType ruby,eruby,yaml setlocal path+=lib
   " Make ?s part of words
   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
-
   autocmd FileType php setlocal sw=4 sts=4 tabstop=4 noet
-
   autocmd FileType css,scss,sass setlocal iskeyword+=-
-
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -189,7 +175,6 @@ nmap <leader>w :w!<cr>
 nmap <leader>q :q<cr>
 " Quick reindent
 nmap === mrgg=Gg`r
-
 
 " Remap ; to :
 nnoremap ; :
@@ -244,13 +229,6 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
-
-" Type 12<Enter> to go to line 12 (12G breaks my wrist)
-" Hit Enter to go to end of file.
-" Hit Backspace to go to beginning of file.
-" nnoremap <CR> G
-" nnoremap <BS> gg
-
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
