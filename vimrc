@@ -188,10 +188,10 @@ nnoremap k gk
 " inoremap  <Down>   <NOP>
 " inoremap  <Left>   <NOP>
 " inoremap  <Right>  <NOP>
-noremap   <Up>     :resize +5<cr>
-noremap   <Down>   :resize -5<cr>
-noremap   <Left>   :vertical resize -5<cr>
-noremap   <Right>  :vertical resize +5<cr>
+" noremap   <Up>     :resize +5<cr>
+" noremap   <Down>   :resize -5<cr>
+" noremap   <Left>   :vertical resize -5<cr>
+" noremap   <Right>  :vertical resize +5<cr>
 
 " Removing escape
 ino kk <esc>
