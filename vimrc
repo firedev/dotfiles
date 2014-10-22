@@ -232,11 +232,6 @@ vno y ygv<esc>
 " Yank till the end of line
 nnoremap Y y$
 
-" Jump to the end of paste
-vnoremap <silent> y y`]
-vnoremap <silent> p p`]
-nnoremap <silent> p p`]
-
 " Quickly select text you just pasted:
 noremap gV `[v`]
 
