@@ -1,5 +1,6 @@
 alias vimrc="vim ~/.vimrc"
 alias bu="brew update && brew upgrade"
+# brew-cask && brew cleanup && brew cask cleanup"
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -49,7 +50,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git sublime tmux tmuxinator vundle rails ruby heroku)
 
-export ZSH_TMUX_AUTOSTART=true
+# export ZSH_TMUX_AUTOSTART=true
 export TERM=xterm-256color
 
 source $ZSH/oh-my-zsh.sh
