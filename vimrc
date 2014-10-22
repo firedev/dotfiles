@@ -56,7 +56,7 @@ Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-endwise'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/ctags.vim'
-
+" Plugin 'majutsushi/tagbar'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -86,7 +86,7 @@ set showcmd             " Show (partial) command in the status line
 set showmatch           " See matching brackets
 set matchtime=1
 set autoread            " Autoread
-set autowrite           " Save on buffer switch
+set autowriteall           " Save on buffer switch
 set timeout
 set timeoutlen=600
 set ttimeoutlen=1
@@ -156,7 +156,6 @@ augroup vimrcEx
         \ endif
 
   " Allow stylesheets to autocomplete hyphenated words
-  autocmd FileType css,scss,sass setlocal iskeyword+=-
 augroup END
 
 augroup myfiletypes
@@ -167,6 +166,10 @@ augroup myfiletypes
   autocmd FileType ruby,eruby,yaml setlocal path+=lib
   " Make ?s part of words
   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+
+  autocmd FileType php setlocal sw=4 sts=4 tabstop=4 noet
+
+  autocmd FileType css,scss,sass setlocal iskeyword+=-
 
 augroup END
 
@@ -259,14 +262,9 @@ vmap <Leader>P "+P
 " Type 12<Enter> to go to line 12 (12G breaks my wrist)
 " Hit Enter to go to end of file.
 " Hit Backspace to go to beginning of file.
-nnoremap <CR> G
-nnoremap <BS> gg
+" nnoremap <CR> G
+" nnoremap <BS> gg
 
-" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
-
-" Index ctags from any project, including those outside Rails
-map <Leader>ct :!ctags -R .<CR>
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
@@ -476,6 +474,7 @@ let g:syntastic_error_symbol = "✗"
 let g:syntastic_style_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_style_warning_symbol = "⚠"
+let g:syntastic_always_populate_loc_list = 1
 
 " Fakeclip
 let g:fakeclip_terminal_multiplexer_type = "tmux"
@@ -484,7 +483,7 @@ let g:fakeclip_terminal_multiplexer_type = "tmux"
 runtime macros/matchit.vim
 
 " scrooloose/nerdtree
-let NERDTreeQuitOnOpen=1
+" let NERDTreeQuitOnOpen=1
 nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
@@ -499,6 +498,12 @@ highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
 " Expand region
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+
+" Ctags
+" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
+let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
+" Index ctags from any project, including those outside Rails
+map <Leader>ct :!ctags -R .<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Inspiration
