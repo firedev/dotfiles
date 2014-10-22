@@ -198,15 +198,6 @@ nnoremap ; :
 nnoremap j gj
 nnoremap k gk
 
-" Russian vim
-nnoremap ш i
-nnoremap ф a
-nnoremap р h
-nnoremap д l
-nnoremap о gj
-nnoremap л gk
-nnoremap ж :
-
 " Disable arrow keys
 " inoremap  <Up>     <NOP>
 " inoremap  <Down>   <NOP>
