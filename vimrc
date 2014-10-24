@@ -47,6 +47,7 @@ Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-endwise'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/ctags.vim'
+Plugin 'vim-scripts/argtextobj.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -238,7 +239,7 @@ vmap > >gv
 vmap < <gv
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
-cmap w!! w !sudo tee > /dev/null %
+cmap W! w !sudo tee > /dev/null %
 
 " Edit another file in the same directory as the current file
 " uses expression to extract path from current file's path
