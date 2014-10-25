@@ -1,5 +1,3 @@
-alias vimrc="vim ~/.vimrc"
-alias bu="brew update && brew upgrade"
 # brew-cask && brew cleanup && brew cask cleanup"
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
@@ -89,10 +87,16 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
+alias vimrc="vim ~/.vimrc"
+alias bu="brew update && brew upgrade"
+alias ls="gls"
+alias e="emacs"
+alias e="emacs --daemon"
+alias e="emacsclient -t"
+alias ec="emacsclient -c"
 export PATH=./bin:${PATH}:/usr/local/mysql/bin
 alias mysql='/usr/local/mysql/bin/mysql'
 . `brew --prefix`/etc/profile.d/z.sh
 
 export BUNDLER_EDITOR=subl
 export LC_CTYPE="en_US.UTF-8"
-
