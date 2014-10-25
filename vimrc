@@ -170,7 +170,7 @@ let mapleader = " "
 let g:mapleader = " "
 
 " Remove highlights with leader + enter
-nmap <Leader><CR> :nohlsearch<cr>
+nmap <Leader><CR> :nohlsearch<cr>:redraw!<cr>
 " Quick write
 nmap <leader>w :w!<cr>
 " Quick quit
