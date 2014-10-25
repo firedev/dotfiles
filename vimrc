@@ -460,6 +460,7 @@ highlight GitGutterAdd ctermfg=green guibg=bg
 highlight GitGutterDelete ctermfg=red guibg=bg
 highlight GitGutterChange ctermfg=yellow guibg=bg
 highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
+let g:gitgutter_realtime = 0
 
 " Expand region
 vmap v <Plug>(expand_region_expand)
