@@ -353,9 +353,9 @@ endtry
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
 
 " Remember info about open buffers on close
 set viminfo^=%
@@ -446,6 +446,13 @@ let g:syntastic_style_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_style_warning_symbol = "⚠"
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_aggregate_errors = 1
+" When set to 2 the cursor will jump to the first issue detected, but only if
+" this issue is an error. >
+let g:syntastic_auto_jump = 2
+" When set to 1 the error window will be automatically opened when errors are
+" detected, and closed when none are detected. >
+let g:syntastic_auto_loc_list = 1
 
 " Fakeclip
 let g:fakeclip_terminal_multiplexer_type = "tmux"
