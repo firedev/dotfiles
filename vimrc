@@ -410,7 +410,15 @@ nnoremap <leader>gr :Gread<cr>
 " let g:ctrlp_user_command='git --git-dir=%s/.git ls-files -oc --exclude-standard'
 " let g:ctrlp_working_path_mode=0
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_map = '<c-p><c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+nnoremap <c-p>t :CtrlPTag<cr>
+nnoremap <c-p>r :CtrlPMRUFiles<cr>
+nnoremap <c-p>b :CtrlPBuffer<cr>
+nnoremap <c-p><c-t> :CtrlPTag<cr>
+nnoremap <c-p><c-r> :CtrlPMRUFiles<cr>
+nnoremap <c-p><c-b> :CtrlPBuffer<cr>
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
@@ -422,10 +430,6 @@ if executable('ag')
 endif
 let g:ctrlp_custom_ignore = '\v[\/](cache|cached)|(\.(swp|ico|git|svn))$'
 
-nnoremap <leader>o :CtrlP<cr>
-nnoremap <leader>ef :CtrlP<cr>
-nnoremap <leader>er :CtrlPMRUFiles<cr>
-nnoremap <leader>eb :CtrlPBuffer<cr>
 
 " Command t
 let g:CommandTMaxHeight=50
