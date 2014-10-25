@@ -84,7 +84,7 @@ set timeoutlen=600
 set ttimeoutlen=1
 
 " Set lines to the cursor - when moving vertically using j/k
-set so=5
+set so=3
 
 " Searching
 set hlsearch
@@ -93,7 +93,7 @@ set ignorecase
 set smartcase
 
 " Tab completion
-set wildignore+=.git,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
+set wildignore+=/var/folders,.git,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
 set wildmode=list:longest,list:full
 
 " will insert tab at beginning of line,
@@ -410,6 +410,7 @@ nnoremap <leader>gr :Gread<cr>
 " let g:ctrlp_user_command='git --git-dir=%s/.git ls-files -oc --exclude-standard'
 " let g:ctrlp_working_path_mode=0
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+let g:ctrlp_cmd = 'CtrlPMixed'
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
