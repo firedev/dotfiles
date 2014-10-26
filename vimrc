@@ -368,6 +368,7 @@ set laststatus=2
 " let g:airline_powerline_fonts = 1
 " let g:airline#extensions#tabline#enabled = 1
 let g:tmuxline_powerline_separators = 0
+
 "" airline settings
 " remove separators
 let g:airline_left_sep=''
@@ -386,17 +387,7 @@ let g:airline_enable_syntastic=1
 " let g:airline_section_y="%Y"
 
 " edkolev/tmuxline.vim
-" let g:tmuxline_preset = 'tmux'
-" let g:tmuxline_separators = {
-"   \ 'left' : '',
-"   \ 'left_alt': '',
-"   \ 'right' : '',
-"   \ 'right_alt' : '',
-"   \ 'space' : ' '}
-" " \ 'left_alt': '',
-" " \ 'right_alt' : '',
-" let g:tmuxline_preset='jellybeans'
-" Disable plugin since config was generated and stored in .tmux.conf
+let g:tmuxline_preset = 'minimal'
 let g:airline#extensions#tmuxline#enabled=0
 
 " tpope/vim-fugitive
