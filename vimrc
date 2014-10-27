@@ -94,7 +94,7 @@ set ignorecase
 set smartcase
 
 " Tab completion
-set wildignore+=/var/folders,.git,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
+set wildignore+=.DS_Store,/var/folders,.git,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
 set wildmode=list:longest,list:full
 
 " will insert tab at beginning of line,
