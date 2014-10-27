@@ -311,8 +311,8 @@ set winminwidth=0
 set diffopt+=vertical
 
 " Buffer switching
-map <leader>p :bp!<CR> " \p previous buffer
-map <leader>n :bn!<CR> " \n next buffer
+" map <leader>p :bp!<CR> " \p previous buffer
+" map <leader>n :bn!<CR> " \n next buffer
 nnoremap <S-Tab> :bnext<CR>
 nnoremap <S-C-Tab> :bprevious<CR>
 
@@ -398,6 +398,7 @@ let g:airline_enable_syntastic=1
 " edkolev/tmuxline.vim
 let g:tmuxline_preset = 'minimal'
 let g:airline#extensions#tmuxline#enabled=0
+let g:tmuxline_theme = 'airline'
 
 " tpope/vim-fugitive
 nnoremap <leader>gs :Gstatus<cr>
