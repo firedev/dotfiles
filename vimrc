@@ -210,7 +210,7 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
-autocmd BufWritePre * :g/^\_$\n\_^$/d
+autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COPY AND PASTE
