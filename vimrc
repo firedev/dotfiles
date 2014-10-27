@@ -271,8 +271,9 @@ syntax on
 set t_Co=256
 
 " Highlight 81st column
-highlight ColorColumn ctermbg=darkgrey
 call matchadd('ColorColumn', '\%81v', 100)
+highlight ColorColumn ctermbg=black
+set colorcolumn=81
 
 " See invisibles
 exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
