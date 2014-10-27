@@ -384,13 +384,22 @@ let g:airline_right_sep=''
 let g:airline_left_alt_sep=''
 let g:airline_right_alt_sep=''
 
+" sections
+let g:airline_section_y=''
+
 " extensions
-let g:airline_enable_fugitive=1
-let g:airline_enable_syntastic=1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+
+" enable/disable showing only non-zero hunks.
+let g:airline#extensions#hunks#enabled = 1
+let g:airline#extensions#hunks#non_zero_only = 1
+
+" because of TmuxlineSnapshot
+let g:airline#extensions#tmuxline#enabled=0
 
 " edkolev/tmuxline.vim
 let g:tmuxline_preset = 'minimal'
-let g:airline#extensions#tmuxline#enabled=0
 let g:tmuxline_theme = 'airline'
 
 " tpope/vim-fugitive
