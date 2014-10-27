@@ -94,7 +94,7 @@ set ignorecase
 set smartcase
 
 " Tab completion
-set wildignore+=.DS_Store,/var/folders,.git,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
+set wildignore+=.DS_Store,vim/undo/**,/var/folders/**,.git/**,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
 set wildmode=list:longest,list:full
 
 " will insert tab at beginning of line,
@@ -423,19 +423,15 @@ nnoremap <c-p><c-b> :CtrlPBuffer<cr>
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
-
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
-let g:ctrlp_custom_ignore = '\v[\/](cache|cached)|(\.(swp|ico|git|svn))$'
-
 
 " Command t
-let g:CommandTMaxHeight=50
-let g:CommandTMatchWindowAtTop=1
-
+" let g:CommandTMaxHeight=50
+" let g:CommandTMatchWindowAtTop=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYNTASTIC
@@ -478,6 +474,9 @@ let g:gitgutter_realtime = 0
 " Expand region
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+
+" Switch
+nnoremap - :Switch<cr>
 
 " Ctags
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
