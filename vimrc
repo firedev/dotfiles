@@ -49,6 +49,7 @@ Plugin 'tpope/vim-endwise'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/ctags.vim'
 Plugin 'vim-scripts/argtextobj.vim'
+Plugin 'gregsexton/gitv'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -372,28 +373,20 @@ set viminfo^=%
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" AIRLINE
+
+" bling/vim-airline
 set laststatus=2
-" let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#enabled = 1
 let g:tmuxline_powerline_separators = 0
 
-"" airline settings
 " remove separators
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_left_alt_sep=''
 let g:airline_right_alt_sep=''
-" remove unused modes
+
+" extensions
 let g:airline_enable_fugitive=1
 let g:airline_enable_syntastic=1
-" set second section to filename
-" let g:airline_section_b="%f"
-" empty third and fourth sections
-" let g:airline_section_c=""
-" let g:airline_section_x=""
-" put filetype in fifth section
-" let g:airline_section_y="%Y"
 
 " edkolev/tmuxline.vim
 let g:tmuxline_preset = 'minimal'
@@ -406,7 +399,9 @@ nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gr :Gread<cr>
 
-" CTRLP
+" gregsexton/gitv
+nnoremap <leader>gv :Gitv<cr>
+
 " kien/ctrlp.vim
 " let g:ctrlp_user_command='git --git-dir=%s/.git ls-files -oc --exclude-standard'
 " let g:ctrlp_working_path_mode=0
