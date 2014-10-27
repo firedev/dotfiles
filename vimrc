@@ -19,6 +19,7 @@ Plugin 'honza/vim-snippets'
 
 Plugin 'flazz/vim-colorschemes'
 Plugin 'bling/vim-airline'
+" Plugin 'bling/vim-bufferline'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'AndrewRadev/switch.vim'
@@ -55,7 +56,6 @@ Plugin 'gregsexton/gitv'
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " BEHAVIOUR
@@ -210,6 +210,7 @@ nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :g/^\_$\n\_^$/d
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COPY AND PASTE
@@ -341,7 +342,6 @@ let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
-
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
@@ -350,11 +350,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab ",newtab
-  set stal=2
-catch
-endtry
+set switchbuf=useopen,usetab ",newtab
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -371,7 +367,6 @@ set viminfo^=%
 
 " bling/vim-airline
 set laststatus=2
-let g:tmuxline_powerline_separators = 0
 
 " remove separators
 let g:airline_left_sep=''
@@ -380,18 +375,16 @@ let g:airline_left_alt_sep=''
 let g:airline_right_alt_sep=''
 
 " sections
-let g:airline_section_y=''
-
-" extensions
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
+let g:airline_section_y='' " Remove encoding and newline
 
 " enable/disable showing only non-zero hunks.
-let g:airline#extensions#hunks#enabled = 1
 let g:airline#extensions#hunks#non_zero_only = 1
 
 " because of TmuxlineSnapshot
 let g:airline#extensions#tmuxline#enabled=0
+
+" mkitt/tabline.vim
+let g:bufferline_echo = 0
 
 " edkolev/tmuxline.vim
 let g:tmuxline_preset = 'minimal'
