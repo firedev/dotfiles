@@ -315,7 +315,8 @@ set diffopt+=vertical
 nnoremap <S-Tab> :bnext<CR>
 nnoremap <S-C-Tab> :bprevious<CR>
 
-map <leader>d :bd<CR> " \d delete buffer
+map <leader>d :bd<CR> " delete buffer
+map <leader>D :bd!<CR> " force delete buffer
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -325,9 +326,6 @@ nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
-
-" Close the current buffer
-map <leader>bd :Bclose<cr>
 
 " Close all the buffers
 map <leader>ba :1,1000 bd!<cr>
