@@ -78,6 +78,7 @@ set showcmd             " Show (partial) command in the status line
 set showmatch           " See matching brackets
 set matchtime=1
 set autoread            " Autoread
+set autowrite
 set autowriteall        " Save on buffer switch
 set timeout
 set timeoutlen=600
@@ -196,6 +197,10 @@ nnoremap k gk
 " noremap   <Right>  :vertical resize +5<cr>
 
 " Removing escape
+ino kj <esc>
+cno kj <c-c>
+ino jk <esc>
+cno jk <c-c>
 ino kk <esc>
 ino jj <esc>
 cno jj <c-c>
@@ -300,13 +305,17 @@ hi CursorLine ctermbg=black
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
-
+set winminheight=0
+set winminwidth=0
 " Always use vertical diffs
 set diffopt+=vertical
 
 " Buffer switching
-" map <leader>p :bp!<CR> " \p previous buffer
-" map <leader>n :bn!<CR> " \n next buffer
+map <leader>p :bp!<CR> " \p previous buffer
+map <leader>n :bn!<CR> " \n next buffer
+nnoremap <S-Tab> :bnext<CR>
+nnoremap <S-C-Tab> :bprevious<CR>
+
 map <leader>d :bd<CR> " \d delete buffer
 
 " A buffer becomes hidden when it is abandoned
