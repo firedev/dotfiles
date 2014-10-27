@@ -84,6 +84,7 @@ set autowriteall        " Save on buffer switch
 set timeout
 set timeoutlen=600
 set ttimeoutlen=1
+set lazyredraw
 
 " Set lines to the cursor - when moving vertically using j/k
 set so=3
@@ -180,9 +181,6 @@ nmap <leader>q :q<cr>
 " Quick reindent
 nmap === mrgg=Gg`r
 
-" Remap ; to :
-nnoremap ; :
-
 " Down is really the next line
 nnoremap j gj
 nnoremap k gk
@@ -206,7 +204,6 @@ ino kk <esc>
 ino jj <esc>
 cno jj <c-c>
 cno kk <c-c>
-vno v <esc>
 
 " Auto change directory to match current file ,cd
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
@@ -340,7 +337,6 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
-map <leader>t<leader> :tabnext
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
