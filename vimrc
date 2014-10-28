@@ -460,6 +460,7 @@ let g:syntastic_auto_jump = 2
 " When set to 1 the error window will be automatically opened when errors are
 " detected, and closed when none are detected. >
 let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height = 3
 
 " Fakeclip
 let g:fakeclip_terminal_multiplexer_type = "tmux"
@@ -498,21 +499,23 @@ let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 " Index ctags from any project, including those outside Rails
 map <Leader>ct :!ctags -R .<CR>
 let g:tagbar_type_ruby = {
-    \ 'kinds' : [
-        \ 'm:modules',
-        \ 'c:classes',
-        \ 'd:describes',
-        \ 'C:contexts',
-        \ 'f:methods',
-        \ 'F:singleton methods'
-    \ ]
-\ }
+      \ 'kinds' : [
+      \ 'm:modules',
+      \ 'c:classes',
+      \ 'd:describes',
+      \ 'C:contexts',
+      \ 'f:methods',
+      \ 'F:singleton methods'
+      \ ]
+      \ }
 " beloglazov/vim-textobj-quotes
 xmap q iq
 omap q iq
 " Now, you just need to press cq, dq, yq, or vq to operate on the text in single
 " ('), double ("), or back (`) quotes nearby without manually moving into them.
 
+" Easytags
+let g:easytags_async = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Inspiration
 "
