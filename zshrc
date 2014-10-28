@@ -89,6 +89,7 @@ bindkey '^Z' fancy-ctrl-z
 
 alias vimrc="vim ~/dotfiles/vimrc"
 alias bu="brew update && brew upgrade"
+alias deploy="git push && cap deploy"
 alias ls="gls"
 alias e="emacs"
 alias e="emacs --daemon"
@@ -99,4 +100,5 @@ alias mysql='/usr/local/mysql/bin/mysql'
 . `brew --prefix`/etc/profile.d/z.sh
 
 export BUNDLER_EDITOR=subl
+export LC_COLLATE=C
 export LC_CTYPE="en_US.UTF-8"
