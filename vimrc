@@ -17,19 +17,34 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 
+" Visual
 Plugin 'flazz/vim-colorschemes'
 Plugin 'bling/vim-airline'
 " Plugin 'bling/vim-bufferline'
 Plugin 'edkolev/tmuxline.vim'
+Plugin 'Yggdroot/indentLine'
+
+" Text objects
+Plugin 'kana/vim-textobj-user'
+Plugin 'kana/vim-textobj-entire'        " Entire dociment             ae / ie
+Plugin 'kana/vim-textobj-indent'        " Indent block                ai / ii / aI / iI
+Plugin 'glts/vim-textobj-indblock.git'  " Whitespace in indent block  ao / io
+Plugin 'Julian/vim-textobj-brace'       " Any parens                  aj / ij
+Plugin 'Julian/vim-textobj-variable-segment' " snake_case/CamelCase   aj / ij
+Plugin 'beloglazov/vim-textobj-quotes'  " Closest quotes              aq / iq
+Plugin 'glts/vim-textobj-comment'       " Comment                     ac / ic
+Plugin 'tek/vim-textobj-ruby'           " .rb Block, Class, Fun, Name ab / ac / af / an
+" Plugin 'nelstrom/vim-textobj-rubyblock'
+Plugin 'vim-scripts/argtextobj.vim'
+
+" Languages
+Plugin 'kchmck/vim-coffee-script'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'AndrewRadev/switch.vim'
-Plugin 'Yggdroot/indentLine'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'kana/vim-textobj-user'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'kien/ctrlp.vim'
-Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
@@ -49,7 +64,6 @@ Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-endwise'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'vim-scripts/ctags.vim'
-Plugin 'vim-scripts/argtextobj.vim'
 Plugin 'gregsexton/gitv'
 
 " All of your Plugins must be added before the following line
@@ -269,9 +283,9 @@ syntax on
 set t_Co=256
 
 " Highlight 81st column
-call matchadd('ColorColumn', '\%81v', 100)
 highlight ColorColumn ctermbg=black
-set colorcolumn=81
+call matchadd('ColorColumn', '\%81v', 100)
+" set colorcolumn=81
 
 " See invisibles
 exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
@@ -446,6 +460,8 @@ let g:syntastic_auto_loc_list = 1
 " Fakeclip
 let g:fakeclip_terminal_multiplexer_type = "tmux"
 
+" Indentline
+let g:indentLine_char="┆"
 " Ruby Object
 runtime macros/matchit.vim
 
@@ -475,6 +491,12 @@ nnoremap - :Switch<cr>
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 " Index ctags from any project, including those outside Rails
 map <Leader>ct :!ctags -R .<CR>
+
+" beloglazov/vim-textobj-quotes
+xmap q iq
+omap q iq
+" Now, you just need to press cq, dq, yq, or vq to operate on the text in single
+" ('), double ("), or back (`) quotes nearby without manually moving into them.
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Inspiration
