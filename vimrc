@@ -68,7 +68,7 @@ Plugin 'tpope/vim-endwise'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'gregsexton/gitv'
 " Plugin 'majutsushi/tagbar'
-Plugin 'vim-multiple-cursors'
+" Plugin 'vim-multiple-cursors'
 " Plugin 'vim-scripts/ctags.vim'
 Plugin 'rgarver/Kwbd.vim'
 " All of your Plugins must be added before the following line
