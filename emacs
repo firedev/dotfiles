@@ -1,7 +1,6 @@
 ;; emacs configuration
 (scroll-bar-mode -1)
 (tooltip-mode -1)
-(load-theme 'wombat)
 (setq make-backup-files nil)
 (setq create-lockfiles nil)
 (setq auto-save-default nil)
@@ -72,7 +71,6 @@
        cmd-list)))))
 (global-set-key "\M-x" 'ido-execute)
 
-
 (require 'package)
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.org/packages/") t)
@@ -94,7 +92,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Bitstream Vera Sans Mono" :foundry "nil" :slant normal :weight normal :height 130 :width normal)))))
-
 
 ;; NeoTree
 (global-set-key (kbd "C-c C-p") 'neotree-find)
@@ -125,3 +122,11 @@
      (define-key git-gutter+-mode-map (kbd "C-x C") 'git-gutter+-stage-and-commit)
      (define-key git-gutter+-mode-map (kbd "C-x C-y") 'git-gutter+-stage-and-commit-whole-buffer)
      (define-key git-gutter+-mode-map (kbd "C-x U") 'git-gutter+-unstage-whole-buffer)))
+
+;; disabling aquamacs nonsense
+(when (boundp 'aquamacs-version)
+  (tabbar-mode 0)
+  (osx-key-mode -1)
+  (setq x-select-enable-clipboard t))
+
+(load-theme 'wombat)
