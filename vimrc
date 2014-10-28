@@ -67,7 +67,7 @@ Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-endwise'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'gregsexton/gitv'
-" Plugin 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
 " Plugin 'vim-multiple-cursors'
 " Plugin 'vim-scripts/ctags.vim'
 Plugin 'rgarver/Kwbd.vim'
@@ -334,8 +334,9 @@ set diffopt+=vertical
 nnoremap <S-Tab> :bnext<CR>
 nnoremap <S-C-Tab> :bprevious<CR>
 
-map <leader>d :bd<CR> " delete buffer
+map <leader>d :bd<CR>  " delete buffer
 map <leader>D :bd!<CR> " force delete buffer
+nmap Q :qa!<CR>        " force quit
 nmap <leader>c <Plug>Kwbd
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -513,7 +514,7 @@ xmap q iq
 omap q iq
 " Now, you just need to press cq, dq, yq, or vq to operate on the text in single
 " ('), double ("), or back (`) quotes nearby without manually moving into them.
-
+nmap <leader>] :TagbarToggle<CR>
 " Easytags
 let g:easytags_async = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
