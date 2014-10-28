@@ -30,7 +30,7 @@ Plugin 'kana/vim-textobj-entire'        " Entire dociment             ae / ie
 Plugin 'kana/vim-textobj-indent'        " Indent block                ai / ii / aI / iI
 Plugin 'glts/vim-textobj-indblock.git'  " Whitespace in indent block  ao / io
 Plugin 'Julian/vim-textobj-brace'       " Any parens                  aj / ij
-Plugin 'Julian/vim-textobj-variable-segment' " snake_case/CamelCase   aj / ij
+Plugin 'Julian/vim-textobj-variable-segment' " snake_case/CamelCase   av / iv
 Plugin 'beloglazov/vim-textobj-quotes'  " Closest quotes              aq / iq
 Plugin 'glts/vim-textobj-comment'       " Comment                     ac / ic
 Plugin 'tek/vim-textobj-ruby'           " .rb Block, Class, Fun, Name ab / ac / af / an
@@ -45,11 +45,14 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'kien/ctrlp.vim'
+Plugin 'rizzatti/dash.vim'
 Plugin 'rking/ag.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'slim-template/vim-slim'
-Plugin 'szw/vim-tags'
+" Plugin 'szw/vim-tags'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'terryma/vim-expand-region'
 Plugin 'tpope/vim-bundler'
@@ -63,9 +66,11 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-endwise'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'vim-scripts/ctags.vim'
 Plugin 'gregsexton/gitv'
-
+" Plugin 'majutsushi/tagbar'
+Plugin 'vim-multiple-cursors'
+" Plugin 'vim-scripts/ctags.vim'
+Plugin 'rgarver/Kwbd.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -99,9 +104,8 @@ set timeout
 set timeoutlen=600
 set ttimeoutlen=1
 set lazyredraw
-
-" Set lines to the cursor - when moving vertically using j/k
-set so=3
+set cursorline          " Highlight cursorline
+set so=3                " Set lines to the cursor - when moving vertically using j/k
 
 " Searching
 set hlsearch
@@ -288,7 +292,7 @@ call matchadd('ColorColumn', '\%81v', 100)
 " set colorcolumn=81
 
 " See invisibles
-exec "set listchars=tab:\uBB\uBB,trail:\uB7,nbsp:~"
+exec "set listchars=tab:»_,trail:⋅,nbsp:~"
 set list
 hi GroupA ctermfg=darkgray
 hi GroupB ctermfg=darkgray
@@ -332,7 +336,7 @@ nnoremap <S-C-Tab> :bprevious<CR>
 
 map <leader>d :bd<CR> " delete buffer
 map <leader>D :bd!<CR> " force delete buffer
-
+nmap <leader>c <Plug>Kwbd
 " A buffer becomes hidden when it is abandoned
 set hid
 
@@ -392,11 +396,11 @@ let g:airline_right_alt_sep=''
 let g:airline_section_y='' " Remove encoding and newline
 
 " enable/disable showing only non-zero hunks.
-let g:airline#extensions#hunks#non_zero_only = 1
+let g:airline#extensions#hunks#non_zero_only=1
 
 " because of TmuxlineSnapshot
 let g:airline#extensions#tmuxline#enabled=0
-
+" let g:airline#extensions#tabline#enabled=1
 " mkitt/tabline.vim
 let g:bufferline_echo = 0
 
@@ -486,12 +490,23 @@ vmap <C-v> <Plug>(expand_region_shrink)
 " Switch
 nnoremap - :Switch<cr>
 
+nmap <silent> K <Plug>DashSearch
+
 " Ctags
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
 " Index ctags from any project, including those outside Rails
 map <Leader>ct :!ctags -R .<CR>
-
+let g:tagbar_type_ruby = {
+    \ 'kinds' : [
+        \ 'm:modules',
+        \ 'c:classes',
+        \ 'd:describes',
+        \ 'C:contexts',
+        \ 'f:methods',
+        \ 'F:singleton methods'
+    \ ]
+\ }
 " beloglazov/vim-textobj-quotes
 xmap q iq
 omap q iq
