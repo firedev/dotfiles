@@ -289,8 +289,8 @@ set t_Co=256
 " Highlight 81st column
 highlight ColorColumn ctermbg=black
 call matchadd('ColorColumn', '\%81v', 100)
-" set colorcolumn=81
-
+set colorcolumn=81
+hi ColorColumn ctermbg=black
 " See invisibles
 exec "set listchars=tab:»_,trail:⋅,nbsp:~"
 set list
@@ -306,15 +306,13 @@ match GroupA / \+$/
 " colorscheme github
 set background=dark
 
-" Configs to make Molokai look great
-let g:molokai_original=1
-let g:rehash256=1
-" colorscheme molokai
-" colorscheme solarized
 colorscheme Tomorrow-Night
 
 "Custom colors
 hi CursorLine ctermbg=black
+hi CursorLineNr ctermbg=black cterm=bold
+hi LineNr ctermbg=black
+autocmd BufReadPost * let &nuw=len(line('$'))+2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " WINDOWS / SPLITS
