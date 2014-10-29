@@ -107,6 +107,13 @@ set lazyredraw
 set cursorline          " Highlight cursorline
 set so=3                " Set lines to the cursor - when moving vertically using j/k
 
+" Windows and splits
+set splitbelow
+set splitright
+set winminheight=0
+set winminwidth=0
+set diffopt+=vertical
+
 " Searching
 set hlsearch
 set incsearch
@@ -275,12 +282,11 @@ syntax on
 set t_Co=256
 
 " Highlight 81st column
+" set colorcolumn=81
+call matchadd('ColorColumn', '\%81v') "1111111111111111111111111111111111111111111111
 highlight ColorColumn ctermbg=black
-call matchadd('ColorColumn', '\%81v', 100)
-set colorcolumn=81
-hi ColorColumn ctermbg=black
 " See invisibles
-exec "set listchars=tab:»_,trail:⋅,nbsp:~"
+set listchars=tab:›\ ,trail:⋅,nbsp:~
 set list
 hi GroupA ctermfg=darkgray
 hi GroupB ctermfg=darkgray
@@ -305,14 +311,6 @@ autocmd BufReadPost * let &nuw=len(line('$'))+2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " WINDOWS / SPLITS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
-set winminheight=0
-set winminwidth=0
-" Always use vertical diffs
-set diffopt+=vertical
 
 " Buffer switching
 " map <leader>p :bp!<CR> " \p previous buffer
@@ -464,7 +462,7 @@ nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
 
 " GitGutter
-highlight clear SignColumn
+" highlight clear SignColumn
 highlight GitGutterAdd ctermfg=green guibg=bg
 highlight GitGutterDelete ctermfg=red guibg=bg
 highlight GitGutterChange ctermfg=yellow guibg=bg
@@ -474,6 +472,7 @@ let g:gitgutter_realtime = 0
 " Expand region
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
+nnoremap gp `[v`] " select region just pasted
 
 " Switch
 nnoremap - :Switch<cr>
