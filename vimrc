@@ -1,4 +1,6 @@
-" https://github.com/gmarik/Vundle.vim
+" vim: fdm=marker ts=2 sts=2 sw=2 fdl=0
+
+" https://github.com/gmarik/Vundle.vim {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -78,16 +80,14 @@ Plugin 'rgarver/Kwbd.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
+" }}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" BEHAVIOUR
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set clipboard=unnamed   " Use system clipboard
+" Settings {{{
 set expandtab           " Change TABS to SPACES
-set tabstop=2
-set shiftwidth=2
+set tabstop=2           " 2 Spaces
+set shiftwidth=2        "
 set softtabstop=2       " when hitting <BS>, pretend like a tab is removed, even if spaces
+set shiftround          " Round to the nearest tabstop
 set autoindent          " always set autoindenting on
 set smartindent
 set copyindent          " copy the previous indentation on autoindenting
@@ -99,23 +99,41 @@ set backspace=indent,eol,start " Backspace over everything
 set nowrap              " Disable Wrap
 set showcmd             " Show (partial) command in the status line
 set showmatch           " See matching brackets
-set matchtime=1
+set matchtime=1         " Blink them quickly
 set autoread            " Autoread
 set autowrite
 set autowriteall        " Save on buffer switch
 set timeout
-set timeoutlen=600
-set ttimeoutlen=1
-set lazyredraw
+set timeoutlen=300
+set ttimeoutlen=50
+set showfulltag
 set cursorline          " Highlight cursorline
-set so=3                " Set lines to the cursor - when moving vertically using j/k
+set scrolloff=3                " Set lines to the cursor - when moving vertically using j/k
+set scrolljump=5        " Show 5 lines when jumping out of the window
+" Persistent undo
+set history=1000
+set undofile
+set undodir=~/.vim/undo//
 
+" No backup or swap
+set nobackup
+set noswapfile
+set nowb
 " Windows and splits
 set splitbelow
 set splitright
 set winminheight=0
 set winminwidth=0
 set diffopt+=vertical
+
+" Visual
+set t_Co=256
+set ttyfast
+set lazyredraw
+
+" See invisibles
+set listchars=tab:›\ ,trail:⋅,nbsp:~,extends:❯,precedes:❮
+set list
 
 " Searching
 set hlsearch
@@ -126,6 +144,7 @@ set smartcase
 " Tab completion
 set wildignore+=.DS_Store,vim/undo/**,/var/folders/**,.git/**,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
 set wildmode=list:longest,list:full
+" }}}
 
 inoremap <c-j> <esc>o
 
@@ -146,15 +165,6 @@ function! HLNext (blinktime)
   set invcursorline
   redraw
 endfunction
-
-" Persistent undo
-set undofile
-set undodir=~/.vim/undo//
-
-" No backup or swap
-set nobackup
-set noswapfile
-set nowb
 
 augroup vimrcEx
   autocmd!
@@ -180,6 +190,7 @@ augroup myfiletypes
   autocmd FileType php setlocal sw=4 sts=4 tabstop=4 noet
   autocmd FileType css,scss,sass setlocal iskeyword+=-
 augroup END
+" }}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEYBOARD
@@ -283,12 +294,8 @@ imap <c-a> <c-o>^
 
 " SYNTAX HIGHLIGHTING
 syntax on
-set t_Co=256
 colorscheme Tomorrow-Night
 
-" See invisibles
-set listchars=tab:›\ ,trail:⋅,nbsp:~
-set list
 hi GroupA ctermfg=darkgray
 hi GroupB ctermfg=darkgray
 match GroupA / \+$/
