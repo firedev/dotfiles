@@ -11,10 +11,10 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/vundle'
 
-" SnipMate
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
+" Snippets and completion
+Plugin 'Shougo/neocomplete'
+Plugin 'Shougo/neosnippet.vim'
+Plugin 'Shougo/neosnippet-snippets'
 Plugin 'honza/vim-snippets'
 
 " Visual
@@ -25,6 +25,7 @@ Plugin 'edkolev/tmuxline.vim'
 Plugin 'Yggdroot/indentLine'
 
 " Text objects
+Plugin 'vim-scripts/camelcasemotion'
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-entire'        " Entire dociment             ae / ie
 Plugin 'kana/vim-textobj-indent'        " Indent block                ai / ii / aI / iI
@@ -42,6 +43,8 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'sjl/vitality.vim'
+Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'kien/ctrlp.vim'
@@ -123,7 +126,8 @@ set smartcase
 " Tab completion
 set wildignore+=.DS_Store,vim/undo/**,/var/folders/**,.git/**,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
 set wildmode=list:longest,list:full
-inoremap <S-Tab> <c-n>
+
+inoremap <c-j> <esc>o
 
 " Automatically reload .vimrc on save
 command! Reload source ~/.vimrc
@@ -306,7 +310,10 @@ colorscheme Tomorrow-Night
 hi CursorLine ctermbg=black
 hi CursorLineNr ctermbg=black cterm=bold
 hi LineNr ctermbg=black
-autocmd BufReadPost * let &nuw=len(line('$'))+2
+autocmd BufEnter * let &nuw=len(line('$'))+2
+autocmd BufEnter * match ErrorMsg /.*!!.*/
+autocmd BufEnter * 2match DiffDelete /.*vv.*/
+autocmd BufEnter * 3match Search /.*??.*/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " WINDOWS / SPLITS
@@ -502,6 +509,49 @@ omap q iq
 nmap <leader>] :TagbarToggle<CR>
 " Easytags
 let g:easytags_async = 1
+
+" Neocomplete
+let g:neocomplete#enable_at_startup = 1
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Neosnippet
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+" Vimux
+" Prompt for a command to run
+map <leader>vr :VimuxPromptCommand<cr>
+map <leader>vx :VimuxCloseRunner<cr>
+
+" Camelcasemotion
+map w <Plug>CamelCaseMotion_w
+map b <Plug>CamelCaseMotion_b
+map e <Plug>CamelCaseMotion_e
+sunmap w
+sunmap b
+sunmap e
+omap iw <Plug>CamelCaseMotion_iw
+xmap iw <Plug>CamelCaseMotion_iw
+omap ib <Plug>CamelCaseMotion_ib
+xmap ib <Plug>CamelCaseMotion_ib
+omap ie <Plug>CamelCaseMotion_ie
+xmap ie <Plug>CamelCaseMotion_ie
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Inspiration
 "
