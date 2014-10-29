@@ -10,7 +10,7 @@
 	quotepath = false
 	excludesfile = /Users/pain/.gitignore
 	pager = less -r
-	editor = /usr/bin/vim
+	editor = vim
 [diff]
 	algorithm = patience
 [pull]
@@ -24,7 +24,7 @@
 	default = simple
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
