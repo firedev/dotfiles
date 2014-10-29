@@ -284,11 +284,8 @@ imap <c-a> <c-o>^
 " SYNTAX HIGHLIGHTING
 syntax on
 set t_Co=256
+colorscheme Tomorrow-Night
 
-" Highlight 81st column
-" set colorcolumn=81
-call matchadd('ColorColumn', '\%81v') "1111111111111111111111111111111111111111111111
-highlight ColorColumn ctermbg=black
 " See invisibles
 set listchars=tab:›\ ,trail:⋅,nbsp:~
 set list
@@ -297,24 +294,18 @@ hi GroupB ctermfg=darkgray
 match GroupA / \+$/
 2match GroupB /\t/
 
-" highlight the current line
-" set cursorline
-" Highlight active column
-" set cuc cul"
-" colorscheme github
-set background=dark
-
-colorscheme Tomorrow-Night
-
 "Custom colors
 hi CursorLine ctermbg=black
 hi CursorLineNr ctermbg=black cterm=bold
 hi LineNr ctermbg=black
-autocmd BufEnter * let &nuw=len(line('$'))+2
-autocmd BufEnter * match ErrorMsg /.*!!.*/
-autocmd BufEnter * 2match DiffDelete /.*vv.*/
-autocmd BufEnter * 3match Search /.*??.*/
-
+autocmd BufWinEnter * call MyColors()
+function! MyColors()
+  let &nuw=len(line('$'))+2
+  call matchadd('CursorLineNr', '\%81v')  "1111111111111111111111111111111111111111111111
+  call matchadd('ErrorMsg', '.*xx.*')   " xx
+  call matchadd('DiffAdd', '.*vv.*')    " vv
+  call matchadd('Search', '.*??.*')     " ??
+endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " WINDOWS / SPLITS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
