@@ -31,7 +31,7 @@ Plugin 'kana/vim-textobj-entire'        " Entire dociment             ae / ie
 Plugin 'kana/vim-textobj-indent'        " Indent block                ai / ii / aI / iI
 Plugin 'glts/vim-textobj-indblock.git'  " Whitespace in indent block  ao / io
 Plugin 'Julian/vim-textobj-brace'       " Any parens                  aj / ij
-Plugin 'Julian/vim-textobj-variable-segment' " snake_case/CamelCase   av / iv
+" Plugin 'Julian/vim-textobj-variable-segment' " snake_case/CamelCase   av / iv
 Plugin 'beloglazov/vim-textobj-quotes'  " Closest quotes              aq / iq
 Plugin 'glts/vim-textobj-comment'       " Comment                     ac / ic
 Plugin 'tek/vim-textobj-ruby'           " .rb Block, Class, Fun, Name ab / ac / af / an
