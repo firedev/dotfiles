@@ -245,6 +245,7 @@ Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-rsi'
 Plugin 'tpope/vim-endwise'
 " }}}
 
@@ -381,9 +382,9 @@ autocmd WinEnter * setlocal cursorline
 
   "Custom colors
   hi CursorLine ctermbg=black
-  hi CursorLineNr ctermbg=black cterm=bold
+  hi CursorLineNr ctermbg=black ctermfg=darkyellow cterm=bold
   hi LineNr ctermbg=black
-  autocmd BufWinEnter * call MyColors()
+  autocmd VimEnter,BufWinEnter * call MyColors()
   function! MyColors()
     let &nuw=len(line('$'))+2
     call matchadd('CursorLineNr', '\%81v')  "1111111111111111111111111111111111111111111111
@@ -543,10 +544,6 @@ imap <C-s> <esc>:w<CR>
 map <C-t> <esc>:tabnew<CR>
 " map <C-n> :cn<CR>
 " map <C-p> :cp<CR>
-
-" Emacs-like beginning and end of line.
-imap <c-e> <c-o>$
-imap <c-a> <c-o>^
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " WINDOWS / SPLITS
