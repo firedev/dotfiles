@@ -1,14 +1,13 @@
+let bundle = "~/.vimrc.bundle" " So I can easily gf
 " Modeline and Notes {
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker nospell:
 
 " }
-
 " Map <Leader> to ,
 let mapleader = " "
 let g:mapleader = " "
-
 " Use bundles config {
-if filereadable(expand("~/.vimrc.bundle"))
+if filereadable(expand(bundle))
     source ~/.vimrc.bundle
 endif
 " }
@@ -22,15 +21,6 @@ if has('clipboard')
     endif
 endif
 
-" Most prefer to automatically switch to the current file directory when
-" a new buffer is opened; to prevent this behavior, add the following to
-" your .vimrc.before.local file:
-"   let g:spf13_no_autochdir = 1
-
-if !exists('g:spf13_no_autochdir')
-    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
-    " Always switch to the current file directory
-endif
 set expandtab           " Change TABS to SPACES
 set tabstop=2           " 2 Spaces
 set shiftwidth=2        "
@@ -41,8 +31,8 @@ set smartindent
 set copyindent          " copy the previous indentation on autoindenting
 set mouse=a             " Use mouse
 set backspace=indent,eol,start " Backspace over everything
-set textwidth=0         " Dont wrap long lines
 set nowrap              " Disable Wrap
+set formatoptions=q     " Allow gq on a long line
 set autoread            " Auto read
 set autowrite
 set autowriteall        " Save on buffer switch
@@ -168,7 +158,7 @@ match GroupA / \+$/
 hi CursorLine ctermbg=black
 hi CursorLineNr ctermbg=black ctermfg=yellow cterm=bold
 hi LineNr ctermbg=black
-autocmd VimEnter,BufWinEnter * call MyColors()
+autocmd VimEnter,BufEnter,WinEnter * call MyColors()
 function! MyColors()
     let &nuw=len(line('$'))+2
     call matchadd('CursorLineNr', '\%81v')  "1111111111111111111111111111111111111111111111
@@ -289,7 +279,8 @@ nnoremap Y y$
 nnoremap <C-c> <C-c>:echo<cr>
 
 " window killer
-nnoremap <silent> Q :call CloseWindowOrKillBuffer()<cr>
+nmap Q :qa!<CR>        " force quit
+" nnoremap <silent> Q :call CloseWindowOrKillBuffer()<cr>
 
 " quick buffer open
 nnoremap gb :ls<cr>:e #

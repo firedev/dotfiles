@@ -36,15 +36,15 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: pumvisible() ? "\<C-n>" : "\<TAB>"
+            \ "\<Plug>(neosnippet_expand_or_jump)"
+            \: pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: "\<TAB>"
+            \ "\<Plug>(neosnippet_expand_or_jump)"
+            \: "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+    set conceallevel=2 concealcursor=i
 endif
 "}
 
@@ -69,6 +69,7 @@ let g:airline#extensions#tmuxline#enabled=0
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#close_symbol = '✖'
 "}
 
 " Plugin 'bling/vim-bufferline' " {
@@ -142,7 +143,7 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_auto_jump = 2
 " When set to 1 the error window will be automatically opened when errors are
 " detected, and closed when none are detected. >
-let g:syntastic_auto_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
 let g:syntastic_loc_list_height = 3
 " }
 
@@ -200,12 +201,12 @@ nnoremap <c-p><c-t> :CtrlPTag<cr>
 nnoremap <c-p><c-r> :CtrlPMRUFiles<cr>
 nnoremap <c-p><c-b> :CtrlPBuffer<cr>
 if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+    " Use Ag over Grep
+    set grepprg=ag\ --nogroup\ --nocolor
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    " ag is fast enough that CtrlP doesn't need to cache
+    let g:ctrlp_use_caching = 0
 endif
 "}
 
@@ -216,20 +217,22 @@ let g:easytags_async = 1
 
 Plugin 'majutsushi/tagbar' " {
 let g:tagbar_type_ruby = {
-      \ 'kinds' : [
-      \ 'm:modules',
-      \ 'c:classes',
-      \ 'd:describes',
-      \ 'C:contexts',
-      \ 'f:methods',
-      \ 'F:singleton methods'
-      \ ]
-      \ }
+            \ 'kinds' : [
+            \ 'm:modules',
+            \ 'c:classes',
+            \ 'd:describes',
+            \ 'C:contexts',
+            \ 'f:methods',
+            \ 'F:singleton methods'
+            \ ]
+            \ }
 nmap <leader>] :TagbarToggle<CR>
 " }
 
 Plugin 'rizzatti/dash.vim'
-Plugin 'rking/ag.vim'
+Plugin 'rking/ag.vim' "{
+let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-160 }; f'
+"}
 Plugin 'xolox/vim-misc'
 Plugin 'gregsexton/gitv'
 Plugin 'rgarver/Kwbd.vim'
@@ -247,7 +250,7 @@ nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gr :Gread<cr>
 
 "}
-
+Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-sensible'
