@@ -16,115 +16,115 @@
   Plugin 'gmarik/vundle'
 " }}}
 
-" Snippets and completion {{{
+  " Snippets and completion {{{
 
-Plugin 'Shougo/neocomplete' "{{{
-  " Neocomplete
-  let g:neocomplete#enable_at_startup = 1
-  " <TAB>: completion.
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"}}}
-
-  Plugin 'Shougo/neosnippet.vim' "{{{
-  " Neosnippet
-  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-  " SuperTab like snippets behavior.
-  imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)"
-        \: pumvisible() ? "\<C-n>" : "\<TAB>"
-  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-        \ "\<Plug>(neosnippet_expand_or_jump)"
-        \: "\<TAB>"
-
-  " For snippet_complete marker.
-  if has('conceal')
-    set conceallevel=2 concealcursor=i
-  endif
+  Plugin 'Shougo/neocomplete' "{{{
+    " Neocomplete
+    let g:neocomplete#enable_at_startup = 1
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
   "}}}
 
-  Plugin 'Shougo/neosnippet-snippets'
-  Plugin 'honza/vim-snippets'
-" }}}
+    Plugin 'Shougo/neosnippet.vim' "{{{
+    " Neosnippet
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-" Colors, indents, airline, tmuxline {{{
+    " SuperTab like snippets behavior.
+    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+          \ "\<Plug>(neosnippet_expand_or_jump)"
+          \: pumvisible() ? "\<C-n>" : "\<TAB>"
+    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+          \ "\<Plug>(neosnippet_expand_or_jump)"
+          \: "\<TAB>"
 
-Plugin 'bling/vim-airline' "{{{
-  " bling/vim-airline
-  " remove separators
-  let g:airline_left_sep=''
-  let g:airline_right_sep=''
-  let g:airline_left_alt_sep=''
-  let g:airline_right_alt_sep=''
-  let g:airline_section_y='' " Remove encoding and newline
-  " enable/disable showing only non-zero hunks.
-  let g:airline#extensions#hunks#non_zero_only=1
-  " because of TmuxlineSnapshot
-  let g:airline#extensions#tmuxline#enabled=0
-  let g:airline#extensions#tabline#enabled=1
-  let g:airline#extensions#tabline#show_buffers = 0
-  let g:airline#extensions#tabline#tab_min_count = 2
-"}}}
+    " For snippet_complete marker.
+    if has('conceal')
+      set conceallevel=2 concealcursor=i
+    endif
+    "}}}
 
-" Plugin 'bling/vim-bufferline' " {{{
-" "}}}
-
-Plugin 'flazz/vim-colorschemes'
-Plugin 'edkolev/tmuxline.vim'
-
-Plugin 'Yggdroot/indentLine' "{{{
-" Indentline
-let g:indentLine_char="┆"
-"}}}
-
-Plugin 'airblade/vim-gitgutter' "{{{
-" GitGutter
-" highlight clear SignColumn
-highlight GitGutterAdd ctermfg=green guibg=bg
-highlight GitGutterDelete ctermfg=red guibg=bg
-highlight GitGutterChange ctermfg=yellow guibg=bg
-highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
-let g:gitgutter_realtime = 0
-"}}}
-"}}}
-
-" Text objects {{{
-
-  Plugin 'vim-scripts/camelcasemotion' "{{{
-  " Camelcasemotion
-  map w <Plug>CamelCaseMotion_w
-  map b <Plug>CamelCaseMotion_b
-  map e <Plug>CamelCaseMotion_e
-  sunmap w
-  sunmap b
-  sunmap e
-  omap iw <Plug>CamelCaseMotion_iw
-  xmap iw <Plug>CamelCaseMotion_iw
-  omap ib <Plug>CamelCaseMotion_ib
-  xmap ib <Plug>CamelCaseMotion_ib
-  omap ie <Plug>CamelCaseMotion_ie
-  xmap ie <Plug>CamelCaseMotion_ie
-  "}}}
-
-  Plugin 'beloglazov/vim-textobj-quotes'  " Closest quotes              aq / iq {{{
-  " beloglazov/vim-textobj-quotes
-  xmap q iq
-  omap q iq
-  " Now, you just need to press cq, dq, yq, or vq to operate on the text in single
-  " ('), double ("), or back (`) quotes nearby without manually moving into them.
+    Plugin 'Shougo/neosnippet-snippets'
+    Plugin 'honza/vim-snippets'
   " }}}
 
-  Plugin 'kana/vim-textobj-user'
-  Plugin 'kana/vim-textobj-entire'        " Entire dociment             ae / ie
-  Plugin 'kana/vim-textobj-indent'        " Indent block                ai / ii / aI / iI
-  Plugin 'glts/vim-textobj-indblock.git'  " Whitespace in indent block  ao / io
-  Plugin 'Julian/vim-textobj-brace'       " Any parens                  aj / ij
-  Plugin 'glts/vim-textobj-comment'       " Comment                     ac / ic
-  Plugin 'tek/vim-textobj-ruby'           " .rb Block, Class, Fun, Name ab / ac / af / an
-  Plugin 'vim-scripts/argtextobj.vim'
-"}}}
+  " Colors, indents, airline, tmuxline {{{
+
+  Plugin 'bling/vim-airline' "{{{
+    " bling/vim-airline
+    " remove separators
+    let g:airline_left_sep=''
+    let g:airline_right_sep=''
+    let g:airline_left_alt_sep=''
+    let g:airline_right_alt_sep=''
+    let g:airline_section_y='' " Remove encoding and newline
+    " enable/disable showing only non-zero hunks.
+    let g:airline#extensions#hunks#non_zero_only=1
+    " because of TmuxlineSnapshot
+    let g:airline#extensions#tmuxline#enabled=0
+    let g:airline#extensions#tabline#enabled=1
+    let g:airline#extensions#tabline#show_buffers = 0
+    let g:airline#extensions#tabline#tab_min_count = 2
+  "}}}
+
+  " Plugin 'bling/vim-bufferline' " {{{
+  " "}}}
+
+  Plugin 'flazz/vim-colorschemes'
+  Plugin 'edkolev/tmuxline.vim'
+
+  Plugin 'Yggdroot/indentLine' "{{{
+  " Indentline
+  let g:indentLine_char="┆"
+  "}}}
+
+  Plugin 'airblade/vim-gitgutter' "{{{
+  " GitGutter
+  " highlight clear SignColumn
+  highlight GitGutterAdd ctermfg=green guibg=bg
+  highlight GitGutterDelete ctermfg=red guibg=bg
+  highlight GitGutterChange ctermfg=yellow guibg=bg
+  highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
+  let g:gitgutter_realtime = 0
+  "}}}
+  "}}}
+
+  " Text objects {{{
+
+    Plugin 'vim-scripts/camelcasemotion' "{{{
+    " Camelcasemotion
+    map w <Plug>CamelCaseMotion_w
+    map b <Plug>CamelCaseMotion_b
+    map e <Plug>CamelCaseMotion_e
+    sunmap w
+    sunmap b
+    sunmap e
+    omap iw <Plug>CamelCaseMotion_iw
+    xmap iw <Plug>CamelCaseMotion_iw
+    omap ib <Plug>CamelCaseMotion_ib
+    xmap ib <Plug>CamelCaseMotion_ib
+    omap ie <Plug>CamelCaseMotion_ie
+    xmap ie <Plug>CamelCaseMotion_ie
+    "}}}
+
+    Plugin 'beloglazov/vim-textobj-quotes'  " Closest quotes              aq / iq {{{
+    " beloglazov/vim-textobj-quotes
+    xmap q iq
+    omap q iq
+    " Now, you just need to press cq, dq, yq, or vq to operate on the text in single
+    " ('), double ("), or back (`) quotes nearby without manually moving into them.
+    " }}}
+
+    Plugin 'kana/vim-textobj-user'
+    Plugin 'kana/vim-textobj-entire'        " Entire dociment             ae / ie
+    Plugin 'kana/vim-textobj-indent'        " Indent block                ai / ii / aI / iI
+    Plugin 'glts/vim-textobj-indblock.git'  " Whitespace in indent block  ao / io
+    Plugin 'Julian/vim-textobj-brace'       " Any parens                  aj / ij
+    Plugin 'glts/vim-textobj-comment'       " Comment                     ac / ic
+    Plugin 'tek/vim-textobj-ruby'           " .rb Block, Class, Fun, Name ab / ac / af / an
+    Plugin 'vim-scripts/argtextobj.vim'
+  "}}}
 
   Plugin 'scrooloose/syntastic' "{{{
     let g:syntastic_ruby_checkers = ['mri', 'rubocop']
@@ -143,36 +143,36 @@ let g:gitgutter_realtime = 0
     let g:syntastic_loc_list_height = 3
   " }}}
 
-" Lanugage Syntax {{{
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'gorodinskiy/vim-coloresque'
-Plugin 'slim-template/vim-slim'
-Plugin 'vim-ruby/vim-ruby'
-" }}}
+  " Lanugage Syntax {{{
+  Plugin 'kchmck/vim-coffee-script'
+  Plugin 'gorodinskiy/vim-coloresque'
+  Plugin 'slim-template/vim-slim'
+  Plugin 'vim-ruby/vim-ruby'
+  " }}}
 
-" Editing {{{
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'AndrewRadev/switch.vim' "{{{
+  " Editing {{{
+  Plugin 'AndrewRadev/splitjoin.vim'
+  Plugin 'AndrewRadev/switch.vim' "{{{
 
-" Switch
-nnoremap - :Switch<cr>
+  " Switch
+  nnoremap - :Switch<cr>
 
-"}}}
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'terryma/vim-expand-region'
-" }}}
+  "}}}
+  Plugin 'jiangmiao/auto-pairs'
+  Plugin 'tomtom/tcomment_vim'
+  Plugin 'terryma/vim-expand-region'
+  " }}}
 
-" Tmux {{{
-Plugin 'sjl/vitality.vim'
-Plugin 'benmills/vimux' "{{{
-" Vimux
-" Prompt for a command to run
-map <leader>vr :VimuxPromptCommand<cr>
-map <leader>vx :VimuxCloseRunner<cr>
-"}}}
-Plugin 'christoomey/vim-tmux-navigator'
-" }}}
+  " Tmux {{{
+  Plugin 'sjl/vitality.vim'
+  Plugin 'benmills/vimux' "{{{
+  " Vimux
+  " Prompt for a command to run
+  map <leader>vr :VimuxPromptCommand<cr>
+  map <leader>vx :VimuxCloseRunner<cr>
+  "}}}
+  Plugin 'christoomey/vim-tmux-navigator'
+  " }}}
 
 " Navigation and autocompletion {{{
 
@@ -556,9 +556,6 @@ map <leader>d :bd<CR>  " delete buffer
 map <leader>D :bd!<CR> " force delete buffer
 " nmap Q :qa!<CR>        " force quit
 nmap <leader>c <Plug>Kwbd
-
-" Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
