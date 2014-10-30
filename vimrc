@@ -1,262 +1,36 @@
-" vim: fdm=marker ts=2 sts=2 sw=2 fdl=0
+" Modeline and Notes {
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker nospell:
 
-" PLUGINS {{{
+" }
 
-" Vundle.vim {{{
-  set nocompatible              " be iMproved, required
-  filetype off                  " required
+" Map <Leader> to ,
+let mapleader = " "
+let g:mapleader = " "
 
-  " set the runtime path to include Vundle and initialize
-  set rtp+=~/.vim/bundle/vundle
-  call vundle#begin()
-  " alternatively, pass a path where Vundle should install plugins
-  "call vundle#begin('~/some/path/here')
-
-  " let Vundle manage Vundle, required
-  Plugin 'gmarik/vundle'
-" }}}
-
-  " Snippets and completion {{{
-
-  Plugin 'Shougo/neocomplete' "{{{
-    " Neocomplete
-    let g:neocomplete#enable_at_startup = 1
-    " <TAB>: completion.
-    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  "}}}
-
-    Plugin 'Shougo/neosnippet.vim' "{{{
-    " Neosnippet
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-    " SuperTab like snippets behavior.
-    imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-          \ "\<Plug>(neosnippet_expand_or_jump)"
-          \: pumvisible() ? "\<C-n>" : "\<TAB>"
-    smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-          \ "\<Plug>(neosnippet_expand_or_jump)"
-          \: "\<TAB>"
-
-    " For snippet_complete marker.
-    if has('conceal')
-      set conceallevel=2 concealcursor=i
-    endif
-    "}}}
-
-    Plugin 'Shougo/neosnippet-snippets'
-    Plugin 'honza/vim-snippets'
-  " }}}
-
-  " Colors, indents, airline, tmuxline {{{
-
-  Plugin 'bling/vim-airline' "{{{
-    " bling/vim-airline
-    " remove separators
-    let g:airline_left_sep=''
-    let g:airline_right_sep=''
-    let g:airline_left_alt_sep=''
-    let g:airline_right_alt_sep=''
-    let g:airline_section_y='' " Remove encoding and newline
-    " enable/disable showing only non-zero hunks.
-    let g:airline#extensions#hunks#non_zero_only=1
-    " because of TmuxlineSnapshot
-    let g:airline#extensions#tmuxline#enabled=0
-    let g:airline#extensions#tabline#enabled=1
-    let g:airline#extensions#tabline#show_buffers = 0
-    let g:airline#extensions#tabline#tab_min_count = 2
-  "}}}
-
-  " Plugin 'bling/vim-bufferline' " {{{
-  " "}}}
-
-  Plugin 'flazz/vim-colorschemes'
-  Plugin 'edkolev/tmuxline.vim'
-
-  Plugin 'Yggdroot/indentLine' "{{{
-  " Indentline
-  let g:indentLine_char="┆"
-  "}}}
-
-  Plugin 'airblade/vim-gitgutter' "{{{
-  " GitGutter
-  " highlight clear SignColumn
-  highlight GitGutterAdd ctermfg=green guibg=bg
-  highlight GitGutterDelete ctermfg=red guibg=bg
-  highlight GitGutterChange ctermfg=yellow guibg=bg
-  highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
-  let g:gitgutter_realtime = 0
-  "}}}
-  "}}}
-
-  " Text objects {{{
-
-    Plugin 'vim-scripts/camelcasemotion' "{{{
-    " Camelcasemotion
-    map w <Plug>CamelCaseMotion_w
-    map b <Plug>CamelCaseMotion_b
-    map e <Plug>CamelCaseMotion_e
-    sunmap w
-    sunmap b
-    sunmap e
-    omap iw <Plug>CamelCaseMotion_iw
-    xmap iw <Plug>CamelCaseMotion_iw
-    omap ib <Plug>CamelCaseMotion_ib
-    xmap ib <Plug>CamelCaseMotion_ib
-    omap ie <Plug>CamelCaseMotion_ie
-    xmap ie <Plug>CamelCaseMotion_ie
-    "}}}
-
-    Plugin 'beloglazov/vim-textobj-quotes'  " Closest quotes              aq / iq {{{
-    " beloglazov/vim-textobj-quotes
-    xmap q iq
-    omap q iq
-    " Now, you just need to press cq, dq, yq, or vq to operate on the text in single
-    " ('), double ("), or back (`) quotes nearby without manually moving into them.
-    " }}}
-
-    Plugin 'kana/vim-textobj-user'
-    Plugin 'kana/vim-textobj-entire'        " Entire dociment             ae / ie
-    Plugin 'kana/vim-textobj-indent'        " Indent block                ai / ii / aI / iI
-    Plugin 'glts/vim-textobj-indblock.git'  " Whitespace in indent block  ao / io
-    Plugin 'Julian/vim-textobj-brace'       " Any parens                  aj / ij
-    Plugin 'glts/vim-textobj-comment'       " Comment                     ac / ic
-    Plugin 'tek/vim-textobj-ruby'           " .rb Block, Class, Fun, Name ab / ac / af / an
-    Plugin 'vim-scripts/argtextobj.vim'
-  "}}}
-
-  Plugin 'scrooloose/syntastic' "{{{
-    let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-    let g:syntastic_error_symbol = "✗"
-    let g:syntastic_style_error_symbol = '✠'
-    let g:syntastic_warning_symbol = "⚠"
-    let g:syntastic_style_warning_symbol = "≈"
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_aggregate_errors = 1
-    " When set to 2 the cursor will jump to the first issue detected, but only if
-    " this issue is an error. >
-    let g:syntastic_auto_jump = 2
-    " When set to 1 the error window will be automatically opened when errors are
-    " detected, and closed when none are detected. >
-    let g:syntastic_auto_loc_list = 1
-    let g:syntastic_loc_list_height = 3
-  " }}}
-
-  " Lanugage Syntax {{{
-  Plugin 'kchmck/vim-coffee-script'
-  Plugin 'gorodinskiy/vim-coloresque'
-  Plugin 'slim-template/vim-slim'
-  Plugin 'vim-ruby/vim-ruby'
-  " }}}
-
-  " Editing {{{
-  Plugin 'AndrewRadev/splitjoin.vim'
-  Plugin 'AndrewRadev/switch.vim' "{{{
-
-  " Switch
-  nnoremap - :Switch<cr>
-
-  "}}}
-  Plugin 'jiangmiao/auto-pairs'
-  Plugin 'tomtom/tcomment_vim'
-  Plugin 'terryma/vim-expand-region'
-  " }}}
-
-  " Tmux {{{
-  Plugin 'sjl/vitality.vim'
-  Plugin 'benmills/vimux' "{{{
-  " Vimux
-  " Prompt for a command to run
-  map <leader>vr :VimuxPromptCommand<cr>
-  map <leader>vx :VimuxCloseRunner<cr>
-  "}}}
-  Plugin 'christoomey/vim-tmux-navigator'
-  " }}}
-
-" Navigation and autocompletion {{{
-
-  Plugin 'scrooloose/nerdtree' "{{{
-  " scrooloose/nerdtree
-  " let NERDTreeQuitOnOpen=1
-  nnoremap <leader>nt :NERDTreeToggle<cr>
-  nnoremap <leader>nf :NERDTreeFind<cr>
-  nnoremap <leader>nc :NERDTreeCWD<cr>
-  " }}}
-
-  Plugin 'kien/ctrlp.vim' "{{{
-    " kien/ctrlp.vim
-    " let g:ctrlp_user_command='git --git-dir=%s/.git ls-files -oc --exclude-standard'
-    " let g:ctrlp_working_path_mode=0
-    " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-    let g:ctrlp_map = '<c-p><c-p>'
-    let g:ctrlp_cmd = 'CtrlP'
-
-    nnoremap <c-p>t :CtrlPTag<cr>
-    nnoremap <c-p>r :CtrlPMRUFiles<cr>
-    nnoremap <c-p>b :CtrlPBuffer<cr>
-    nnoremap <c-p><c-t> :CtrlPTag<cr>
-    nnoremap <c-p><c-r> :CtrlPMRUFiles<cr>
-    nnoremap <c-p><c-b> :CtrlPBuffer<cr>
-    if executable('ag')
-      " Use Ag over Grep
-      set grepprg=ag\ --nogroup\ --nocolor
-      " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-      let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-      " ag is fast enough that CtrlP doesn't need to cache
-      let g:ctrlp_use_caching = 0
-    endif
-  "}}}
-
-  Plugin 'xolox/vim-easytags' "{{{
-    " Easytags
-    let g:easytags_async = 1
-  "}}}
-
-  Plugin 'majutsushi/tagbar' " {{{
-    let g:tagbar_type_ruby = {
-          \ 'kinds' : [
-          \ 'm:modules',
-          \ 'c:classes',
-          \ 'd:describes',
-          \ 'C:contexts',
-          \ 'f:methods',
-          \ 'F:singleton methods'
-          \ ]
-          \ }
-    nmap <leader>] :TagbarToggle<CR>
-  " }}}
-
-  Plugin 'rizzatti/dash.vim'
-  Plugin 'rking/ag.vim'
-  Plugin 'xolox/vim-misc'
-  Plugin 'gregsexton/gitv'
-  Plugin 'rgarver/Kwbd.vim'
-
-"}}}
-
-" Tpope {{{
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-rsi'
-Plugin 'tpope/vim-endwise'
-" }}}
-
-" vindle#end {{{
-call vundle#end()            " required
-filetype plugin indent on    " required
-"}}}
-
-"}}}
+" Use bundles config {
+if filereadable(expand("~/.vimrc.bundle"))
+    source ~/.vimrc.bundle
+endif
+" }
 
 " SETTINGS {{{
+if has('clipboard')
+    if has('unnamedplus')  " When possible use + register for copy-paste
+        set clipboard=unnamed,unnamedplus
+    else         " On mac and Windows, use * register for copy-paste
+        set clipboard=unnamed
+    endif
+endif
+
+" Most prefer to automatically switch to the current file directory when
+" a new buffer is opened; to prevent this behavior, add the following to
+" your .vimrc.before.local file:
+"   let g:spf13_no_autochdir = 1
+
+if !exists('g:spf13_no_autochdir')
+    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+    " Always switch to the current file directory
+endif
 set expandtab           " Change TABS to SPACES
 set tabstop=2           " 2 Spaces
 set shiftwidth=2        "
@@ -267,8 +41,9 @@ set smartindent
 set copyindent          " copy the previous indentation on autoindenting
 set mouse=a             " Use mouse
 set backspace=indent,eol,start " Backspace over everything
+set textwidth=0         " Dont wrap long lines
 set nowrap              " Disable Wrap
-set autoread            " Autoread
+set autoread            " Auto read
 set autowrite
 set autowriteall        " Save on buffer switch
 set timeout
@@ -276,8 +51,17 @@ set timeoutlen=300
 set ttimeoutlen=50
 set showfulltag
 set cursorline          " Highlight cursorline
-set scrolloff=3                " Set lines to the cursor - when moving vertically using j/k
+set scrolloff=3         " Set lines to the cursor - when moving vertically using
 set scrolljump=5        " Show 5 lines when jumping out of the window
+
+set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
+set virtualedit=onemore             " Allow for cursor beyond last character
+set history=1000                    " Store a ton of history (default is 20)
+set nospell                           " Spell checking off
+set iskeyword-=.                    " '.' is an end of word designator
+set iskeyword-=#                    " '#' is an end of word designator
+set iskeyword-=-                    " '-' is an end of word designator
 
 " Persistent undo
 set history=1000
@@ -290,7 +74,7 @@ set noswapfile
 set nowb
 
 " Windows and splits
-set hid " A buffer becomes hidden when it is abandoned
+set hidden                          " Allow buffer switching without saving
 set splitbelow
 set splitright
 set winminheight=0
@@ -342,19 +126,19 @@ autocmd WinEnter * setlocal cursorline
 " }}}
 
 " AUTOCOMMANDS {{{
-  command! Reload source ~/.vimrc
-  au! BufWritePost .vimrc source %
-  au! BufWritePost vimrc :Reload
+command! Reload source ~/.vimrc
+au! BufWritePost .vimrc source %
+au! BufWritePost vimrc :Reload
 
-  augroup vimrc
+augroup vimrc
     autocmd!
     " When editing a file, always jump to the last known cursor position.
     " Don't do it for commit messages, when the position is invalid, or when
     " inside an event handler (happens when dropping a file on gvim).
     autocmd BufReadPost *
-          \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-          \   exe "normal g`\"" |
-          \ endif
+                \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+                \   exe "normal g`\"" |
+                \ endif
     " Allow stylesheets to autocomplete hyphenated words
     " autoindent with two spaces, always expand tabs
     autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
@@ -364,169 +148,165 @@ autocmd WinEnter * setlocal cursorline
     autocmd FileType php setlocal sw=4 sts=4 tabstop=4 noet
     autocmd FileType css,scss,sass setlocal iskeyword+=-
     autocmd FileType vim setlocal fdm=indent
-  augroup END
+augroup END
 
-  " Strip trailing spaces on save
-  autocmd BufWritePre * :%s/\s\+$//e
-  autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
+" Strip trailing spaces on save
+autocmd BufWritePre * :%s/\s\+$//e
+autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
 " }}}
 
 " SYNTAX HIGHLIGHTING {{{
-  syntax on
-  colorscheme Tomorrow-Night
+syntax on
+colorscheme Tomorrow-Night
 
-  hi GroupA ctermfg=darkgray
-  hi GroupB ctermfg=darkgray
-  match GroupA / \+$/
-  2match GroupB /\t/
+hi GroupA ctermfg=darkgray
+hi GroupB ctermfg=darkgray
+match GroupA / \+$/
+2match GroupB /\t/
 
-  "Custom colors
-  hi CursorLine ctermbg=black
-  hi CursorLineNr ctermbg=black ctermfg=darkyellow cterm=bold
-  hi LineNr ctermbg=black
-  autocmd VimEnter,BufWinEnter * call MyColors()
-  function! MyColors()
+"Custom colors
+hi CursorLine ctermbg=black
+hi CursorLineNr ctermbg=black ctermfg=yellow cterm=bold
+hi LineNr ctermbg=black
+autocmd VimEnter,BufWinEnter * call MyColors()
+function! MyColors()
     let &nuw=len(line('$'))+2
     call matchadd('CursorLineNr', '\%81v')  "1111111111111111111111111111111111111111111111
     call matchadd('ErrorMsg', '.*xx.*')   " xx
     call matchadd('DiffAdd', '.*vv.*')    " vv
     call matchadd('Search', '.*??.*')     " ??
-  endfunction
+endfunction
 "}}}
 
 " KEYBOARD {{{
 
-  " Ctrl-J - insert line under cursor
-  inoremap <c-j> <esc>o
+" Ctrl-J - insert line under cursor
+inoremap <c-j> <esc>o
 
-  " Map <Leader> to ,
-  let mapleader = " "
-  let g:mapleader = " "
+" Quick write
+nmap <leader>w :w!<cr>
+" Quick quit
+nmap <leader>q :q<cr>
+" Quick reindent
+nmap === mrgg=Gg`r
 
-  " Quick write
-  nmap <leader>w :w!<cr>
-  " Quick quit
-  nmap <leader>q :q<cr>
-  " Quick reindent
-  nmap === mrgg=Gg`r
+" screen line scroll
+nnoremap <silent> j gj
+nnoremap <silent> k gk
 
-  " screen line scroll
-  nnoremap <silent> j gj
-  nnoremap <silent> k gk
+" Removing escape
+ino kj <esc>
+cno kj <c-c>
+ino jk <esc>
+cno jk <c-c>
+ino kk <esc>
+ino jj <esc>
+cno jj <c-c>
+cno kk <c-c>
 
-  " Removing escape
-  ino kj <esc>
-  cno kj <c-c>
-  ino jk <esc>
-  cno jk <c-c>
-  ino kk <esc>
-  ino jj <esc>
-  cno jj <c-c>
-  cno kk <c-c>
+" Auto change directory to match current file ,cd
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
-  " Auto change directory to match current file ,cd
-  nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+" Switch between the last two files
+nnoremap <leader><leader> <c-^>
 
-  " Switch between the last two files
-  nnoremap <leader><leader> <c-^>
+" Stay at the bottom line after visual yank
+vno y ygv<esc>
 
-  " Stay at the bottom line after visual yank
-  vno y ygv<esc>
+" Yank till the end of line
+nnoremap Y y$
 
-  " Yank till the end of line
-  nnoremap Y y$
+" Quickly select text you just pasted:
+noremap gV `[v`]
+" reselect last paste
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-  " Quickly select text you just pasted:
-  noremap gV `[v`]
-  " reselect last paste
-  nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+" Indentation
+vmap > >gv
+vmap < <gv
 
-  " Indentation
-  vmap > >gv
-  vmap < <gv
+" change cursor position in insert mode
+" inoremap <C-h> <left>
+" inoremap <C-l> <right>
 
-  " change cursor position in insert mode
-  " inoremap <C-h> <left>
-  " inoremap <C-l> <right>
+" command-line window {{{
+nnoremap q: q:i
+nnoremap q/ q/i
+nnoremap q? q?i
+" }}}
 
-  " command-line window {{{
-      nnoremap q: q:i
-      nnoremap q/ q/i
-      nnoremap q? q?i
-    " }}}
+" folds {{{
+nnoremap zr zr:echo &foldlevel<cr>
+nnoremap zm zm:echo &foldlevel<cr>
+nnoremap zR zR:echo &foldlevel<cr>
+nnoremap zM zM:echo &foldlevel<cr>
+" }}}
 
-  " folds {{{
-      nnoremap zr zr:echo &foldlevel<cr>
-      nnoremap zm zm:echo &foldlevel<cr>
-      nnoremap zR zR:echo &foldlevel<cr>
-      nnoremap zM zM:echo &foldlevel<cr>
-  " }}}
-
-  " auto center {{{
-    nnoremap <silent> n nzz
-    nnoremap <silent> N Nzz
-    nnoremap <silent> * *zz
-    nnoremap <silent> # #zz
-    nnoremap <silent> g* g*zz
-    nnoremap <silent> g# g#zz
-    nnoremap <silent> <C-o> <C-o>zz
-    nnoremap <silent> <C-i> <C-i>zz
-  "}}}
+" auto center {{{
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
+nnoremap <silent> <C-o> <C-o>zz
+nnoremap <silent> <C-i> <C-i>zz
+"}}}
 
 " shortcuts for windows {{{
-    " Edit another file in the same directory as the current file
-    " uses expression to extract path from current file's path
-    map <Leader>e :e <C-R>=escape(expand("%:p:h"),' ') . '/'<CR>
-    map <Leader>s :split <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
-    map <Leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
-    nnoremap <leader>vsa :vert sba<cr>
-    nnoremap <C-h> <C-w>h
-    nnoremap <C-j> <C-w>j
-    nnoremap <C-k> <C-w>k
-    nnoremap <C-l> <C-w>l
-  "}}}
+" Edit another file in the same directory as the current file
+" uses expression to extract path from current file's path
+map <Leader>e :e <C-R>=escape(expand("%:p:h"),' ') . '/'<CR>
+map <Leader>s :split <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+map <Leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+nnoremap <leader>vsa :vert sba<cr>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+"}}}
 
-  " Useful mappings for managing tabs {{{
-    map <leader>tn :tabnew<cr>
-    map <leader>to :tabonly<cr>
-    map <leader>tc :tabclose<cr>
-    map <leader>tm :tabmove
+" Useful mappings for managing tabs {{{
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
 
-    " Let 'tl' toggle between this and the last accessed tab
-    let g:lasttab = 1
-    nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-    au TabLeave * let g:lasttab = tabpagenr()
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
 
-    " Opens a new tab with the current buffer's path
-    " Super useful when editing files in the same directory
-    map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-  " }}}
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+" }}}
 
-  " make Y consistent with C and D. See :help Y.
-  nnoremap Y y$
+" make Y consistent with C and D. See :help Y.
+nnoremap Y y$
 
-  " hide annoying quit message
-  nnoremap <C-c> <C-c>:echo<cr>
+" hide annoying quit message
+nnoremap <C-c> <C-c>:echo<cr>
 
-  " window killer
-  nnoremap <silent> Q :call CloseWindowOrKillBuffer()<cr>
+" window killer
+nnoremap <silent> Q :call CloseWindowOrKillBuffer()<cr>
 
-  " quick buffer open
-  nnoremap gb :ls<cr>:e #
+" quick buffer open
+nnoremap gb :ls<cr>:e #
 
-  nnoremap <BS> :set hlsearch! hlsearch?<cr>:redraw!<cr>:set hlsearch?<cr>
+nnoremap <BS> :set hlsearch! hlsearch?<cr>:redraw!<cr>:set hlsearch?<cr>
 
-  " System clipboard {{{
-    set pastetoggle=<F2>
-    nmap <Leader>yy "+yy
-    nmap <Leader>dd "+dd
-    vmap <Leader>y "+y
-    vmap <Leader>d "+d
-    nmap <Leader>p "+p
-    nmap <Leader>P "+P
-    vmap <Leader>p "+p
-    vmap <Leader>P "+P
-  "}}}
+" System clipboard {{{
+set pastetoggle=<F2>
+nmap <Leader>yy "+yy
+nmap <Leader>dd "+dd
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+"}}}
 
 " }}}
 
@@ -562,9 +342,9 @@ set switchbuf=useopen,usetab ",newtab
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-      \   exe "normal! g`\"" |
-      \ endif
+            \ if line("'\"") > 0 && line("'\"") <= line("$") |
+            \   exe "normal! g`\"" |
+            \ endif
 
 " Remember info about open buffers on close
 set viminfo^=%
@@ -574,16 +354,16 @@ function! CloseWindowOrKillBuffer() "{{{
 
     " never bdelete a nerd tree
     if matchstr(expand("%"), 'NERD') == 'NERD'
-      wincmd c
-      return
+        wincmd c
+        return
     endif
 
     if number_of_windows_to_this_buffer > 1
-      wincmd c
+        wincmd c
     else
-      bdelete
+        bdelete
     endif
-  endfunction "}}}
+endfunction "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
@@ -595,12 +375,6 @@ let g:bufferline_echo = 0
 " edkolev/tmuxline.vim
 let g:tmuxline_preset = 'minimal'
 let g:tmuxline_theme = 'airline'
-
-" tpope/vim-fugitive
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gc :Gcommit<cr>
-nnoremap <leader>gw :Gwrite<cr>
-nnoremap <leader>gr :Gread<cr>
 
 " gregsexton/gitv
 nnoremap <leader>gv :Gitv<cr>
