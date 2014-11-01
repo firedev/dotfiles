@@ -1,24 +1,231 @@
-let bundle = "~/.vimrc.bundle" " So I can easily gf
-" Modeline and Notes {
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker nospell:
-
-" }
-" Map <Leader> to ,
+" vim: foldmethod=marker fmr={,}
 let mapleader = " "
 let g:mapleader = " "
-" Use bundles config {
-if filereadable(expand(bundle))
-    source ~/.vimrc.bundle
+
+" Plugins {
+set nocompatible              " be iMproved, required
+filetype off                  " required
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/vundle
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+" let Vundle manage Vundle, required
+Plugin 'gmarik/vundle'
+
+" Snippets and completion {
+" Plugin 'Valloric/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'asux/vim-capybara.git'
+Plugin 'Keithbsmiley/rspec.vim'
+" }
+
+" Colors, indents, airline, tmuxline {
+Plugin 'bling/vim-airline' "{
+" bling/vim-airline
+" remove separators
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_left_alt_sep=''
+let g:airline_right_alt_sep=''
+let g:airline_section_y='' " Remove encoding and newline
+" enable/disable showing only non-zero hunks.
+let g:airline#extensions#hunks#non_zero_only=1
+" because of TmuxlineSnapshot
+let g:airline#extensions#tmuxline#enabled=0
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#close_symbol = '✖'
+"}
+Plugin 'airblade/vim-gitgutter' "{
+" highlight clear SignColumn
+highlight GitGutterAdd ctermfg=green guibg=bg
+highlight GitGutterDelete ctermfg=red guibg=bg
+highlight GitGutterChange ctermfg=yellow guibg=bg
+highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
+let g:gitgutter_realtime = 0
+"}
+" Plugin 'Yggdroot/indentLine' "{
+" let g:indentLine_char="┆"
+" "}
+
+Plugin 'nathanaelkane/vim-indent-guides' "{
+let g:indent_guides_color_change_percent = 1
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+"}
+
+Plugin 'flazz/vim-colorschemes'
+Plugin 'firedev/tmuxline.vim' "{
+let g:tmuxline_powerline_separators = 0
+"}
+"}
+"}
+
+" Text objects {
+
+Plugin 'vim-scripts/camelcasemotion' "{
+" Camelcasemotion
+map w <Plug>CamelCaseMotion_w
+map b <Plug>CamelCaseMotion_b
+map e <Plug>CamelCaseMotion_e
+sunmap w
+sunmap b
+sunmap e
+omap iw <Plug>CamelCaseMotion_iw
+xmap iw <Plug>CamelCaseMotion_iw
+omap ib <Plug>CamelCaseMotion_ib
+xmap ib <Plug>CamelCaseMotion_ib
+omap ie <Plug>CamelCaseMotion_ie
+xmap ie <Plug>CamelCaseMotion_ie
+"}
+
+Plugin 'beloglazov/vim-textobj-quotes'  " Closest quotes              aq / iq {
+" beloglazov/vim-textobj-quotes
+xmap q iq
+omap q iq
+" Now, you just need to press cq, dq, yq, or vq to operate on the text in single
+" ('), double ("), or back (`) quotes nearby without manually moving into them.
+" }
+
+Plugin 'kana/vim-textobj-user'
+Plugin 'kana/vim-textobj-entire'        " Entire dociment             ae / ie
+Plugin 'kana/vim-textobj-indent'        " Indent block                ai / ii / aI / iI
+" Plugin 'glts/vim-textobj-indblock.git'  " Whitespace in indent block  ao / io
+Plugin 'Julian/vim-textobj-brace'       " Any parens                  aj / ij
+Plugin 'glts/vim-textobj-comment'       " Comment                     ac / ic
+Plugin 'tek/vim-textobj-ruby'           " .rb Block, Class, Fun, Name ab / ac / af / an
+Plugin 'vim-scripts/argtextobj.vim'
+"}
+
+" Lanugage Syntax {
+Plugin 'scrooloose/syntastic' "{
+let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_style_error_symbol = '✠'
+let g:syntastic_warning_symbol = "⚠"
+let g:syntastic_style_warning_symbol = "≈"
+let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_aggregate_errors = 1
+" When set to 2 the cursor will jump to the first issue detected, but only if
+" this issue is an error. >
+" let g:syntastic_auto_jump = 2
+" When set to 1 the error window will be automatically opened when errors are
+" detected, and closed when none are detected. >
+" let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height = 3
+" }
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'gorodinskiy/vim-coloresque'
+Plugin 'slim-template/vim-slim'
+Plugin 'vim-ruby/vim-ruby'
+" }
+
+" Editing {
+Plugin 'godlygeek/tabular.git'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'AndrewRadev/switch.vim' "{
+nnoremap - :Switch<cr>
+"}
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'terryma/vim-expand-region'
+" }
+
+" Tmux {
+Plugin 'sjl/vitality.vim'
+Plugin 'benmills/vimux' "{
+" Vimux
+" Prompt for a command to run
+map <leader>vr :VimuxPromptCommand<cr>
+map <leader>vx :VimuxCloseRunner<cr>
+"}
+Plugin 'christoomey/vim-tmux-navigator'
+" }
+
+" Navigation and autocompletion {
+Plugin 'scrooloose/nerdtree' "{
+" scrooloose/nerdtree
+" let NERDTreeQuitOnOpen=1
+nnoremap <leader>nt :NERDTreeToggle<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
+nnoremap <leader>nc :NERDTreeCWD<cr>
+" }
+Plugin 'kien/ctrlp.vim' "{
+" kien/ctrlp.vim
+" let g:ctrlp_user_command='git --git-dir=%s/.git ls-files -oc --exclude-standard'
+" let g:ctrlp_working_path_mode=0
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+let g:ctrlp_map = '<c-p><c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+nnoremap <c-p>t :CtrlPTag<cr>
+nnoremap <c-p>r :CtrlPMRUFiles<cr>
+nnoremap <c-p>b :CtrlPBuffer<cr>
+nnoremap <c-p><c-t> :CtrlPTag<cr>
+nnoremap <c-p><c-r> :CtrlPMRUFiles<cr>
+nnoremap <c-p><c-b> :CtrlPBuffer<cr>
+if executable('ag')
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
 endif
+"}
+
+" Plugin 'xolox/vim-easytags' " {{{
+" " Easytags
+" let g:easytags_async = 1
+" " }}}
+
+Plugin 'majutsushi/tagbar' " {
+nmap <leader>] :TagbarToggle<CR>
+" }
+Plugin 'rking/ag.vim' "{
+let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-'.(&columns - 6).' }; f'
+"}
+Plugin 'rizzatti/dash.vim'
+Plugin 'xolox/vim-misc'
+Plugin 'gregsexton/gitv'
+Plugin 'rgarver/Kwbd.vim'
+"}
+
+" Tpope {
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-rsi'
+Plugin 'tpope/vim-endwise'
+" }
+
+" vindle#end {
+call vundle#end()            " required
+filetype plugin indent on    " required
+"}
+
+" Modeline and Notes {
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=3 foldmethod=marker nospell:
+
 " }
 
 " SETTINGS {{{
 if has('clipboard')
-    if has('unnamedplus')  " When possible use + register for copy-paste
-        set clipboard=unnamed,unnamedplus
-    else         " On mac and Windows, use * register for copy-paste
-        set clipboard=unnamed
-    endif
+  if has('unnamedplus')  " When possible use + register for copy-paste
+    set clipboard=unnamed,unnamedplus
+  else         " On mac and Windows, use * register for copy-paste
+    set clipboard=unnamed
+  endif
 endif
 
 set expandtab           " Change TABS to SPACES
@@ -45,25 +252,18 @@ set scrolloff=3         " Set lines to the cursor - when moving vertically using
 set scrolljump=5        " Show 5 lines when jumping out of the window
 
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
-set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
 set virtualedit=onemore             " Allow for cursor beyond last character
 set history=1000                    " Store a ton of history (default is 20)
 set nospell                           " Spell checking off
 set iskeyword-=.                    " '.' is an end of word designator
 set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
-
-" Persistent undo
 set history=1000
 set undofile
 set undodir=~/.vim/undo//
-
-" No backup or swap
 set nobackup
 set noswapfile
 set nowb
-
-" Windows and splits
 set hidden                          " Allow buffer switching without saving
 set splitbelow
 set splitright
@@ -71,12 +271,9 @@ set winminheight=0
 set winminwidth=0
 set diffopt+=vertical
 
-" disable sounds
 set noerrorbells
 set novisualbell
 set t_vb=
-
-" See invisibles
 set listchars=tab:›\ ,trail:⋅,nbsp:~,extends:❯,precedes:❮
 set list
 
@@ -91,7 +288,6 @@ set wildignore+=.DS_Store,vim/undo/**,/var/folders/**,.git/**,vendor/gems/*,*.pn
 set wildmode=list:longest,list:full
 set wildmenu
 set wildignorecase
-
 " }}}
 
 " UI CONFIGURATION {{{
@@ -109,9 +305,9 @@ set foldmethod=syntax                               "fold via syntax of files
 set foldlevelstart=99                               "open all folds by default
 let g:xml_syntax_folding=1                          "enable xml folding
 
-set cursorline
-autocmd WinLeave * setlocal nocursorline
-autocmd WinEnter * setlocal cursorline
+" set cursorline
+" autocmd WinLeave * setlocal nocursorline
+" autocmd WinEnter * setlocal cursorline
 
 " }}}
 
@@ -121,23 +317,23 @@ au! BufWritePost .vimrc source %
 au! BufWritePost vimrc :Reload
 
 augroup vimrc
-    autocmd!
-    " When editing a file, always jump to the last known cursor position.
-    " Don't do it for commit messages, when the position is invalid, or when
-    " inside an event handler (happens when dropping a file on gvim).
-    autocmd BufReadPost *
-                \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-                \   exe "normal g`\"" |
-                \ endif
-    " Allow stylesheets to autocomplete hyphenated words
-    " autoindent with two spaces, always expand tabs
-    autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
-    autocmd FileType ruby,eruby,yaml setlocal path+=lib
-    " Make ?s part of words
-    autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
-    autocmd FileType php setlocal sw=4 sts=4 tabstop=4 noet
-    autocmd FileType css,scss,sass setlocal iskeyword+=-
-    autocmd FileType vim setlocal fdm=indent
+  autocmd!
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+        \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif
+  " Allow stylesheets to autocomplete hyphenated words
+  " autoindent with two spaces, always expand tabs
+  autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
+  autocmd FileType ruby,eruby,yaml setlocal path+=lib
+  " Make ?s part of words
+  autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+  autocmd FileType php setlocal sw=4 sts=4 tabstop=4 noet
+  autocmd FileType css,scss,sass setlocal iskeyword+=-
+  autocmd FileType vim setlocal fdm=indent
 augroup END
 
 " Strip trailing spaces on save
@@ -155,20 +351,44 @@ match GroupA / \+$/
 2match GroupB /\t/
 
 "Custom colors
+hi SpellBad ctermbg=darkgrey
+hi SpellCap ctermbg=darkgrey
 hi CursorLine ctermbg=black
 hi CursorLineNr ctermbg=black ctermfg=yellow cterm=bold
 hi LineNr ctermbg=black
+hi IndentGuidesEven ctermbg=black
+hi IndentGuidesOdd ctermbg=bg
 autocmd VimEnter,BufEnter,WinEnter * call MyColors()
 function! MyColors()
-    let &nuw=len(line('$'))+2
-    call matchadd('CursorLineNr', '\%81v')  "1111111111111111111111111111111111111111111111
-    call matchadd('ErrorMsg', '.*xx.*')   " xx
-    call matchadd('DiffAdd', '.*vv.*')    " vv
-    call matchadd('Search', '.*??.*')     " ??
+  let &nuw=len(line('$'))+2
+  call matchadd('CursorLineNr', '\%81v')  "1111111111111111111111111111111111111111111111
+  call matchadd('ErrorMsg', '.*xx.*')   " xx
+  call matchadd('DiffAdd', '.*vv.*')    " vv
+  call matchadd('Search', '.*??.*')     " ??
 endfunction
 "}}}
 
 " KEYBOARD {{{
+
+" LEADER {
+map <leader>a: :Tab/\w:   \zs/l0l1<cr>
+map <leader>a: : :Tab/\w: \zs/r0l1l0<cr>
+
+map <leader>d :bd<CR>  " delete buffer
+map <leader>D :bd!<CR> " force delete buffer
+" nmap Q :qa!<CR>        " force quit
+nmap <leader>c <Plug>Kwbd
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>gr :Gread<cr>
+nmap <leader>] :TagbarToggle<CR>
+" }
+
+nnoremap - :Switch<cr>
 
 " Ctrl-J - insert line under cursor
 inoremap <c-j> <esc>o
@@ -311,7 +531,7 @@ cmap W! w !sudo tee > /dev/null %
 " Note that remapping C-s requires flow control to be disabled
 " (e.g. in .bashrc or .zshrc)
 map <C-s> <esc>:w<CR>
-imap <C-s> <esc>:w<CR>
+inoremap <C-s> <esc>:w<CR>
 map <C-t> <esc>:tabnew<CR>
 " map <C-n> :cn<CR>
 " map <C-p> :cp<CR>
@@ -320,40 +540,32 @@ map <C-t> <esc>:tabnew<CR>
 " WINDOWS / SPLITS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-map <leader>d :bd<CR>  " delete buffer
-map <leader>D :bd!<CR> " force delete buffer
-" nmap Q :qa!<CR>        " force quit
-nmap <leader>c <Plug>Kwbd
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
 " Specify the behavior when switching between buffers
 set switchbuf=useopen,usetab ",newtab
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
-            \ if line("'\"") > 0 && line("'\"") <= line("$") |
-            \   exe "normal! g`\"" |
-            \ endif
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
 
 " Remember info about open buffers on close
 set viminfo^=%
 
 function! CloseWindowOrKillBuffer() "{{{
-    let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
+  let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
 
-    " never bdelete a nerd tree
-    if matchstr(expand("%"), 'NERD') == 'NERD'
-        wincmd c
-        return
-    endif
+  " never bdelete a nerd tree
+  if matchstr(expand("%"), 'NERD') == 'NERD'
+    wincmd c
+    return
+  endif
 
-    if number_of_windows_to_this_buffer > 1
-        wincmd c
-    else
-        bdelete
-    endif
+  if number_of_windows_to_this_buffer > 1
+    wincmd c
+  else
+    bdelete
+  endif
 endfunction "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

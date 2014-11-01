@@ -1,0 +1,6 @@
+Documentation:
+  Enabled: false
+EmptyLinesAroundClassBody:
+  Enabled: false
+EmptyLinesAroundModuleBody:
+  Enabled: false
