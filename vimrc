@@ -1,8 +1,9 @@
-" vim: foldmethod=marker fmr={,}
+" vim: foldmethod=marker fmr={,} foldlevel=1
+
 let mapleader = " "
 let g:mapleader = " "
 
-" Plugins {
+" Vundle Start {
 set nocompatible              " be iMproved, required
 filetype off                  " required
 " set the runtime path to include Vundle and initialize
@@ -12,7 +13,6 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 " let Vundle manage Vundle, required
 Plugin 'gmarik/vundle'
-
 " Snippets and completion {
 " Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
@@ -20,7 +20,6 @@ Plugin 'honza/vim-snippets'
 Plugin 'asux/vim-capybara.git'
 Plugin 'Keithbsmiley/rspec.vim'
 " }
-
 " Colors, indents, airline, tmuxline {
 Plugin 'bling/vim-airline' "{
 " bling/vim-airline
@@ -58,14 +57,13 @@ let g:indent_guides_auto_colors = 0
 "}
 
 Plugin 'flazz/vim-colorschemes'
-Plugin 'firedev/tmuxline.vim' "{
+Plugin 'edkolev/tmuxline.vim' "{
 let g:tmuxline_powerline_separators = 0
 "}
 "}
-"}
+" }
 
 " Text objects {
-
 Plugin 'vim-scripts/camelcasemotion' "{
 " Camelcasemotion
 map w <Plug>CamelCaseMotion_w
@@ -81,7 +79,6 @@ xmap ib <Plug>CamelCaseMotion_ib
 omap ie <Plug>CamelCaseMotion_ie
 xmap ie <Plug>CamelCaseMotion_ie
 "}
-
 Plugin 'beloglazov/vim-textobj-quotes'  " Closest quotes              aq / iq {
 " beloglazov/vim-textobj-quotes
 xmap q iq
@@ -89,16 +86,14 @@ omap q iq
 " Now, you just need to press cq, dq, yq, or vq to operate on the text in single
 " ('), double ("), or back (`) quotes nearby without manually moving into them.
 " }
-
 Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-entire'        " Entire dociment             ae / ie
 Plugin 'kana/vim-textobj-indent'        " Indent block                ai / ii / aI / iI
-" Plugin 'glts/vim-textobj-indblock.git'  " Whitespace in indent block  ao / io
 Plugin 'Julian/vim-textobj-brace'       " Any parens                  aj / ij
 Plugin 'glts/vim-textobj-comment'       " Comment                     ac / ic
 Plugin 'tek/vim-textobj-ruby'           " .rb Block, Class, Fun, Name ab / ac / af / an
 Plugin 'vim-scripts/argtextobj.vim'
-"}
+" }
 
 " Lanugage Syntax {
 Plugin 'scrooloose/syntastic' "{
@@ -129,7 +124,8 @@ Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'AndrewRadev/switch.vim' "{
 nnoremap - :Switch<cr>
 "}
-Plugin 'jiangmiao/auto-pairs'
+" Plugin 'vim-scripts/simplefold'
+" Plugin 'jiangmiao/auto-pairs'
 Plugin 'terryma/vim-expand-region'
 " }
 
@@ -176,19 +172,18 @@ if executable('ag')
 endif
 "}
 
-" Plugin 'xolox/vim-easytags' " {{{
-" " Easytags
-" let g:easytags_async = 1
-" " }}}
+Plugin 'xolox/vim-easytags' " {{{
+Plugin 'xolox/vim-misc'
+let g:easytags_async = 1
+" }}}
 
-Plugin 'majutsushi/tagbar' " {
-nmap <leader>] :TagbarToggle<CR>
-" }
+" Plugin 'majutsushi/tagbar' " {
+" nmap <leader>] :TagbarToggle<CR>
+" " }
 Plugin 'rking/ag.vim' "{
-let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-'.(&columns - 6).' }; f'
+let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-'.(160).' }; f'
 "}
 Plugin 'rizzatti/dash.vim'
-Plugin 'xolox/vim-misc'
 Plugin 'gregsexton/gitv'
 Plugin 'rgarver/Kwbd.vim'
 "}
@@ -214,11 +209,6 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 "}
 
-" Modeline and Notes {
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=3 foldmethod=marker nospell:
-
-" }
-
 " SETTINGS {{{
 if has('clipboard')
   if has('unnamedplus')  " When possible use + register for copy-paste
@@ -228,6 +218,8 @@ if has('clipboard')
   endif
 endif
 
+set guioptions-=L
+set guioptions-=r
 set expandtab           " Change TABS to SPACES
 set tabstop=2           " 2 Spaces
 set shiftwidth=2        "
@@ -474,6 +466,10 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+inoremap <C-h> <esc><C-w>h
+inoremap <C-j> <esc><C-w>j
+inoremap <C-k> <esc><C-w>k
+inoremap <C-l> <esc><C-w>l
 "}}}
 
 " Useful mappings for managing tabs {{{
