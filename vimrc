@@ -72,6 +72,9 @@ map e <Plug>CamelCaseMotion_e
 sunmap w
 sunmap b
 sunmap e
+nmap cw ce
+omap iw ie
+xmap iw ie
 omap iw <Plug>CamelCaseMotion_iw
 xmap iw <Plug>CamelCaseMotion_iw
 omap ib <Plug>CamelCaseMotion_ib
@@ -93,6 +96,7 @@ Plugin 'Julian/vim-textobj-brace'       " Any parens                  aj / ij
 Plugin 'glts/vim-textobj-comment'       " Comment                     ac / ic
 Plugin 'tek/vim-textobj-ruby'           " .rb Block, Class, Fun, Name ab / ac / af / an
 Plugin 'vim-scripts/argtextobj.vim'
+Plugin 'henrik/vim-yaml-flattener'
 " }
 
 " Lanugage Syntax {
@@ -119,24 +123,26 @@ Plugin 'vim-ruby/vim-ruby'
 " }
 
 " Editing {
-Plugin 'godlygeek/tabular.git'
-Plugin 'AndrewRadev/splitjoin.vim'
+" Plugin 'godlygeek/tabular.git'
+Plugin 'AndrewRadev/splitjoin.vim' " {
+let g:splitjoin_ruby_hanging_args = 0
+" }
 Plugin 'AndrewRadev/switch.vim' "{
 nnoremap - :Switch<cr>
 "}
 " Plugin 'vim-scripts/simplefold'
 " Plugin 'jiangmiao/auto-pairs'
-Plugin 'terryma/vim-expand-region'
+" Plugin 'terryma/vim-expand-region'
 " }
 
 " Tmux {
 Plugin 'sjl/vitality.vim'
-Plugin 'benmills/vimux' "{
-" Vimux
-" Prompt for a command to run
-map <leader>vr :VimuxPromptCommand<cr>
-map <leader>vx :VimuxCloseRunner<cr>
-"}
+" Plugin 'benmills/vimux' "{
+" " Vimux
+" " Prompt for a command to run
+" map <leader>vr :VimuxPromptCommand<cr>
+" map <leader>vx :VimuxCloseRunner<cr>
+" "}
 Plugin 'christoomey/vim-tmux-navigator'
 " }
 
@@ -172,10 +178,10 @@ if executable('ag')
 endif
 "}
 
-Plugin 'xolox/vim-easytags' " {{{
+Plugin 'xolox/vim-easytags' " {
 Plugin 'xolox/vim-misc'
 let g:easytags_async = 1
-" }}}
+" }
 
 " Plugin 'majutsushi/tagbar' " {
 " nmap <leader>] :TagbarToggle<CR>
