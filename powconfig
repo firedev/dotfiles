@@ -1,3 +1,1 @@
-export POW_DST_PORT=88
-export HOME=/Users/pain
-export PATH="$HOME/.rbenv/shims:$HOME/.rbenv/bin:/usr/local/bin:$PATH"
+export PATH="/Users/pain/.rbenv/shims:/Users/pain/.rbenv/bin:$PATH

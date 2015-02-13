@@ -1,4 +1,4 @@
-" vim: foldmethod=marker fmr={,} foldlevel=1
+" xim: foldmethod=marker fmr={,} foldlevel=1
 
 let mapleader = " "
 let g:mapleader = " "
@@ -290,7 +290,6 @@ set wildignorecase
 
 " UI CONFIGURATION {{{
 set t_Co=256
-set ttyfast
 set lazyredraw
 set showcmd             " Show (partial) command in the status line
 set showmatch           " See matching brackets
@@ -298,10 +297,10 @@ set matchtime=1         " Blink them quickly
 set number
 set laststatus=2
 set noshowmode
-set foldenable                                      "enable folds by default
-set foldmethod=syntax                               "fold via syntax of files
-set foldlevelstart=99                               "open all folds by default
-let g:xml_syntax_folding=1                          "enable xml folding
+" set foldenable                                      "enable folds by default
+" set foldmethod=syntax                               "fold via syntax of files
+" set foldlevelstart=99                               "open all folds by default
+" let g:xml_syntax_folding=1                          "enable xml folding
 
 " set cursorline
 " autocmd WinLeave * setlocal nocursorline

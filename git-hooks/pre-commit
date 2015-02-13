@@ -1,4 +1,4 @@
 FILES_PATTERN='\.rb(\..+)?$'
-FORBIDDEN="\, focus: true"
+FORBIDDEN="(\, focus: true|binding\.pry)"
 git diff --cached --name-only | egrep "$FILES_PATTERN" | xargs egrep --with-filename -n "$FORBIDDEN" && echo "Commit reject, found $FORBIDDEN reference, please remove" && exit 1
 exit 0

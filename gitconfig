@@ -1,6 +1,12 @@
 [user]
 	name = Nick
-	email = nick@firedev.com
+  email = nick@firedev.com
+[alias]
+  o = !hub browse
+  pushup = !git push origin `git symbolic-ref HEAD --short` -u
+  cleanup = !git checkout master && git pull --rebase && \
+             git remote prune origin && git branch --merged | \
+             grep -v "\\*" | xargs -n 1 git branch -d
 [color]
 	branch = auto
 	ui = true
@@ -18,13 +24,14 @@
 [fetch]
 	prune = true
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+	clean = git media clean %f
+	smudge = git media smudge %f
+	required = true
 [push]
 	default = simple
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
