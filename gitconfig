@@ -1,6 +1,6 @@
 [user]
 	name = Nick
-  email = nick@firedev.com
+	email = nick@firedev.com
 [alias]
   o = !hub browse
   pushup = !git push origin `git symbolic-ref HEAD --short` -u
@@ -35,3 +35,8 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[http]
+	postBuffer = 524288000
+[branch "master"]
+	merge = refs/heads/master
+	remote = origin
