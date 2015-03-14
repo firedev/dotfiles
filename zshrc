@@ -88,7 +88,7 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-alias vimrc="vim ~/dotfiles/vimrc"
+alias vimrc="vim ~/.vimrc"
 alias bu="brew update && brew upgrade"
 alias d="git push && cap deploy"
 alias ls="gls"

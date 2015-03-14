@@ -1,29 +1,25 @@
-" xim: foldmethod=marker fmr={,} foldlevel=1
-
+set encoding=utf-8 nobomb
 let mapleader = " "
 let g:mapleader = " "
 
-" Vundle Start {
+" Vundle Start
 set nocompatible              " be iMproved, required
 filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/vundle
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-" let Vundle manage Vundle, required
 Plugin 'gmarik/vundle'
-" Snippets and completion {
-" Plugin 'Valloric/YouCompleteMe'
+
+" Snippets and completion
+
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'asux/vim-capybara.git'
 Plugin 'Keithbsmiley/rspec.vim'
-" }
-" Colors, indents, airline, tmuxline {
-Plugin 'bling/vim-airline' "{
-" bling/vim-airline
-" remove separators
+
+" Colors, indents, airline, tmuxline
+Plugin 'flazz/vim-colorschemes'
+Plugin 'bling/vim-airline'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_left_alt_sep=''
@@ -37,35 +33,25 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#close_symbol = '✖'
-"}
+
 Plugin 'airblade/vim-gitgutter' "{
-" highlight clear SignColumn
 highlight GitGutterAdd ctermfg=green guibg=bg
 highlight GitGutterDelete ctermfg=red guibg=bg
 highlight GitGutterChange ctermfg=yellow guibg=bg
 highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
 let g:gitgutter_realtime = 0
-"}
-" Plugin 'Yggdroot/indentLine' "{
-" let g:indentLine_char="┆"
-" "}
 
 Plugin 'nathanaelkane/vim-indent-guides' "{
 let g:indent_guides_color_change_percent = 1
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
-"}
 
-Plugin 'flazz/vim-colorschemes'
 Plugin 'edkolev/tmuxline.vim' "{
 let g:tmuxline_powerline_separators = 0
-"}
-"}
-" }
 
 " Text objects {
-Plugin 'vim-scripts/camelcasemotion' "{
-" Camelcasemotion
+
+Plugin 'vim-scripts/camelcasemotion'
 map w <Plug>CamelCaseMotion_w
 map b <Plug>CamelCaseMotion_b
 map e <Plug>CamelCaseMotion_e
@@ -81,26 +67,10 @@ omap ib <Plug>CamelCaseMotion_ib
 xmap ib <Plug>CamelCaseMotion_ib
 omap ie <Plug>CamelCaseMotion_ie
 xmap ie <Plug>CamelCaseMotion_ie
-"}
-Plugin 'beloglazov/vim-textobj-quotes'  " Closest quotes              aq / iq {
-" beloglazov/vim-textobj-quotes
-xmap q iq
-omap q iq
-" Now, you just need to press cq, dq, yq, or vq to operate on the text in single
-" ('), double ("), or back (`) quotes nearby without manually moving into them.
-" }
-Plugin 'kana/vim-textobj-user'
-Plugin 'kana/vim-textobj-entire'        " Entire dociment             ae / ie
-Plugin 'kana/vim-textobj-indent'        " Indent block                ai / ii / aI / iI
-Plugin 'Julian/vim-textobj-brace'       " Any parens                  aj / ij
-Plugin 'glts/vim-textobj-comment'       " Comment                     ac / ic
-Plugin 'tek/vim-textobj-ruby'           " .rb Block, Class, Fun, Name ab / ac / af / an
-Plugin 'vim-scripts/argtextobj.vim'
-Plugin 'henrik/vim-yaml-flattener'
-" }
 
 " Lanugage Syntax {
-Plugin 'scrooloose/syntastic' "{
+
+Plugin 'scrooloose/syntastic'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_style_error_symbol = '✠'
@@ -115,91 +85,76 @@ let g:syntastic_always_populate_loc_list = 1
 " detected, and closed when none are detected. >
 " let g:syntastic_auto_loc_list = 1
 let g:syntastic_loc_list_height = 3
-" }
+
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'slim-template/vim-slim'
 Plugin 'vim-ruby/vim-ruby'
-" }
+Plugin 'ecomba/vim-ruby-refactoring'
 
-" Editing {
-" Plugin 'godlygeek/tabular.git'
+" Editing
+
 Plugin 'AndrewRadev/splitjoin.vim' " {
 let g:splitjoin_ruby_hanging_args = 0
-" }
+
 Plugin 'AndrewRadev/switch.vim' "{
 nnoremap - :Switch<cr>
-"}
-" Plugin 'vim-scripts/simplefold'
-" Plugin 'jiangmiao/auto-pairs'
-" Plugin 'terryma/vim-expand-region'
-" }
 
-" Tmux {
+" Tmux
 Plugin 'sjl/vitality.vim'
-" Plugin 'benmills/vimux' "{
-" " Vimux
-" " Prompt for a command to run
-" map <leader>vr :VimuxPromptCommand<cr>
-" map <leader>vx :VimuxCloseRunner<cr>
-" "}
 Plugin 'christoomey/vim-tmux-navigator'
-" }
 
-" Navigation and autocompletion {
-Plugin 'scrooloose/nerdtree' "{
-" scrooloose/nerdtree
-" let NERDTreeQuitOnOpen=1
+" Navigation and autocompletion
+Plugin 'scrooloose/nerdtree'
 nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
-" }
+
 Plugin 'kien/ctrlp.vim' "{
-" kien/ctrlp.vim
-" let g:ctrlp_user_command='git --git-dir=%s/.git ls-files -oc --exclude-standard'
-" let g:ctrlp_working_path_mode=0
-" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 let g:ctrlp_map = '<c-p><c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-
 nnoremap <c-p>t :CtrlPTag<cr>
 nnoremap <c-p>r :CtrlPMRUFiles<cr>
 nnoremap <c-p>b :CtrlPBuffer<cr>
 nnoremap <c-p><c-t> :CtrlPTag<cr>
 nnoremap <c-p><c-r> :CtrlPMRUFiles<cr>
 nnoremap <c-p><c-b> :CtrlPBuffer<cr>
-if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-"}
+hi def link CtrlPMatch CursorLine
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_switch_buffer = 'Et'
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\.git\|node_modules\|bin\|\.hg\|\.svn\|build\|log\|resources\|coverage\|doc\|tmp\|public/assets\|vendor\|Android',
+      \ 'file': '\.jpg$\|\.exe$\|\.so$\|tags$\|\.dll$'
+      \ }
+nnoremap <C-b> :CtrlPBuffer<cr>
 
-Plugin 'xolox/vim-easytags' " {
+Plugin 'd11wtq/ctrlp_bdelete.vim'
+
+Plugin 'tacahiroy/ctrlp-funky'
+let g:ctrlp_extensions = ['funky']
+let g:ctrlp_funky_multi_buffers = 1
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+
+Plugin 'xolox/vim-easytags'
 Plugin 'xolox/vim-misc'
 let g:easytags_async = 1
-" }
+let g:vim_tags_auto_generate = 0 " Vim defaults
 
-" Plugin 'majutsushi/tagbar' " {
-" nmap <leader>] :TagbarToggle<CR>
-" " }
 Plugin 'rking/ag.vim' "{
 let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-'.(160).' }; f'
-"}
+
 Plugin 'rizzatti/dash.vim'
 Plugin 'gregsexton/gitv'
 Plugin 'rgarver/Kwbd.vim'
-"}
 
-" Tpope {
+" Tpope
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-abolish'
+" Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-sensible'
@@ -208,12 +163,15 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-rsi'
 Plugin 'tpope/vim-endwise'
-" }
+Plugin 'tpope/vim-vinegar'
+nmap <C-e> <Plug>VinegarVerticalSplitUp
 
-" vindle#end {
 call vundle#end()            " required
 filetype plugin indent on    " required
-"}
+
+"###############################################################################
+" Plugin 'd11wtq/ctrlp_bdelete.vim'
+call ctrlp_bdelete#init()
 
 " SETTINGS {{{
 if has('clipboard')
@@ -223,6 +181,9 @@ if has('clipboard')
     set clipboard=unnamed
   endif
 endif
+
+syntax enable
+syntax sync fromstart
 
 set guioptions-=L
 set guioptions-=r
@@ -241,15 +202,21 @@ set formatoptions=q     " Allow gq on a long line
 set autoread            " Auto read
 set autowrite
 set autowriteall        " Save on buffer switch
-set timeout
-set timeoutlen=300
-set ttimeoutlen=50
+" set timeout
+" set timeoutlen=300
+" set ttimeoutlen=50
+" Time out on key codes but not mappings
+set notimeout
+set ttimeout
+set ttimeoutlen=100
+
 set showfulltag
 set cursorline          " Highlight cursorline
 set scrolloff=3         " Set lines to the cursor - when moving vertically using
 set scrolljump=5        " Show 5 lines when jumping out of the window
 
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+set shortmess=atI
 set virtualedit=onemore             " Allow for cursor beyond last character
 set history=1000                    " Store a ton of history (default is 20)
 set nospell                           " Spell checking off
@@ -257,8 +224,22 @@ set iskeyword-=.                    " '.' is an end of word designator
 set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
 set history=1000
-set undofile
-set undodir=~/.vim/undo//
+set undofile                    " Save undo's after file closes
+set undodir=~/.vim/undo         " where to save undo histories
+set undolevels=1000             " How many undos
+set undoreload=10000            " number of lines to save for undo
+if exists("+undofile")
+  " undofile - This allows you to use undos after exiting and restarting
+  " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
+  " :help undo-persistence
+  " This is only present in 7.3+
+  if isdirectory($HOME . '/.vim/undo') == 0
+    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+  endif
+  set undodir=./.vim-undo//
+  set undodir+=~/.vim/undo//
+  set undofile
+endif
 set nobackup
 set noswapfile
 set nowb
@@ -268,12 +249,14 @@ set splitright
 set winminheight=0
 set winminwidth=0
 set diffopt+=vertical
-
+set nojoinspaces                    " No double space after dot when J
 set noerrorbells
 set novisualbell
 set t_vb=
 set listchars=tab:›\ ,trail:⋅,nbsp:~,extends:❯,precedes:❮
 set list
+set exrc                            " Local .vimrc
+set nostartofline
 
 " Searching
 set hlsearch
@@ -283,12 +266,39 @@ set smartcase           " ignore case if search pattern is all lowercase,
 
 " Tab completion
 set wildignore+=.DS_Store,vim/undo/**,/var/folders/**,.git/**,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
-set wildmode=list:longest,list:full
+
+" Disable output and VCS files
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+
+" Ignore images and log files
+set wildignore+=*.gif,*.jpg,*.png,*.log
+
+" Disable archive files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+
+" Ignore bundler and sass cache
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+
+" Ignore rails temporary asset caches
+set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
+
+" Ignore custom folders
+set wildignore+=*/resources/*
+
+" Ignore node modules
+set wildignore+=node_modules/*
+
+" Disable temp and backup files
+set wildignore+=*.swp,*~,._*
+
+" Disable osx index files
+set wildignore+=.DS_Store
+set wildmode=list:full,list:longest
 set wildmenu
 set wildignorecase
 " }}}
 
-" UI CONFIGURATION {{{
+" UI CONFIGURATION
 set t_Co=256
 set lazyredraw
 set showcmd             " Show (partial) command in the status line
@@ -297,7 +307,14 @@ set matchtime=1         " Blink them quickly
 set number
 set laststatus=2
 set noshowmode
-" set foldenable                                      "enable folds by default
+
+set foldmethod=indent
+set foldlevel=1
+set foldnestmax=10
+" Open all folds by default
+set nofoldenable
+
+" set nofoldenable                                      "enable folds by default
 " set foldmethod=syntax                               "fold via syntax of files
 " set foldlevelstart=99                               "open all folds by default
 " let g:xml_syntax_folding=1                          "enable xml folding
@@ -306,12 +323,11 @@ set noshowmode
 " autocmd WinLeave * setlocal nocursorline
 " autocmd WinEnter * setlocal cursorline
 
-" }}}
-
-" AUTOCOMMANDS {{{
+" AUTOCOMMANDS
 command! Reload source ~/.vimrc
 au! BufWritePost .vimrc source %
 au! BufWritePost vimrc :Reload
+autocmd BufLeave,FocusLost * silent! update
 
 augroup vimrc
   autocmd!
@@ -331,12 +347,27 @@ augroup vimrc
   autocmd FileType php setlocal sw=4 sts=4 tabstop=4 noet
   autocmd FileType css,scss,sass setlocal iskeyword+=-
   autocmd FileType vim setlocal fdm=indent
+
+  " Some file types use real tabs
+  au FileType {make,gitconfig} set noexpandtab sw=4
+
+  " Treat JSON files like JavaScript
+  au BufNewFile,BufRead *.json setf javascript
+
+  " Make Python follow PEP8
+  au FileType python set sts=4 ts=4 sw=4 tw=79
+
+  " Make sure all markdown files have the correct filetype
+  au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} setf markdown
+
+  " MultiMarkdown requires 4-space tabs
+  au FileType markdown set sts=4 ts=4 sw=4
 augroup END
 
 " Strip trailing spaces on save
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
-" }}}
+autocmd BufReadPost fugitive://* set bufhidden=delete
 
 " SYNTAX HIGHLIGHTING {{{
 syntax on
@@ -363,6 +394,8 @@ function! MyColors()
   call matchadd('DiffAdd', '.*vv.*')    " vv
   call matchadd('Search', '.*??.*')     " ??
 endfunction
+au BufEnter *.rb syn match error contained "\<binding.pry\>"
+au BufEnter *.rb syn match error contained "\<debugger\>"
 "}}}
 
 " KEYBOARD {{{
@@ -427,6 +460,10 @@ nnoremap Y y$
 noremap gV `[v`]
 " reselect last paste
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+" Expand %% to current directory
+" http://vimcasts.org/e/14
+cnoremap %% <C-R>=expand('%')<cr>
 
 " Indentation
 vmap > >gv
@@ -496,15 +533,15 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " make Y consistent with C and D. See :help Y.
 nnoremap Y y$
 
-" hide annoying quit message
-nnoremap <C-c> <C-c>:echo<cr>
-
 " window killer
 nmap Q :qa!<CR>        " force quit
 " nnoremap <silent> Q :call CloseWindowOrKillBuffer()<cr>
 
 " quick buffer open
 nnoremap gb :ls<cr>:e #
+" quick close
+nnoremap <C-c> :bnext\|bdelete #<CR>
+inoremap <C-c> <Esc>
 
 nnoremap <BS> :set hlsearch! hlsearch?<cr>:redraw!<cr>:set hlsearch?<cr>
 
@@ -528,6 +565,7 @@ vmap <Leader>P "+P
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap W! w !sudo tee > /dev/null %
+nnoremap <leader>V :e $MYVIMRC<cr>
 
 " Note that remapping C-s requires flow control to be disabled
 " (e.g. in .bashrc or .zshrc)
