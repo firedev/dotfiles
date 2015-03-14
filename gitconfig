@@ -37,6 +37,3 @@
 	trustExitCode = true
 [http]
 	postBuffer = 524288000
-[branch "master"]
-	merge = refs/heads/master
-	remote = origin
