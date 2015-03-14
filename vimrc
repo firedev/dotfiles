@@ -41,10 +41,7 @@ highlight GitGutterChange ctermfg=yellow guibg=bg
 highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
 let g:gitgutter_realtime = 0
 
-Plugin 'nathanaelkane/vim-indent-guides' "{
-let g:indent_guides_color_change_percent = 1
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors = 0
+Plugin 'nathanaelkane/vim-indent-guides'
 
 Plugin 'edkolev/tmuxline.vim' "{
 let g:tmuxline_powerline_separators = 0
@@ -384,12 +381,15 @@ hi SpellCap ctermbg=darkgrey
 hi CursorLine ctermbg=black
 hi CursorLineNr ctermbg=black ctermfg=yellow cterm=bold
 hi LineNr ctermbg=black
+" let g:indent_guides_color_change_percent = 1
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
 hi IndentGuidesEven ctermbg=black
 hi IndentGuidesOdd ctermbg=bg
 autocmd VimEnter,BufEnter,WinEnter * call MyColors()
 function! MyColors()
-  let &nuw=len(line('$'))+2
-  call matchadd('CursorLineNr', '\%81v')  "1111111111111111111111111111111111111111111111
+    let &nuw=len(line('$'))+2
+    call matchadd('CursorLineNr', '\%81v')  "1111111111111111111111111111111111111111111111
   call matchadd('ErrorMsg', '.*xx.*')   " xx
   call matchadd('DiffAdd', '.*vv.*')    " vv
   call matchadd('Search', '.*??.*')     " ??
