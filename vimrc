@@ -2,24 +2,22 @@ set encoding=utf-8 nobomb
 let mapleader = " "
 let g:mapleader = " "
 
-" Vundle Start
-set nocompatible              " be iMproved, required
-filetype off                  " required
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/vundle
-call vundle#begin()
-Plugin 'gmarik/vundle'
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 
+call plug#begin('~/.vim/plugged')
 " Snippets and completion
 
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'asux/vim-capybara.git'
-Plugin 'Keithbsmiley/rspec.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'Keithbsmiley/rspec.vim'
 
 " Colors, indents, airline, tmuxline
-Plugin 'flazz/vim-colorschemes'
-Plugin 'bling/vim-airline'
+Plug 'flazz/vim-colorschemes'
+Plug 'bling/vim-airline'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_left_alt_sep=''
@@ -34,21 +32,21 @@ let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#close_symbol = '✖'
 
-Plugin 'airblade/vim-gitgutter' "{
+Plug 'airblade/vim-gitgutter' "{
 highlight GitGutterAdd ctermfg=green guibg=bg
 highlight GitGutterDelete ctermfg=red guibg=bg
 highlight GitGutterChange ctermfg=yellow guibg=bg
 highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
 let g:gitgutter_realtime = 0
 
-Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides'
 
-Plugin 'edkolev/tmuxline.vim' "{
+Plug 'edkolev/tmuxline.vim' "{
 let g:tmuxline_powerline_separators = 0
 
 " Text objects {
 
-Plugin 'vim-scripts/camelcasemotion'
+Plug 'vim-scripts/camelcasemotion'
 map w <Plug>CamelCaseMotion_w
 map b <Plug>CamelCaseMotion_b
 map e <Plug>CamelCaseMotion_e
@@ -67,7 +65,7 @@ xmap ie <Plug>CamelCaseMotion_ie
 
 " Lanugage Syntax {
 
-Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_style_error_symbol = '✠'
@@ -83,31 +81,31 @@ let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
 let g:syntastic_loc_list_height = 3
 
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'gorodinskiy/vim-coloresque'
-Plugin 'slim-template/vim-slim'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'ecomba/vim-ruby-refactoring'
+Plug 'kchmck/vim-coffee-script'
+Plug 'gorodinskiy/vim-coloresque'
+Plug 'slim-template/vim-slim'
+Plug 'vim-ruby/vim-ruby'
+Plug 'ecomba/vim-ruby-refactoring'
 
 " Editing
 
-Plugin 'AndrewRadev/splitjoin.vim' " {
+Plug 'AndrewRadev/splitjoin.vim' " {
 let g:splitjoin_ruby_hanging_args = 0
 
-Plugin 'AndrewRadev/switch.vim' "{
+Plug 'AndrewRadev/switch.vim' "{
 nnoremap - :Switch<cr>
 
 " Tmux
-Plugin 'sjl/vitality.vim'
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'sjl/vitality.vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Navigation and autocompletion
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
 
-Plugin 'kien/ctrlp.vim' "{
+Plug 'kien/ctrlp.vim' "{
 let g:ctrlp_map = '<c-p><c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 nnoremap <c-p>t :CtrlPTag<cr>
@@ -125,50 +123,50 @@ let g:ctrlp_custom_ignore = {
       \ }
 nnoremap <C-b> :CtrlPBuffer<cr>
 
-Plugin 'd11wtq/ctrlp_bdelete.vim'
+Plug 'd11wtq/ctrlp_bdelete.vim'
 
-Plugin 'tacahiroy/ctrlp-funky'
+Plug 'tacahiroy/ctrlp-funky'
 let g:ctrlp_extensions = ['funky']
 let g:ctrlp_funky_multi_buffers = 1
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
-Plugin 'xolox/vim-easytags'
-Plugin 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
 let g:easytags_async = 1
 let g:vim_tags_auto_generate = 0 " Vim defaults
 
-Plugin 'rking/ag.vim' "{
+Plug 'rking/ag.vim' "{
 let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-'.(160).' }; f'
 
-Plugin 'rizzatti/dash.vim'
-Plugin 'gregsexton/gitv'
-Plugin 'rgarver/Kwbd.vim'
+Plug 'rizzatti/dash.vim'
+Plug 'gregsexton/gitv'
+Plug 'rgarver/Kwbd.vim'
 
 " Tpope
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-dispatch'
-" Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-rsi'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-vinegar'
-nmap <C-e> <Plug>VinegarVerticalSplitUp
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-dispatch'
+" Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-vinegar'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()
 
 "###############################################################################
 " Plugin 'd11wtq/ctrlp_bdelete.vim'
 call ctrlp_bdelete#init()
+" Plugin 'tpope/vim-vinegar'
+nmap <C-e> <Plug>VinegarVerticalSplitUp
 
 " SETTINGS {{{
 if has('clipboard')
@@ -404,7 +402,7 @@ au BufEnter *.rb syn match error contained "\<debugger\>"
 map <leader>a: :Tab/\w:   \zs/l0l1<cr>
 map <leader>a: : :Tab/\w: \zs/r0l1l0<cr>
 
-map <leader>d :bd<CR>  " delete buffer
+" map <leader>d :bd<CR>  " delete buffer
 map <leader>D :bd!<CR> " force delete buffer
 " nmap Q :qa!<CR>        " force quit
 nmap <leader>c <Plug>Kwbd
@@ -540,7 +538,8 @@ nmap Q :qa!<CR>        " force quit
 " quick buffer open
 nnoremap gb :ls<cr>:e #
 " quick close
-nnoremap <C-c> :bnext\|bdelete #<CR>
+" nnoremap <C-c> :bnext\|bdelete #<CR>
+nnoremap <C-c> :bdelete<CR>
 inoremap <C-c> <Esc>
 
 nnoremap <BS> :set hlsearch! hlsearch?<cr>:redraw!<cr>:set hlsearch?<cr>
