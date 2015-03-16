@@ -139,7 +139,7 @@ let g:vim_tags_auto_generate = 0 " Vim defaults
 
 Plug 'rking/ag.vim' "{
 let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-'.(160).' }; f'
-
+Plug 'maksimr/vim-jsbeautify'
 Plug 'rizzatti/dash.vim'
 Plug 'gregsexton/gitv'
 Plug 'rgarver/Kwbd.vim'
