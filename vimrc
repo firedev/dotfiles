@@ -4,7 +4,7 @@ let g:mapleader = " "
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall
 endif
 
@@ -167,6 +167,15 @@ call plug#end()
 call ctrlp_bdelete#init()
 " Plugin 'tpope/vim-vinegar'
 nmap <C-e> <Plug>VinegarVerticalSplitUp
+
+" vim-jsbeautify
+map <c-f> :call JsBeautify()<cr>
+" or
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
 " SETTINGS {{{
 if has('clipboard')
@@ -386,8 +395,8 @@ hi IndentGuidesEven ctermbg=black
 hi IndentGuidesOdd ctermbg=bg
 autocmd VimEnter,BufEnter,WinEnter * call MyColors()
 function! MyColors()
-    let &nuw=len(line('$'))+2
-    call matchadd('CursorLineNr', '\%81v')  "1111111111111111111111111111111111111111111111
+  let &nuw=len(line('$'))+2
+  call matchadd('CursorLineNr', '\%81v')  "1111111111111111111111111111111111111111111111
   call matchadd('ErrorMsg', '.*xx.*')   " xx
   call matchadd('DiffAdd', '.*vv.*')    " vv
   call matchadd('Search', '.*??.*')     " ??
@@ -539,7 +548,8 @@ nmap Q :qa!<CR>        " force quit
 nnoremap gb :ls<cr>:e #
 " quick close
 " nnoremap <C-c> :bnext\|bdelete #<CR>
-nnoremap <C-c> :bdelete<CR>
+nnoremap <C-c> :enew\|bdelete #<CR>
+" nnoremap <C-c> :bdelete<CR>
 inoremap <C-c> <Esc>
 
 nnoremap <BS> :set hlsearch! hlsearch?<cr>:redraw!<cr>:set hlsearch?<cr>
