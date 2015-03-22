@@ -1,4 +1,6 @@
 /vim/OLD
-vim/undo
-vim/.netrwhist
-vim/bundle
+/vim/undo
+/vim/.netrwhist
+/vim/bundle
+/tags
+/vim/plugged

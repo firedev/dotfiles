@@ -9,36 +9,11 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-" Snippets and completion
-
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'Keithbsmiley/rspec.vim'
 
 " Colors, indents, airline, tmuxline
 Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_left_alt_sep=''
-let g:airline_right_alt_sep=''
-let g:airline_section_y='' " Remove encoding and newline
-" enable/disable showing only non-zero hunks.
-let g:airline#extensions#hunks#non_zero_only=1
-" because of TmuxlineSnapshot
-let g:airline#extensions#tmuxline#enabled=0
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#tab_min_count = 2
-let g:airline#extensions#tabline#close_symbol = '✖'
-
-Plug 'airblade/vim-gitgutter' "{
-highlight GitGutterAdd ctermfg=green guibg=bg
-highlight GitGutterDelete ctermfg=red guibg=bg
-highlight GitGutterChange ctermfg=yellow guibg=bg
-highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
-let g:gitgutter_realtime = 0
-
+Plug 'airblade/vim-gitgutter'
 Plug 'nathanaelkane/vim-indent-guides'
 
 Plug 'edkolev/tmuxline.vim' "{
@@ -47,21 +22,6 @@ let g:tmuxline_powerline_separators = 0
 " Text objects {
 
 Plug 'vim-scripts/camelcasemotion'
-map w <Plug>CamelCaseMotion_w
-map b <Plug>CamelCaseMotion_b
-map e <Plug>CamelCaseMotion_e
-sunmap w
-sunmap b
-sunmap e
-nmap cw ce
-omap iw ie
-xmap iw ie
-omap iw <Plug>CamelCaseMotion_iw
-xmap iw <Plug>CamelCaseMotion_iw
-omap ib <Plug>CamelCaseMotion_ib
-xmap ib <Plug>CamelCaseMotion_ib
-omap ie <Plug>CamelCaseMotion_ie
-xmap ie <Plug>CamelCaseMotion_ie
 
 " Lanugage Syntax {
 
@@ -106,6 +66,39 @@ nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
 
 Plug 'kien/ctrlp.vim' "{
+Plug 'd11wtq/ctrlp_bdelete.vim'
+Plug 'tacahiroy/ctrlp-funky'
+Plug 'xolox/vim-easytags'
+Plug 'xolox/vim-misc'
+let g:easytags_async = 1
+let g:vim_tags_auto_generate = 0 " Vim defaults
+
+Plug 'rking/ag.vim' "{
+Plug 'maksimr/vim-jsbeautify'
+Plug 'rizzatti/dash.vim'
+Plug 'gregsexton/gitv'
+
+" Tpope
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-vinegar'
+
+call plug#end()
+
+"###############################################################################
+
+" CTRLP
+call ctrlp_bdelete#init()
 let g:ctrlp_map = '<c-p><c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 nnoremap <c-p>t :CtrlPTag<cr>
@@ -122,54 +115,59 @@ let g:ctrlp_custom_ignore = {
       \ 'file': '\.jpg$\|\.exe$\|\.so$\|tags$\|\.dll$'
       \ }
 nnoremap <C-b> :CtrlPBuffer<cr>
-
-Plug 'd11wtq/ctrlp_bdelete.vim'
-
-Plug 'tacahiroy/ctrlp-funky'
 let g:ctrlp_extensions = ['funky']
 let g:ctrlp_funky_multi_buffers = 1
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
-Plug 'xolox/vim-easytags'
-Plug 'xolox/vim-misc'
-let g:easytags_async = 1
-let g:vim_tags_auto_generate = 0 " Vim defaults
-
-Plug 'rking/ag.vim' "{
-let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-'.(160).' }; f'
-Plug 'maksimr/vim-jsbeautify'
-Plug 'rizzatti/dash.vim'
-Plug 'gregsexton/gitv'
-Plug 'rgarver/Kwbd.vim'
-
-" Tpope
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-dispatch'
-" Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-haml'
-Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-vinegar'
-
-call plug#end()
-
-"###############################################################################
-" Plugin 'd11wtq/ctrlp_bdelete.vim'
-call ctrlp_bdelete#init()
 " Plugin 'tpope/vim-vinegar'
 nmap <C-e> <Plug>VinegarVerticalSplitUp
 
+" Plug 'bling/vim-airline'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_left_alt_sep=''
+let g:airline_right_alt_sep=''
+let g:airline_section_y='' " Remove encoding and newline
+" enable/disable showing only non-zero hunks.
+let g:airline#extensions#hunks#non_zero_only=1
+" because of TmuxlineSnapshot
+let g:airline#extensions#tmuxline#enabled=0
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#close_symbol = '✖'
+
+" Plug 'airblade/vim-gitgutter' "{
+highlight GitGutterAdd ctermfg=green guibg=bg
+highlight GitGutterDelete ctermfg=red guibg=bg
+highlight GitGutterChange ctermfg=yellow guibg=bg
+highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
+let g:gitgutter_realtime = 0
+
+" Plug 'rking/ag.vim' "{
+let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-'.(160).' }; f'
+
+" Plug 'vim-scripts/camelcasemotion'
+map w <Plug>CamelCaseMotion_w
+map b <Plug>CamelCaseMotion_b
+map e <Plug>CamelCaseMotion_e
+sunmap w
+sunmap b
+sunmap e
+nmap cw ce
+omap iw ie
+xmap iw ie
+omap iw <Plug>CamelCaseMotion_iw
+xmap iw <Plug>CamelCaseMotion_iw
+omap ib <Plug>CamelCaseMotion_ib
+xmap ib <Plug>CamelCaseMotion_ib
+omap ie <Plug>CamelCaseMotion_ie
+xmap ie <Plug>CamelCaseMotion_ie
+
 " vim-jsbeautify
-map <c-f> :call JsBeautify()<cr>
+" map <c-f> :call JsBeautify()<cr>
 " or
 autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 " for html
@@ -177,7 +175,7 @@ autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
-" SETTINGS {{{
+" SETTINGS
 if has('clipboard')
   if has('unnamedplus')  " When possible use + register for copy-paste
     set clipboard=unnamed,unnamedplus
@@ -191,6 +189,7 @@ syntax sync fromstart
 
 set guioptions-=L
 set guioptions-=r
+set linebreak
 set expandtab           " Change TABS to SPACES
 set tabstop=2           " 2 Spaces
 set shiftwidth=2        "
@@ -206,9 +205,6 @@ set formatoptions=q     " Allow gq on a long line
 set autoread            " Auto read
 set autowrite
 set autowriteall        " Save on buffer switch
-" set timeout
-" set timeoutlen=300
-" set ttimeoutlen=50
 " Time out on key codes but not mappings
 set notimeout
 set ttimeout
@@ -300,7 +296,6 @@ set wildignore+=.DS_Store
 set wildmode=list:full,list:longest
 set wildmenu
 set wildignorecase
-" }}}
 
 " UI CONFIGURATION
 set t_Co=256
@@ -373,7 +368,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
-" SYNTAX HIGHLIGHTING {{{
+" SYNTAX HIGHLIGHTING
 syntax on
 colorscheme Tomorrow-Night
 
@@ -403,14 +398,12 @@ function! MyColors()
 endfunction
 au BufEnter *.rb syn match error contained "\<binding.pry\>"
 au BufEnter *.rb syn match error contained "\<debugger\>"
-"}}}
 
-" KEYBOARD {{{
+" KEYBOARD
 
 " LEADER {
 map <leader>a: :Tab/\w:   \zs/l0l1<cr>
 map <leader>a: : :Tab/\w: \zs/r0l1l0<cr>
-
 " map <leader>d :bd<CR>  " delete buffer
 map <leader>D :bd!<CR> " force delete buffer
 " nmap Q :qa!<CR>        " force quit
@@ -422,7 +415,6 @@ nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gr :Gread<cr>
-nmap <leader>] :TagbarToggle<CR>
 " }
 
 nnoremap - :Switch<cr>
@@ -476,24 +468,18 @@ cnoremap %% <C-R>=expand('%')<cr>
 vmap > >gv
 vmap < <gv
 
-" change cursor position in insert mode
-" inoremap <C-h> <left>
-" inoremap <C-l> <right>
-
-" command-line window {{{
+" command-line window
 nnoremap q: q:i
 nnoremap q/ q/i
 nnoremap q? q?i
-" }}}
 
-" folds {{{
+" folds
 nnoremap zr zr:echo &foldlevel<cr>
 nnoremap zm zm:echo &foldlevel<cr>
 nnoremap zR zR:echo &foldlevel<cr>
 nnoremap zM zM:echo &foldlevel<cr>
-" }}}
 
-" auto center {{{
+" auto center
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
 nnoremap <silent> * *zz
@@ -502,9 +488,8 @@ nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 nnoremap <silent> <C-o> <C-o>zz
 nnoremap <silent> <C-i> <C-i>zz
-"}}}
 
-" shortcuts for windows {{{
+" shortcuts for windows
 " Edit another file in the same directory as the current file
 " uses expression to extract path from current file's path
 map <Leader>e :e <C-R>=escape(expand("%:p:h"),' ') . '/'<CR>
@@ -519,9 +504,8 @@ inoremap <C-h> <esc><C-w>h
 inoremap <C-j> <esc><C-w>j
 inoremap <C-k> <esc><C-w>k
 inoremap <C-l> <esc><C-w>l
-"}}}
 
-" Useful mappings for managing tabs {{{
+" Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
@@ -535,7 +519,6 @@ au TabLeave * let g:lasttab = tabpagenr()
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-" }}}
 
 " make Y consistent with C and D. See :help Y.
 nnoremap Y y$
@@ -554,7 +537,7 @@ inoremap <C-c> <Esc>
 
 nnoremap <BS> :set hlsearch! hlsearch?<cr>:redraw!<cr>:set hlsearch?<cr>
 
-" System clipboard {{{
+" System clipboard
 set pastetoggle=<F2>
 nmap <Leader>yy "+yy
 nmap <Leader>dd "+dd
@@ -564,9 +547,6 @@ nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
-"}}}
-
-" }}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " COPY AND PASTE
@@ -599,8 +579,9 @@ autocmd BufReadPost *
 
 " Remember info about open buffers on close
 set viminfo^=%
+" set viminfo=!,'20,<50,s10,h
 
-function! CloseWindowOrKillBuffer() "{{{
+function! CloseWindowOrKillBuffer() "
   let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
 
   " never bdelete a nerd tree
@@ -614,7 +595,7 @@ function! CloseWindowOrKillBuffer() "{{{
   else
     bdelete
   endif
-endfunction "}}}
+endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS
@@ -639,7 +620,7 @@ nmap <silent> K <Plug>DashSearch
 
 runtime macros/matchit.vim
 
-" Inspiration {{{
+" Inspiration
 " https://github.com/janjiss/rcfiles/blob/master/vim/vimrc
 " https://gist.github.com/JeffreyWay/6753834
 " https://github.com/tpope/tpope/blob/master/.vimrc
@@ -656,4 +637,3 @@ runtime macros/matchit.vim
 " http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 " https://github.com/amix/vimrc
 " https://github.com/bling/dotvim
-" }}}
