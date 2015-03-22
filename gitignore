@@ -6,7 +6,6 @@
 .LSOverride
 Icon
 
-
 # Thumbnails
 ._*
 
@@ -21,3 +20,4 @@ Icon
 *.swp
 tags
 gems.tags
+.sass-cache
