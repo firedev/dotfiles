@@ -434,14 +434,14 @@ nnoremap <silent> j gj
 nnoremap <silent> k gk
 
 " Removing escape
-ino kj <esc>
-cno kj <c-c>
-ino jk <esc>
-cno jk <c-c>
-ino kk <esc>
-ino jj <esc>
-cno jj <c-c>
-cno kk <c-c>
+" ino kj <esc>
+" cno kj <c-c>
+" ino jk <esc>
+" cno jk <c-c>
+" ino kk <esc>
+" ino jj <esc>
+" cno jj <c-c>
+" cno kk <c-c>
 
 " Auto change directory to match current file ,cd
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
