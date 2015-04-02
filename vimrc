@@ -42,7 +42,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 3
 
 Plug 'kchmck/vim-coffee-script'
-Plug 'gorodinskiy/vim-coloresque'
+" Plug 'gorodinskiy/vim-coloresque' # messes up word motion
 Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'ecomba/vim-ruby-refactoring'
@@ -79,18 +79,19 @@ Plug 'rizzatti/dash.vim'
 Plug 'gregsexton/gitv'
 
 " Tpope
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rails'
+Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-haml'
-Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-vinegar'
 
 call plug#end()
@@ -293,7 +294,7 @@ set wildignore+=*.swp,*~,._*
 
 " Disable osx index files
 set wildignore+=.DS_Store
-set wildmode=list:full,list:longest
+set wildmode=longest:full,full " best way
 set wildmenu
 set wildignorecase
 

@@ -4,3 +4,4 @@
 /vim/bundle
 /tags
 /vim/plugged
+vim/autoload/plug.vim.old
