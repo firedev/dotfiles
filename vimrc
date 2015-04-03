@@ -49,6 +49,8 @@ Plug 'ecomba/vim-ruby-refactoring'
 
 " Editing
 
+Plug 'terryma/vim-multiple-cursors'
+
 Plug 'AndrewRadev/splitjoin.vim' " {
 let g:splitjoin_ruby_hanging_args = 0
 
@@ -81,6 +83,7 @@ Plug 'gregsexton/gitv'
 " Tpope
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-endwise'
@@ -213,8 +216,8 @@ set ttimeoutlen=100
 
 set showfulltag
 set cursorline          " Highlight cursorline
-set scrolloff=3         " Set lines to the cursor - when moving vertically using
-set scrolljump=5        " Show 5 lines when jumping out of the window
+" set scrolloff=3         " Set lines to the cursor - when moving vertically using
+" set scrolljump=5        " Show 5 lines when jumping out of the window
 
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set shortmess=atI
