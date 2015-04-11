@@ -10,21 +10,14 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" Colors, indents, airline, tmuxline
 Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'nathanaelkane/vim-indent-guides'
 
-Plug 'edkolev/tmuxline.vim' "{
+Plug 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 0
-
-" Text objects {
-
 Plug 'vim-scripts/camelcasemotion'
-
-" Lanugage Syntax {
-
 Plug 'scrooloose/syntastic'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
 let g:syntastic_error_symbol = "✗"
@@ -32,50 +25,39 @@ let g:syntastic_style_error_symbol = '✠'
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_style_warning_symbol = "≈"
 let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_aggregate_errors = 1
-" When set to 2 the cursor will jump to the first issue detected, but only if
-" this issue is an error. >
-" let g:syntastic_auto_jump = 2
-" When set to 1 the error window will be automatically opened when errors are
-" detected, and closed when none are detected. >
-" let g:syntastic_auto_loc_list = 1
 let g:syntastic_loc_list_height = 3
 
 Plug 'kchmck/vim-coffee-script'
-" Plug 'gorodinskiy/vim-coloresque' # messes up word motion
 Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'ecomba/vim-ruby-refactoring'
 
 " Editing
-
 Plug 'terryma/vim-multiple-cursors'
-
-Plug 'AndrewRadev/splitjoin.vim' " {
+Plug 'ervandew/supertab' ",  { 'on': '<Plug>SuperTab' }
+Plug 'AndrewRadev/splitjoin.vim'
 let g:splitjoin_ruby_hanging_args = 0
 
-Plug 'AndrewRadev/switch.vim' "{
-nnoremap - :Switch<cr>
-
-" Tmux
+Plug 'AndrewRadev/switch.vim'
 Plug 'sjl/vitality.vim'
 Plug 'christoomey/vim-tmux-navigator'
-
-" Navigation and autocompletion
 Plug 'scrooloose/nerdtree'
+let g:NERDTreeQuitOnOpen=1
 nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
 
-Plug 'kien/ctrlp.vim' "{
-Plug 'd11wtq/ctrlp_bdelete.vim'
-Plug 'tacahiroy/ctrlp-funky'
-Plug 'xolox/vim-easytags'
-Plug 'xolox/vim-misc'
-let g:easytags_async = 1
-let g:vim_tags_auto_generate = 0 " Vim defaults
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+" Plug 'junegunn/seoul256'
+" Plug 'kien/ctrlp.vim' "{
+" Plug 'd11wtq/ctrlp_bdelete.vim'
+" Plug 'tacahiroy/ctrlp-funky'
+" Plug 'xolox/vim-easytags'
+" Plug 'xolox/vim-misc'
+" let g:easytags_async = 1
+" let g:vim_tags_auto_generate = 0 " Vim defaults
 
-Plug 'rking/ag.vim' "{
+Plug 'rking/ag.vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'rizzatti/dash.vim'
 Plug 'gregsexton/gitv'
@@ -101,29 +83,84 @@ call plug#end()
 
 "###############################################################################
 
-" CTRLP
-call ctrlp_bdelete#init()
-let g:ctrlp_map = '<c-p><c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-nnoremap <c-p>t :CtrlPTag<cr>
-nnoremap <c-p>r :CtrlPMRUFiles<cr>
-nnoremap <c-p>b :CtrlPBuffer<cr>
-nnoremap <c-p><c-t> :CtrlPTag<cr>
-nnoremap <c-p><c-r> :CtrlPMRUFiles<cr>
-nnoremap <c-p><c-b> :CtrlPBuffer<cr>
-hi def link CtrlPMatch CursorLine
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_switch_buffer = 'Et'
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\.git\|node_modules\|bin\|\.hg\|\.svn\|build\|log\|resources\|coverage\|doc\|tmp\|public/assets\|vendor\|Android',
-      \ 'file': '\.jpg$\|\.exe$\|\.so$\|tags$\|\.dll$'
-      \ }
-nnoremap <C-b> :CtrlPBuffer<cr>
-let g:ctrlp_extensions = ['funky']
-let g:ctrlp_funky_multi_buffers = 1
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+" ----------------------------------------------------------------------------
+" fzf
+" ----------------------------------------------------------------------------
+set rtp+=~/.fzf
+nnoremap <silent> <c-p> :FZF -m<CR>
+
+nnoremap <silent> <Leader>s :call fzf#run({ 'tmux_height': winheight('.') / 2, 'sink': 'botright split' })<CR>
+nnoremap <silent> <Leader>v :call fzf#run({ 'tmux_width': winwidth('.') / 2, 'sink': 'vertical botright split' })<CR>
+
+function! BufList()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! BufOpen(e)
+  execute 'buffer '. matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+\   'source':      reverse(BufList()),
+\   'sink':        function('BufOpen'),
+\   'options':     '+m',
+\   'tmux_height': '40%'
+\ })<CR>
+
+" nnoremap <silent> <Leader>C :call fzf#run({
+" \   'source':
+" \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
+" \         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
+" \   'sink':       'colo',
+" \   'options':    '+m',
+" \   'tmux_width': 20,
+" \   'launcher':   'xterm -geometry 20x30 -e bash -ic %s'
+" \ })<CR>
+
+function! s:tmux_words(query)
+  let g:_tmux_q = a:query
+  let matches = fzf#run({
+  \ 'source':      'tmuxwords.rb --all-but-current --scroll 500 --min 5',
+  \ 'sink':        function('Tmux_feedkeys'),
+  \ 'options':     '--no-multi --query='.a:query,
+  \ 'tmux_height': '40%'
+  \ })
+endfunction
+
+function! Tmux_feedkeys(data)
+  echom empty(g:_tmux_q)
+  execute "normal! ".(empty(g:_tmux_q) ? 'a' : 'ciW')."\<C-R>=a:data\<CR>"
+  startinsert!
+endfunction
+
+inoremap <silent> <C-X><C-T> <C-o>:call <SID>tmux_words(expand('<cWORD>'))<CR>
+
+" " CTRLP
+" call ctrlp_bdelete#init()
+" let g:ctrlp_map = '<c-p><c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+" nnoremap <c-p>t :CtrlPTag<cr>
+" nnoremap <c-p>r :CtrlPMRUFiles<cr>
+" nnoremap <c-p>b :CtrlPBuffer<cr>
+" nnoremap <c-p><c-t> :CtrlPTag<cr>
+" nnoremap <c-p><c-r> :CtrlPMRUFiles<cr>
+" nnoremap <c-p><c-b> :CtrlPBuffer<cr>
+" hi def link CtrlPMatch CursorLine
+" let g:ctrlp_clear_cache_on_exit = 0
+" let g:ctrlp_switch_buffer = 'Et'
+" let g:ctrlp_custom_ignore = {
+"       \ 'dir':  '\.git\|node_modules\|bin\|\.hg\|\.svn\|build\|log\|resources\|coverage\|doc\|tmp\|public/assets\|vendor\|Android',
+"       \ 'file': '\.jpg$\|\.exe$\|\.so$\|tags$\|\.dll$'
+"       \ }
+" nnoremap <C-b> :CtrlPBuffer<cr>
+" let g:ctrlp_extensions = ['funky']
+" let g:ctrlp_funky_multi_buffers = 1
+" nnoremap <Leader>fu :CtrlPFunky<Cr>
+" " narrow the list down with a word under cursor
+" nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 " Plugin 'tpope/vim-vinegar'
 nmap <C-e> <Plug>VinegarVerticalSplitUp
@@ -142,13 +179,6 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#close_symbol = '✖'
-
-" Plug 'airblade/vim-gitgutter' "{
-highlight GitGutterAdd ctermfg=green guibg=bg
-highlight GitGutterDelete ctermfg=red guibg=bg
-highlight GitGutterChange ctermfg=yellow guibg=bg
-highlight GitGutterChangeDelete ctermfg=yellow guibg=bg
-let g:gitgutter_realtime = 0
 
 " Plug 'rking/ag.vim' "{
 let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-'.(160).' }; f'
@@ -191,6 +221,7 @@ endif
 syntax enable
 syntax sync fromstart
 
+set regexpengine=1
 set guioptions-=L
 set guioptions-=r
 set linebreak
@@ -374,7 +405,17 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 
 " SYNTAX HIGHLIGHTING
 syntax on
+set background=dark
+" let g:seoul256_background = 235
+" color seoul256
 colorscheme Tomorrow-Night
+" Plug 'airblade/vim-gitgutter' "{
+let g:gitgutter_override_sign_column_highlight = 0
+highlight GitGutterAdd ctermfg=green
+highlight GitGutterDelete ctermfg=red
+highlight GitGutterChange ctermfg=yellow
+highlight GitGutterChangeDelete ctermfg=yellow
+let g:gitgutter_realtime = 0
 
 hi GroupA ctermfg=darkgray
 hi GroupB ctermfg=darkgray
@@ -400,6 +441,7 @@ function! MyColors()
   call matchadd('DiffAdd', '.*vv.*')    " vv
   call matchadd('Search', '.*??.*')     " ??
 endfunction
+au BufEnter *.rb syn match error contained "\<byebug\>"
 au BufEnter *.rb syn match error contained "\<binding.pry\>"
 au BufEnter *.rb syn match error contained "\<debugger\>"
 
@@ -496,10 +538,10 @@ nnoremap <silent> <C-i> <C-i>zz
 " shortcuts for windows
 " Edit another file in the same directory as the current file
 " uses expression to extract path from current file's path
-map <Leader>e :e <C-R>=escape(expand("%:p:h"),' ') . '/'<CR>
-map <Leader>s :split <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
-map <Leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
-nnoremap <leader>vsa :vert sba<cr>
+" map <Leader>e :e <C-R>=escape(expand("%:p:h"),' ') . '/'<CR>
+" map <Leader>s :split <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+" map <Leader>v :vnew <C-R>=escape(expand("%:p:h"), ' ') . '/'<CR>
+" nnoremap <leader>vsa :vert sba<cr>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
