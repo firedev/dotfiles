@@ -103,4 +103,6 @@ alias gc='git diff --name-only | if xargs grep -q -nr -e "focus: true"; then; gi
 export BUNDLER_EDITOR=subl
 export LC_COLLATE=C
 export LC_CTYPE="en_US.UTF-8"
+export FZF_DEFAULT_COMMAND='ag -l -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+stty -ixon

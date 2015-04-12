@@ -604,9 +604,9 @@ nnoremap <leader>V :e $MYVIMRC<cr>
 
 " Note that remapping C-s requires flow control to be disabled
 " (e.g. in .bashrc or .zshrc)
-map <C-s> <esc>:w<CR>
-inoremap <C-s> <esc>:w<CR>
-map <C-t> <esc>:tabnew<CR>
+" map <C-s> <esc>:w<CR>
+" inoremap <C-s> <esc>:w<CR>
+" map <C-t> <esc>:tabnew<CR>
 " map <C-n> :cn<CR>
 " map <C-p> :cp<CR>
 
