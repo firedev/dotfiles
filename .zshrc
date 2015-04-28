@@ -89,7 +89,7 @@ zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
 alias vimrc="vim ~/.vimrc"
-alias bu="brew update && brew upgrade"
+alias bu="brew update && brew upgrade --all"
 alias d="git push && cap deploy"
 alias ls="gls"
 alias e="emacs"
@@ -106,3 +106,4 @@ export LC_CTYPE="en_US.UTF-8"
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 stty -ixon
+alias fuck='$(thefuck $(fc -ln -1))'

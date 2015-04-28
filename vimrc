@@ -47,7 +47,8 @@ nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+" Plug 'junegunn/rainbow_parentheses.vim'
 " Plug 'junegunn/seoul256'
 " Plug 'kien/ctrlp.vim' "{
 " Plug 'd11wtq/ctrlp_bdelete.vim'
@@ -78,6 +79,7 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
+Plug 'thoughtbot/vim-rspec'
 
 call plug#end()
 
@@ -89,8 +91,8 @@ call plug#end()
 set rtp+=~/.fzf
 nnoremap <silent> <c-p> :FZF -m<CR>
 
-nnoremap <silent> <Leader>s :call fzf#run({ 'tmux_height': winheight('.') / 2, 'sink': 'botright split' })<CR>
-nnoremap <silent> <Leader>v :call fzf#run({ 'tmux_width': winwidth('.') / 2, 'sink': 'vertical botright split' })<CR>
+" nnoremap <silent> <Leader>s :call fzf#run({ 'tmux_height': winheight('.') / 2, 'sink': 'botright split' })<CR>
+" nnoremap <silent> <Leader>v :call fzf#run({ 'tmux_width': winwidth('.') / 2, 'sink': 'vertical botright split' })<CR>
 
 function! BufList()
   redir => ls
@@ -251,7 +253,6 @@ set cursorline          " Highlight cursorline
 " set scrolljump=5        " Show 5 lines when jumping out of the window
 
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
-set shortmess=atI
 set virtualedit=onemore             " Allow for cursor beyond last character
 set history=1000                    " Store a ton of history (default is 20)
 set nospell                           " Spell checking off
@@ -300,10 +301,10 @@ set ignorecase          " ignore case when searching
 set smartcase           " ignore case if search pattern is all lowercase,
 
 " Tab completion
-set wildignore+=.DS_Store,vim/undo/**,/var/folders/**,.git/**,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
+set wildignore+=.DS_Store,vim/undo/**,/var/folders/**,vendor/gems/*,*.png,*.PNG,*.JPG,*.jpg,*.GIF,*.gif,vendor/**,coverage/**,tmp/**,rdoc/**"
 
 " Disable output and VCS files
-set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+set wildignore+=*.o,*.out,*.obj,*.rbc,*.rbo,*.class,.svn,*.gem
 
 " Ignore images and log files
 set wildignore+=*.gif,*.jpg,*.png,*.log
@@ -339,6 +340,7 @@ set showcmd             " Show (partial) command in the status line
 set showmatch           " See matching brackets
 set matchtime=1         " Blink them quickly
 set number
+set relativenumber
 set laststatus=2
 set noshowmode
 
@@ -446,14 +448,8 @@ au BufEnter *.rb syn match error contained "\<binding.pry\>"
 au BufEnter *.rb syn match error contained "\<debugger\>"
 
 " KEYBOARD
-
+nnoremap <c-g> 1<c-g>
 " LEADER {
-map <leader>a: :Tab/\w:   \zs/l0l1<cr>
-map <leader>a: : :Tab/\w: \zs/r0l1l0<cr>
-" map <leader>d :bd<CR>  " delete buffer
-map <leader>D :bd!<CR> " force delete buffer
-" nmap Q :qa!<CR>        " force quit
-nmap <leader>c <Plug>Kwbd
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -467,7 +463,19 @@ nnoremap - :Switch<cr>
 
 " Ctrl-J - insert line under cursor
 inoremap <c-j> <esc>o
+" Better splits
+" nnoremap <C-W>s Hmx`` \|:split<CR>`xzt``
 
+" Better C-a C-x
+function! NextNum()
+  let ch = getline(".")[col(".")-1]
+  if ch !~ "[0-9]"
+    execute "normal! /[0-9]\<cr>"
+  endif
+endfunction
+
+nnoremap <c-a> :call NextNum()<cr>m`lv$xh<c-a>p``
+nnoremap <c-x> :call NextNum()<cr>m`lv$xh<c-x>p``
 " Quick write
 nmap <leader>w :w!<cr>
 " Quick quit
@@ -514,11 +522,6 @@ cnoremap %% <C-R>=expand('%')<cr>
 vmap > >gv
 vmap < <gv
 
-" command-line window
-nnoremap q: q:i
-nnoremap q/ q/i
-nnoremap q? q?i
-
 " folds
 nnoremap zr zr:echo &foldlevel<cr>
 nnoremap zm zm:echo &foldlevel<cr>
@@ -534,6 +537,13 @@ nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 nnoremap <silent> <C-o> <C-o>zz
 nnoremap <silent> <C-i> <C-i>zz
+
+" RSpec.vim mappings
+let g:rspec_command = "Dispatch rspec {spec}"
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
 
 " shortcuts for windows
 " Edit another file in the same directory as the current file
@@ -552,19 +562,19 @@ inoremap <C-k> <esc><C-w>k
 inoremap <C-l> <esc><C-w>l
 
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
+" map <leader>tn :tabnew<cr>
+" map <leader>to :tabonly<cr>
+" map <leader>tc :tabclose<cr>
+" map <leader>tm :tabmove
 
 " Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
+" let g:lasttab = 1
+" nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+" au TabLeave * let g:lasttab = tabpagenr()
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+" map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " make Y consistent with C and D. See :help Y.
 nnoremap Y y$
