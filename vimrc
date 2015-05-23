@@ -20,6 +20,7 @@ let g:tmuxline_powerline_separators = 0
 Plug 'vim-scripts/camelcasemotion'
 Plug 'scrooloose/syntastic'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_style_error_symbol = '✠'
 let g:syntastic_warning_symbol = "⚠"
@@ -30,33 +31,24 @@ let g:syntastic_loc_list_height = 3
 Plug 'kchmck/vim-coffee-script'
 Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
+" Plug 'henrik/vim-yaml-flattener'
 Plug 'ecomba/vim-ruby-refactoring'
 
 " Editing
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ervandew/supertab' ",  { 'on': '<Plug>SuperTab' }
 Plug 'AndrewRadev/splitjoin.vim'
+Plug 'maxbrunsfeld/vim-yankstack'
 let g:splitjoin_ruby_hanging_args = 0
+Plug 'mattn/emmet-vim'
 
 Plug 'AndrewRadev/switch.vim'
 Plug 'sjl/vitality.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'scrooloose/nerdtree'
-let g:NERDTreeQuitOnOpen=1
-nnoremap <leader>nt :NERDTreeToggle<cr>
-nnoremap <leader>nf :NERDTreeFind<cr>
-nnoremap <leader>nc :NERDTreeCWD<cr>
-
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-" Plug 'junegunn/rainbow_parentheses.vim'
-" Plug 'junegunn/seoul256'
-" Plug 'kien/ctrlp.vim' "{
-" Plug 'd11wtq/ctrlp_bdelete.vim'
-" Plug 'tacahiroy/ctrlp-funky'
-" Plug 'xolox/vim-easytags'
-" Plug 'xolox/vim-misc'
-" let g:easytags_async = 1
-" let g:vim_tags_auto_generate = 0 " Vim defaults
+Plug 'low-ghost/nerdtree-fugitive'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'Xuyuanp/nerdtree-git-plugin'
 
 Plug 'rking/ag.vim'
 Plug 'maksimr/vim-jsbeautify'
@@ -84,6 +76,13 @@ Plug 'thoughtbot/vim-rspec'
 call plug#end()
 
 "###############################################################################
+" ----------------------------------------------------------------------------
+" NERDTREE
+" ----------------------------------------------------------------------------
+let g:NERDTreeQuitOnOpen=1
+nnoremap <leader>nt :NERDTreeToggle<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
+nnoremap <leader>nc :NERDTreeCWD<cr>
 
 " ----------------------------------------------------------------------------
 " fzf
@@ -140,6 +139,11 @@ endfunction
 
 inoremap <silent> <C-X><C-T> <C-o>:call <SID>tmux_words(expand('<cWORD>'))<CR>
 
+" ----------------------------------------------------------------------------
+" JSX
+" ----------------------------------------------------------------------------
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
 " " CTRLP
 " call ctrlp_bdelete#init()
 " let g:ctrlp_map = '<c-p><c-p>'
@@ -183,7 +187,7 @@ let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#close_symbol = '✖'
 
 " Plug 'rking/ag.vim' "{
-let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-'.(160).' }; f'
+" let g:agprg='true ; f(){ ag --column "$@" \| cut -c 1-'.(160).' }; f'
 
 " Plug 'vim-scripts/camelcasemotion'
 map w <Plug>CamelCaseMotion_w
@@ -336,11 +340,11 @@ set wildignorecase
 " UI CONFIGURATION
 set t_Co=256
 set lazyredraw
-set showcmd             " Show (partial) command in the status line
+set noshowcmd             " Show (partial) command in the status line
 set showmatch           " See matching brackets
 set matchtime=1         " Blink them quickly
 set number
-set relativenumber
+set norelativenumber
 set laststatus=2
 set noshowmode
 
@@ -467,25 +471,49 @@ inoremap <c-j> <esc>o
 " nnoremap <C-W>s Hmx`` \|:split<CR>`xzt``
 
 " Better C-a C-x
-function! NextNum()
-  let ch = getline(".")[col(".")-1]
-  if ch !~ "[0-9]"
-    execute "normal! /[0-9]\<cr>"
-  endif
-endfunction
+" function! NextNum()
+"   let ch = getline(".")[col(".")-1]
+"   if ch !~ "[0-9]"
+"     execute "normal! /[0-9]\<cr>"
+"   endif
+" endfunction
 
-nnoremap <c-a> :call NextNum()<cr>m`lv$xh<c-a>p``
-nnoremap <c-x> :call NextNum()<cr>m`lv$xh<c-x>p``
+" nnoremap <c-a> :call NextNum()<cr>m`lv$xh<c-a>p``
+" nnoremap <c-x> :call NextNum()<cr>m`lv$xh<c-x>p``
+
+" nnoremap <C-a> :call search('\d', 'c')<CR>a <Esc>h<C-a>lxh
+" nnoremap <C-x> :call search('\d', 'c')<CR>a <Esc>h<C-x>lxh
+fun! Add(amount)
+    " No number on this line
+    if !search('\d', 'c', line('.')) | return | endif
+
+    " Get the number of the character under the cursor
+    let l:nr = str2nr(getline('.')[col('.') - 1])
+
+    " 9 -> Wrap to 0
+    if a:amount > 0 && l:nr == 9
+        normal! r0
+    " 0 -> Wrap to 9
+    elseif a:amount < 0 && l:nr == 0
+        normal! r9
+    " Add amount
+    else
+        execute "normal! r" . (l:nr + a:amount)
+    endif
+endfun
+nnoremap <C-a> :call Add(1)<Cr>
+nnoremap <C-x> :call Add(-1)<Cr>
+
 " Quick write
 nmap <leader>w :w!<cr>
 " Quick quit
 nmap <leader>q :q<cr>
 " Quick reindent
-nmap === mrgg=Gg`r
+nmap === mrgg=Gg`rzz
 
 " screen line scroll
-nnoremap <silent> j gj
-nnoremap <silent> k gk
+map <silent> j gj
+map <silent> k gk
 
 " Removing escape
 " ino kj <esc>

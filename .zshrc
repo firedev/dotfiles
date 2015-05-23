@@ -54,9 +54,9 @@ export TERM=xterm-256color
 
 source $ZSH/oh-my-zsh.sh
 
-# Disable flow control commands (keeps C-s from freezing everything)
-stty start undef
-stty stop undef
+# # Disable flow control commands (keeps C-s from freezing everything)
+# stty start undef
+# stty stop undef
 
 export PATH="/Users/pain/.rbenv/shims:/Users/pain/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 export EDITOR='vim'

@@ -1,5 +1,5 @@
 [user]
-	name = Nick
+	name = Nick Ostrovsky
 	email = nick@firedev.com
 [alias]
   o = !hub browse
@@ -24,9 +24,9 @@
 [fetch]
 	prune = true
 [filter "media"]
+	required = true
 	clean = git media clean %f
 	smudge = git media smudge %f
-	required = true
 [push]
 	default = simple
 [difftool "sourcetree"]
@@ -39,3 +39,7 @@
 	postBuffer = 524288000
 [init]
 	templatedir = ~/.git_template
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
