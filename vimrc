@@ -28,11 +28,14 @@ let g:syntastic_style_warning_symbol = "≈"
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 3
 
+Plug 'majutsushi/tagbar'
 Plug 'kchmck/vim-coffee-script'
+Plug 'mtscout6/vim-cjsx'
 Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
 " Plug 'henrik/vim-yaml-flattener'
 Plug 'ecomba/vim-ruby-refactoring'
+Plug 'jszakmeister/vim-togglecursor'
 
 " Editing
 Plug 'terryma/vim-multiple-cursors'
@@ -41,7 +44,16 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'maxbrunsfeld/vim-yankstack'
 let g:splitjoin_ruby_hanging_args = 0
 Plug 'mattn/emmet-vim'
-
+Plug 'dyng/ctrlsf.vim'
+let g:ctrlsf_confirm_save = 0
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 Plug 'AndrewRadev/switch.vim'
 Plug 'sjl/vitality.vim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -80,6 +92,7 @@ call plug#end()
 " NERDTREE
 " ----------------------------------------------------------------------------
 let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeHijackNetrw=0
 nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
@@ -240,6 +253,7 @@ set autoindent          " always set autoindenting on
 set smartindent
 set copyindent          " copy the previous indentation on autoindenting
 set mouse=a             " Use mouse
+set ttymouse=xterm2
 set backspace=indent,eol,start " Backspace over everything
 set nowrap              " Disable Wrap
 set formatoptions=q     " Allow gq on a long line
@@ -421,6 +435,10 @@ highlight GitGutterAdd ctermfg=green
 highlight GitGutterDelete ctermfg=red
 highlight GitGutterChange ctermfg=yellow
 highlight GitGutterChangeDelete ctermfg=yellow
+highlight DiffAdd     term=bold ctermbg=4 guibg=DarkBlue
+highlight DiffChange  term=bold ctermbg=5 guibg=DarkMagenta
+highlight DiffDelete  term=bold ctermfg=12 ctermbg=6 gui=bold guifg=Blue guibg=DarkCyan
+highlight DiffText    term=reverse cterm=bold ctermbg=9 gui=bold guibg=Red
 let g:gitgutter_realtime = 0
 
 hi GroupA ctermfg=darkgray
@@ -721,3 +739,22 @@ runtime macros/matchit.vim
 " http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 " https://github.com/amix/vimrc
 " https://github.com/bling/dotvim
+" Escape/unescape & < > HTML entities in range (default current line).
+function! HtmlEntities(line1, line2, action)
+  let search = @/
+  let range = 'silent ' . a:line1 . ',' . a:line2
+  if a:action == 0  " must convert &amp; last
+    execute range . 'sno/&lt;/</eg'
+    execute range . 'sno/&gt;/>/eg'
+    execute range . 'sno/&amp;/&/eg'
+  else              " must convert & first
+    execute range . 'sno/&/&amp;/eg'
+    execute range . 'sno/</&lt;/eg'
+    execute range . 'sno/>/&gt;/eg'
+  endif
+  nohl
+  let @/ = search
+endfunction
+command! -range -nargs=1 Entities call HtmlEntities(<line1>, <line2>, <args>)
+noremap <silent> \h :Entities 0<CR>
+noremap <silent> \H :Entities 1<CR>
