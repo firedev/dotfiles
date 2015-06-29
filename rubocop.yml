@@ -6,3 +6,5 @@ EmptyLinesAroundModuleBody:
   Enabled: false
 AsciiComments:
   Enabled: false
+DotPosition:
+  EnforcedStyle: leading

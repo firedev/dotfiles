@@ -47,7 +47,9 @@ ZSH_THEME="bira"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(osx git sublime tmux tmuxinator vundle rails ruby heroku)
+# plugins=(osx git sublime tmux tmuxinator vundle rails ruby heroku)
+plugins=(brew colored-man colorize git heroku osx rails ruby tmux tmuxinator vagrant virtualenv vundle zsh-syntax-highlighting)
+# github
 
 # export ZSH_TMUX_AUTOSTART=true
 export TERM=xterm-256color
@@ -58,7 +60,7 @@ source $ZSH/oh-my-zsh.sh
 # stty start undef
 # stty stop undef
 
-export PATH="/Users/pain/.rbenv/shims:/Users/pain/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
+export PATH="/Users/pain/.rbenv/shims:/Users/pain/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/share/zsh-completions"
 export EDITOR='vim'
 alias viber=/Applications/Viber.app/Contents/MacOS/Viber
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -88,24 +90,24 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-alias vimrc="vim ~/.vimrc"
 alias bu="brew update && brew upgrade --all"
 alias d="git push && cap deploy"
-alias ls="gls"
-alias e="emacs"
-alias e="emacs --daemon"
-alias e="emacsclient -t"
-alias ec="emacsclient -c"
-export PATH=./bin:${PATH}:/usr/local/mysql/bin
-alias mysql='/usr/local/mysql/bin/mysql'
-. `brew --prefix`/etc/profile.d/z.sh
+alias diff="colordiff"
+alias fuck='$(thefuck $(fc -ln -1))'
 alias gc='git diff --name-only | if xargs grep -q -nr -e "focus: true"; then; git commit; else echo "rejected commit" fi; fi'
-export BUNDLER_EDITOR=subl
+alias mysql='/usr/local/mysql/bin/mysql'
+alias v="vagrant"
+alias vagrant="/opt/vagrant/bin/vagrant"
+alias vimrc="vim ~/.vimrc"
+
+export PATH=./bin:${PATH}:/usr/local/mysql/bin
+. `brew --prefix`/etc/profile.d/z.sh
+
+export BUNDLER_EDITOR=vim
 export LC_COLLATE=C
 export LC_CTYPE="en_US.UTF-8"
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 stty -ixon
-alias fuck='$(thefuck $(fc -ln -1))'
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zshrc.local

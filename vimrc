@@ -14,35 +14,36 @@ Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'nathanaelkane/vim-indent-guides'
-
+Plug 'sjl/tslime.vim'
+Plug 'ironcamel/vim-script-runner'
 Plug 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 0
 Plug 'vim-scripts/camelcasemotion'
 Plug 'scrooloose/syntastic'
 let g:syntastic_ruby_checkers = ['mri', 'rubocop']
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['jslint', 'jshint', 'eslint']
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_style_error_symbol = '✠'
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_style_warning_symbol = "≈"
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 3
-
+Plug 'habamax/vim-skipit'
+imap <C-F><C-F> <Plug>SkipIt
 Plug 'majutsushi/tagbar'
 Plug 'kchmck/vim-coffee-script'
-Plug 'mtscout6/vim-cjsx'
 Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
 " Plug 'henrik/vim-yaml-flattener'
 Plug 'ecomba/vim-ruby-refactoring'
 Plug 'jszakmeister/vim-togglecursor'
-
 " Editing
 Plug 'terryma/vim-multiple-cursors'
-Plug 'ervandew/supertab' ",  { 'on': '<Plug>SuperTab' }
+" Plug 'ervandew/supertab' ",  { 'on': '<Plug>SuperTab' }
+Plug 'AndrewRadev/switch.vim'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'maxbrunsfeld/vim-yankstack'
 let g:splitjoin_ruby_hanging_args = 0
+Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mattn/emmet-vim'
 Plug 'dyng/ctrlsf.vim'
 let g:ctrlsf_confirm_save = 0
@@ -54,43 +55,15 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-Plug 'AndrewRadev/switch.vim'
 Plug 'sjl/vitality.vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'scrooloose/nerdtree'
-Plug 'low-ghost/nerdtree-fugitive'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
 
-Plug 'rking/ag.vim'
-Plug 'maksimr/vim-jsbeautify'
-Plug 'rizzatti/dash.vim'
-Plug 'gregsexton/gitv'
-
-" Tpope
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-cucumber'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-haml'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-vinegar'
-Plug 'thoughtbot/vim-rspec'
-
-call plug#end()
-
-"###############################################################################
 " ----------------------------------------------------------------------------
 " NERDTREE
 " ----------------------------------------------------------------------------
+Plug 'scrooloose/nerdtree'
+Plug 'low-ghost/nerdtree-fugitive'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeHijackNetrw=0
 nnoremap <leader>nt :NERDTreeToggle<cr>
@@ -100,6 +73,7 @@ nnoremap <leader>nc :NERDTreeCWD<cr>
 " ----------------------------------------------------------------------------
 " fzf
 " ----------------------------------------------------------------------------
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 set rtp+=~/.fzf
 nnoremap <silent> <c-p> :FZF -m<CR>
 
@@ -152,37 +126,38 @@ endfunction
 
 inoremap <silent> <C-X><C-T> <C-o>:call <SID>tmux_words(expand('<cWORD>'))<CR>
 
+Plug 'rking/ag.vim'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'rizzatti/dash.vim'
+Plug 'gregsexton/gitv'
+
+" Tpope
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-cucumber'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+nmap <C-e> <Plug>VinegarVerticalSplitUp
+" let g:netrw_liststyle=3
+
+Plug 'thoughtbot/vim-rspec'
+
+"###############################################################################
+
 " ----------------------------------------------------------------------------
 " JSX
 " ----------------------------------------------------------------------------
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-
-" " CTRLP
-" call ctrlp_bdelete#init()
-" let g:ctrlp_map = '<c-p><c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" nnoremap <c-p>t :CtrlPTag<cr>
-" nnoremap <c-p>r :CtrlPMRUFiles<cr>
-" nnoremap <c-p>b :CtrlPBuffer<cr>
-" nnoremap <c-p><c-t> :CtrlPTag<cr>
-" nnoremap <c-p><c-r> :CtrlPMRUFiles<cr>
-" nnoremap <c-p><c-b> :CtrlPBuffer<cr>
-" hi def link CtrlPMatch CursorLine
-" let g:ctrlp_clear_cache_on_exit = 0
-" let g:ctrlp_switch_buffer = 'Et'
-" let g:ctrlp_custom_ignore = {
-"       \ 'dir':  '\.git\|node_modules\|bin\|\.hg\|\.svn\|build\|log\|resources\|coverage\|doc\|tmp\|public/assets\|vendor\|Android',
-"       \ 'file': '\.jpg$\|\.exe$\|\.so$\|tags$\|\.dll$'
-"       \ }
-" nnoremap <C-b> :CtrlPBuffer<cr>
-" let g:ctrlp_extensions = ['funky']
-" let g:ctrlp_funky_multi_buffers = 1
-" nnoremap <Leader>fu :CtrlPFunky<Cr>
-" " narrow the list down with a word under cursor
-" nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-
-" Plugin 'tpope/vim-vinegar'
-nmap <C-e> <Plug>VinegarVerticalSplitUp
 
 " Plug 'bling/vim-airline'
 let g:airline_left_sep=''
@@ -228,6 +203,8 @@ autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
+call plug#end()
+
 " SETTINGS
 if has('clipboard')
   if has('unnamedplus')  " When possible use + register for copy-paste
@@ -241,6 +218,7 @@ syntax enable
 syntax sync fromstart
 
 set regexpengine=1
+set guifont=PragmataPro:h13
 set guioptions-=L
 set guioptions-=r
 set linebreak
@@ -262,8 +240,8 @@ set autowrite
 set autowriteall        " Save on buffer switch
 " Time out on key codes but not mappings
 set notimeout
-set ttimeout
-set ttimeoutlen=100
+" set ttimeout
+" set ttimeoutlen=100
 
 set showfulltag
 set cursorline          " Highlight cursorline
@@ -358,7 +336,7 @@ set noshowcmd             " Show (partial) command in the status line
 set showmatch           " See matching brackets
 set matchtime=1         " Blink them quickly
 set number
-set norelativenumber
+set relativenumber
 set laststatus=2
 set noshowmode
 
@@ -399,7 +377,6 @@ augroup vimrc
   " Make ?s part of words
   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
   autocmd FileType php setlocal sw=4 sts=4 tabstop=4 noet
-  autocmd FileType css,scss,sass setlocal iskeyword+=-
   autocmd FileType vim setlocal fdm=indent
 
   " Some file types use real tabs
@@ -471,6 +448,8 @@ au BufEnter *.rb syn match error contained "\<debugger\>"
 
 " KEYBOARD
 nnoremap <c-g> 1<c-g>
+nnoremap 0 ^
+nnoremap ^ 0
 " LEADER {
 
 " Switch CWD to the directory of the open buffer
