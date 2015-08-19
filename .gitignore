@@ -1,7 +1,3 @@
-/vim/OLD
-/vim/undo
-/vim/.netrwhist
-/vim/bundle
+/.nvim
+/.vim
 /tags
-/vim/plugged
-vim/autoload/plug.vim.old

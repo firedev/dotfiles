@@ -18,7 +18,7 @@ Icon
 /.idea
 *.css.map
 *.swp
-tags
+/tags
 gems.tags
 .sass-cache
 temp
@@ -26,3 +26,4 @@ tmp
 .ruby-version
 node_modules
 bower_components
+npm-debug.log

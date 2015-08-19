@@ -48,7 +48,7 @@ ZSH_THEME="bira"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # plugins=(osx git sublime tmux tmuxinator vundle rails ruby heroku)
-plugins=(brew colored-man colorize git heroku osx rails ruby tmux tmuxinator vagrant virtualenv vundle zsh-syntax-highlighting)
+plugins=(brew colored-man colorize git heroku knife osx rails ruby tmux tmuxinator vagrant virtualenv vundle zsh-syntax-highlighting)
 # github
 
 # export ZSH_TMUX_AUTOSTART=true
