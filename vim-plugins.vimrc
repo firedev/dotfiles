@@ -14,7 +14,7 @@ Plug 'othree/yajs.vim'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
 " disables all automatic tags highlighting
-" let g:easytags_auto_highlight = 0
+let g:easytags_auto_highlight = 0
 let g:easytags_async = 1
 Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
@@ -24,6 +24,9 @@ Plug 'sjl/tslime.vim'
 Plug 'ironcamel/vim-script-runner'
 Plug 'edkolev/tmuxline.vim'
 let g:tmuxline_powerline_separators = 0
+Plug 'terryma/vim-expand-region'
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 " Plug 'vim-scripts/camelcasemotion'
 " " Plug 'vim-scripts/camelcasemotion'
 " map w <Plug>CamelCaseMotion_w
@@ -53,7 +56,7 @@ let g:syntastic_style_warning_symbol = "≈"
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_loc_list_height = 3
 Plug 'habamax/vim-skipit'
-imap <C-F><C-F> <Plug>SkipIt
+imap <C-F> <Plug>SkipIt
 Plug 'majutsushi/tagbar'
 Plug 'kchmck/vim-coffee-script'
 Plug 'slim-template/vim-slim'
@@ -92,19 +95,20 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 Plug 'AndrewRadev/switch.vim'
 Plug 'AndrewRadev/splitjoin.vim'
+let g:splitjoin_ruby_curly_braces = 0
 let g:splitjoin_ruby_hanging_args = 0
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mattn/emmet-vim'
 Plug 'dyng/ctrlsf.vim'
 let g:ctrlsf_confirm_save = 0
-nmap     <C-F>f <Plug>CtrlSFPrompt
-vmap     <C-F>f <Plug>CtrlSFVwordPath
-vmap     <C-F>F <Plug>CtrlSFVwordExec
-nmap     <C-F>n <Plug>CtrlSFCwordPath
-nmap     <C-F>p <Plug>CtrlSFPwordPath
-nnoremap <C-F>o :CtrlSFOpen<CR>
-nnoremap <C-F>t :CtrlSFToggle<CR>
-inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+" nmap     <C-F>f <Plug>CtrlSFPrompt
+" vmap     <C-F>f <Plug>CtrlSFVwordPath
+" vmap     <C-F>F <Plug>CtrlSFVwordExec
+" nmap     <C-F>n <Plug>CtrlSFCwordPath
+" nmap     <C-F>p <Plug>CtrlSFPwordPath
+" nnoremap <C-F>o :CtrlSFOpen<CR>
+" nnoremap <C-F>t :CtrlSFToggle<CR>
+" inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 Plug 'sjl/vitality.vim'
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -178,7 +182,6 @@ inoremap <silent> <C-X><C-T> <C-o>:call <SID>tmux_words(expand('<cWORD>'))<CR>
 
 Plug 'rking/ag.vim'
 Plug 'maksimr/vim-jsbeautify'
-Plug 'rizzatti/dash.vim'
 Plug 'gregsexton/gitv'
 
 " Tpope
@@ -201,11 +204,17 @@ nmap <C-e> <Plug>VinegarVerticalSplitUp
 " let g:netrw_liststyle=3
 
 " Plug 'thoughtbot/vim-rspec'
+" let g:rspec_command = "Dispatch rspec {spec}"
+" map <Leader>t :call RunCurrentSpecFile()<CR>
+" map <Leader>s :call RunNearestSpec()<CR>
+" map <Leader>l :call RunLastSpec()<CR>
+" map <Leader>a :call RunAllSpecs()<CR>
 Plug 'janko-m/vim-test'
 let test#strategy = 'dispatch'
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>T :TestNearest<CR>
+nmap <silent> <leader>t :TestFile<CR>
+" nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>a :Dispatch rspec<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 
