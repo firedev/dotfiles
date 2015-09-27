@@ -109,5 +109,4 @@ export LC_CTYPE="en_US.UTF-8"
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 stty -ixon
-source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zshrc.local
