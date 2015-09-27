@@ -1,24 +1,60 @@
 let mapleader=' '
 
 call plug#begin('~/.nvim/plugged')
+Plug 'AndrewRadev/switch.vim'
+let g:switch_mapping = "-"
+
+Plug 'AndrewRadev/splitjoin.vim'
+
 Plug 'benekastah/neomake'
 
 Plug 'janko-m/vim-test'
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
+nmap <silent> <leader>T :TestNearest<CR>
+nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>A :!bundle exec rspec<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
-let test#strategy = "neoterm"
+let test#strategy = 'neoterm'
+
 Plug 'kassio/neoterm'
 let g:neoterm_size = 10
+
+Plug 'scrooloose/nerdtree'
+Plug 'low-ghost/nerdtree-fugitive'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeHijackNetrw=0
+nnoremap <leader>nt :NERDTreeToggle<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
+nnoremap <leader>nc :NERDTreeCWD<cr>
+
 Plug 'Chiel92/vim-autoformat'
 Plug 'flazz/vim-colorschemes'
+Plug 'bling/vim-airline'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_left_alt_sep=''
+let g:airline_right_alt_sep=''
+" let g:airline_section_a = (crypt, paste, iminsert)
+let g:airline_inactive_collapse=1
+let g:airline_section_y='' " Remove encoding and newline
+" enable/disable showing only non-zero hunks.
+let g:airline#extensions#hunks#non_zero_only=1
+" because of TmuxlineSnapshot
+let g:airline#extensions#tmuxline#enabled=0
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#close_symbol = '✖'
 Plug 'slim-template/vim-slim'
 Plug 'rking/ag.vim'
+Plug 'tpope/vim-dispatch'
+Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rsi'
@@ -27,6 +63,70 @@ nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gr :Gread<cr>
+
+" Mutliple cursors
+Plug 'terryma/vim-multiple-cursors'
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+
+" NeoSnippet
+Plug 'Shougo/neosnippet.vim'
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+
+" Tell Neosnippet about the other snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
+" NeoSnippet-Snippets
+Plug 'Shougo/neosnippet-snippets'
+
+" Vim-Snippets
+Plug 'honza/vim-snippets'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+set rtp+=~/.fzf
+nnoremap <silent> <c-p> :FZF -m<CR>
+
+nnoremap <silent> <Leader>s :call fzf#run({ 'tmux_height': winheight('.') / 2, 'sink': 'botright split' })<CR>
+nnoremap <silent> <Leader>v :call fzf#run({ 'tmux_width': winwidth('.') / 2, 'sink': 'vertical botright split' })<CR>
+
+function! BufList()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! BufOpen(e)
+  execute 'buffer '. matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader><Enter> :call fzf#run({
+      \   'source':      reverse(BufList()),
+      \   'sink':        function('BufOpen'),
+      \   'options':     '+m',
+      \   'tmux_height': '40%'
+      \ })<CR>
 call plug#end()
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -35,7 +135,10 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set background=dark
 colorscheme Tomorrow-Night
 
+set guifont=PragmataPro:h13
 set number
+set relativenumber
+set nowrap
 set ruler
 set tabstop=2 softtabstop=2 shiftwidth=2
 set expandtab
@@ -51,12 +154,13 @@ set complete=.,w,b,u,U,i,d,t
 set completeopt=menu,longest
 
 set showmatch
-set showcmd
+" set showcmd
+" set cursorline
 
 set splitbelow
 set splitright
 
-set wildmenu wildmode=longest:full
+" set wildmenu wildmode=longest:full
 set wildoptions=tagfile
 set wildignorecase
 
@@ -80,7 +184,6 @@ set fillchars+=fold:-
 
 " A visual cue for line-wrapping.
 set showbreak=↪
-
 " Visual cues when in 'list' model.
 set list
 " set listchars+=eol:¬
@@ -89,10 +192,10 @@ set listchars+=extends:❯
 set listchars+=precedes:❮
 set listchars+=trail:⋅
 set listchars+=nbsp:⋅
-set listchars+=tab:\|\
+set listchars+=tab:÷⋅
 
 set pastetoggle=<F2>
-nnoremap <silent> <F2> setlocal paste!<cr>
+noremap <silent> <F2> setlocal paste!<cr>
 
 nnoremap <silent> <bs> :setlocal hlsearch!<cr>
 
@@ -100,14 +203,66 @@ nnoremap <silent> <up>    <nop>
 nnoremap <silent> <down>  <nop>
 nnoremap <silent> <left>  <nop>
 nnoremap <silent> <right> <nop>
-
-nnoremap \\\ :Autoformat<CR><CR>
+nnoremap Q <nop>
+nnoremap <c-g> 1<c-g>
 
 augroup files
   au!
   au BufWritePost * Neomake
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+        \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif
 augroup END
+au! BufWritePost .nvimrc source %
+
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
 
 set background=dark
+
+" screen line scroll
+map <silent> j gj
+map <silent> k gk
+
+" Yank
+" Yank till the end of line
+nnoremap Y y$
+" Quickly select text you just pasted:
+noremap gV `[v`]
+
+" System clipboard
+set pastetoggle=<F2>
+nmap <Leader>yy "*yy
+nmap <Leader>dd "*dd
+vmap <Leader>y "*y
+vmap <Leader>d "*d
+nmap <Leader>p "*p
+nmap <Leader>P "*P
+vmap <Leader>p "*p
+vmap <Leader>P "*P
+
+nmap <space>[p O<Esc>"*P
+nmap <space>]p o<Esc>"*p
+
+" Indentation
+vmap > >gv
+vmap < <gv
+
+" auto center
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
+nnoremap <silent> <C-o> <C-o>zz
+nnoremap <silent> <C-i> <C-i>zz
+
+" Quick reindent
+" nmap === mrgg=Gg`rzz
+nnoremap === :Autoformat<CR><CR>
+tnoremap <Esc><Esc> <C-\><C-n>

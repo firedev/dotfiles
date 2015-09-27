@@ -14,7 +14,7 @@ set autoread            " Auto read
 set autowrite
 set autowriteall        " Save on buffer switch
 set backspace=indent,eol,start " Backspace over everything
-set clipboard=unnamed
+" set clipboard=unnamed
 set copyindent          " copy the previous indentation on autoindenting
 set cursorline          " Highlight cursorline
 set diffopt+=vertical
@@ -78,7 +78,7 @@ set undodir=~/.vim/undo         " where to save undo histories
 set undofile                    " Save undo's after file closes
 set undolevels=1000             " How many undos
 set undoreload=10000            " number of lines to save for undo
-set virtualedit=onemore             " Allow for cursor beyond last character
+" set virtualedit=onemore             " Allow for cursor beyond last character
 set wildignore+=*.gif,*.jpg,*.png,*.log
 set wildignore+=*.o,*.out,*.obj,*.rbc,*.rbo,*.class,.svn,*.gem
 set wildignore+=*.swp,*~,._*
@@ -308,8 +308,6 @@ nnoremap <C-l> <C-w>l
 " map <leader>to :tabonly<cr>
 " map <leader>tc :tabclose<cr>
 " map <leader>tm :tabmove
-
-nnoremap Y y$
 
 " window killer
 nmap Q :qa!<CR>        " force quit
