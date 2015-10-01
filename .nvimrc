@@ -20,6 +20,9 @@ let test#strategy = 'neoterm'
 Plug 'kassio/neoterm'
 let g:neoterm_size = 10
 
+Plug 'mattn/emmet-vim'
+Plug 'edsono/vim-matchit'
+Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'low-ghost/nerdtree-fugitive'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -51,12 +54,18 @@ Plug 'slim-template/vim-slim'
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'radenling/vim-dispatch-neovim'
+Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>gr :Gread<cr>
+
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-unimpaired'
 nnoremap <leader>gs :Gstatus<cr>
@@ -81,11 +90,11 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \: pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+      \ "\<Plug>(neosnippet_expand_or_jump)"
+      \: "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
@@ -206,8 +215,27 @@ nnoremap <silent> <right> <nop>
 nnoremap Q <nop>
 nnoremap <c-g> 1<c-g>
 
+" Easy move between windows
+func! s:mapMoveToWindowInDirection(direction)
+  func! s:moveToDirection(direction)
+    stopinsert
+    execute "wincmd" a:direction
+  endfunc
+  execute "tnoremap" "<silent>" "<C-" . a:direction . ">"
+        \ "<C-\\><C-n>"
+        \ ":call <SID>moveToDirection(\"" . a:direction . "\")<CR>"
+  execute "nnoremap" "<silent>" "<C-" . a:direction . ">"
+        \ ":call <SID>moveToDirection(\"" . a:direction . "\")<CR>"
+endfunc
+
+for dir in ["h", "j", "l", "k"]
+  call s:mapMoveToWindowInDirection(dir)
+endfor
+
 augroup files
   au!
+  " au BufEnter * if &buftype == 'terminal' | highlight TermCursor ctermfg=red guifg=red | :startinsert | endif
+  au BufEnter * if &buftype == 'terminal' | highlight TermCursor ctermfg=red guifg=red | endif
   au BufWritePost * Neomake
   " When editing a file, always jump to the last known cursor position.
   " Don't do it for commit messages, when the position is invalid, or when
@@ -233,6 +261,8 @@ map <silent> k gk
 nnoremap Y y$
 " Quickly select text you just pasted:
 noremap gV `[v`]
+
+nnoremap <cr> O<esc>
 
 " System clipboard
 set pastetoggle=<F2>
@@ -263,6 +293,6 @@ nnoremap <silent> <C-o> <C-o>zz
 nnoremap <silent> <C-i> <C-i>zz
 
 " Quick reindent
-" nmap === mrgg=Gg`rzz
-nnoremap === :Autoformat<CR><CR>
-tnoremap <Esc><Esc> <C-\><C-n>
+nmap === mrgg=Gg`rzz
+" nnoremap === :Autoformat<CR><CR>
+tnoremap <leader><esc> <C-\><C-n>
