@@ -12,16 +12,27 @@ Plug 'janko-m/vim-test'
 nmap <silent> <leader>T :TestNearest<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>A :!bundle exec rspec<CR>
+nmap <silent> <leader>A :RSpec<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 let test#strategy = 'neoterm'
 
+" Plug '907th/vim-auto-save'
+" let g:auto_save = 1
+" let g:auto_save_in_insert_mode = 0
+" Plug 'malept/vim-flog'
+" silent exe "g:flog_enable"
+" map <leader>f :call FlogToggle()<cr>
+" Plug 'skammer/vim-ruby-complexity'
+Plug 'szw/vim-tags'
+let g:vim_tags_auto_generate = 0
+" let g:vim_tags_use_vim_dispatch = 1
 Plug 'kassio/neoterm'
 let g:neoterm_size = 10
-
+Plug 'austintaylor/vim-indentobject'
 Plug 'mattn/emmet-vim'
 Plug 'edsono/vim-matchit'
+Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
 Plug 'low-ghost/nerdtree-fugitive'

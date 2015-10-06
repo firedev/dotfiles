@@ -5,6 +5,17 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+" Plug 'skammer/vim-ruby-complexity'
+Plug 'vrybas/vim-flog'
+let g:flog_enable = 1          " Выключен и запускается только по хоткею,
+                               " т.к. он довольно медленный на больших файлах.
+let g:flog_medium_limit = 15   " Предел сложности 'средняя'.
+let g:flog_high_limit   = 25   " Предел сложности 'высокая'.
+let g:flog_hide_low     = 1    " Не показывать score методов с низкой
+                               " сложностью ( < 15).
+let g:flog_hide_medium  = 0    " Показывать score методов со средней сложностью.
+nmap <silent><leader><leader>c :call ShowComplexity()<CR> " Маппинг
+
 Plug 'vim-scripts/SyntaxComplete'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'pangloss/vim-javascript'
@@ -200,6 +211,7 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-rbenv'
 nmap <C-e> <Plug>VinegarVerticalSplitUp
 " let g:netrw_liststyle=3
 
