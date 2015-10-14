@@ -8,6 +8,9 @@ Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'benekastah/neomake'
 
+Plug 'easymotion/vim-easymotion'
+nmap s <Plug>(easymotion-s)
+
 Plug 'janko-m/vim-test'
 nmap <silent> <leader>T :TestNearest<CR>
 nmap <silent> <leader>t :TestFile<CR>
@@ -35,6 +38,7 @@ Plug 'edsono/vim-matchit'
 Plug 'jreybert/vimagit'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree'
+Plug 'gregsexton/gitv'
 Plug 'low-ghost/nerdtree-fugitive'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 let g:NERDTreeQuitOnOpen=1
@@ -43,7 +47,6 @@ nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
 
-Plug 'Chiel92/vim-autoformat'
 Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
 let g:airline_left_sep=''
@@ -77,7 +80,7 @@ nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gr :Gread<cr>
 
-Plug 'tpope/vim-rsi'
+" Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-unimpaired'
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gc :Gcommit<cr>
@@ -169,6 +172,7 @@ set undofile                    " Save undo's after file closes
 set undolevels=1000             " How many undos
 set undoreload=10000            " number of lines to save for undo
 call matchadd('ColorColumn', '\%' . &textwidth . 'v', 81)
+set nospell
 
 set complete=.,w,b,u,U,i,d,t
 set completeopt=menu,longest
@@ -224,6 +228,8 @@ nnoremap <silent> <down>  <nop>
 nnoremap <silent> <left>  <nop>
 nnoremap <silent> <right> <nop>
 nnoremap Q <nop>
+nnoremap <F1> <ESC>
+inoremap <F1> <ESC>
 nnoremap <c-g> 1<c-g>
 
 " Easy move between windows
@@ -277,21 +283,24 @@ nnoremap <cr> O<esc>
 
 " System clipboard
 set pastetoggle=<F2>
-nmap <Leader>yy "*yy
-nmap <Leader>dd "*dd
-vmap <Leader>y "*y
-vmap <Leader>d "*d
-nmap <Leader>p "*p
-nmap <Leader>P "*P
-vmap <Leader>p "*p
-vmap <Leader>P "*P
+nmap <Leader>yy "+yy
+nmap <Leader>dd "+dd
+vmap <Leader>y "+y
+vmap <Leader>Y "+y$
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
 
-nmap <space>[p O<Esc>"*P
-nmap <space>]p o<Esc>"*p
+nmap <space>[p O<Esc>"+P
+nmap <space>]p o<Esc>"+p
 
 " Indentation
 vmap > >gv
 vmap < <gv
+" noremap <Tab> mm^==`m<esc>
+noremap <Tab> ^==<esc>
 
 " auto center
 nnoremap <silent> n nzz
@@ -305,5 +314,5 @@ nnoremap <silent> <C-i> <C-i>zz
 
 " Quick reindent
 nmap === mrgg=Gg`rzz
-" nnoremap === :Autoformat<CR><CR>
-tnoremap <leader><esc> <C-\><C-n>
+" tnoremap <leader><esc> <C-\><C-n>
+tnoremap <esc><esc> <C-\><C-n>
