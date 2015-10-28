@@ -22,11 +22,12 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 Plug 'othree/yajs.vim'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
-" disables all automatic tags highlighting
-let g:easytags_auto_highlight = 0
-let g:easytags_async = 1
+Plug 'szw/vim-tags'
+" Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-easytags'
+" " disables all automatic tags highlighting
+" let g:easytags_auto_highlight = 0
+" let g:easytags_async = 1
 Plug 'flazz/vim-colorschemes'
 Plug 'bling/vim-airline'
 Plug 'airblade/vim-gitgutter'

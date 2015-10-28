@@ -1,6 +1,6 @@
 let mapleader=' '
 
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = "-"
 
@@ -173,6 +173,8 @@ set undodir=~/.vim/undo         " where to save undo histories
 set undofile                    " Save undo's after file closes
 set undolevels=1000             " How many undos
 set undoreload=10000            " number of lines to save for undo
+set nobackup
+set nowritebackup
 call matchadd('ColorColumn', '\%' . &textwidth . 'v', 81)
 set nospell
 

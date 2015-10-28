@@ -1,3 +1,6 @@
-/.nvim
+/nvim/plugged
+/nvim/.netrwhist
+/nvim/shada
+/nvim/spell
 /.vim
 /tags
