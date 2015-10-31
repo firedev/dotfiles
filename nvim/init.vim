@@ -261,12 +261,13 @@ augroup files
   " When editing a file, always jump to the last known cursor position.
   " Don't do it for commit messages, when the position is invalid, or when
   " inside an event handler (happens when dropping a file on gvim).
+  au FileType fzf tnoremap <nowait><buffer> <esc> <c-g>
   autocmd BufReadPost *
         \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
         \   exe "normal g`\"" |
         \ endif
 augroup END
-au! BufWritePost .nvimrc source %
+au! BufWritePost init.vim source %
 
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
