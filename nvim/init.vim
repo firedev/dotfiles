@@ -1,6 +1,12 @@
 let mapleader=' '
 
 call plug#begin('~/.config/nvim/plugged')
+Plug 'godlygeek/tabular'
+
+Plug 'plasticboy/vim-markdown'
+
+Plug 'AndrewRadev/vim-eco'
+
 Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = "-"
 
@@ -8,12 +14,16 @@ Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'benekastah/neomake'
 
+Plug 'terryma/vim-expand-region'
+
+Plug 'unblevable/quick-scope'
+
 Plug 'easymotion/vim-easymotion'
 nmap s <Plug>(easymotion-s)
 
 Plug 'janko-m/vim-test'
-nmap <silent> <leader>T :TestNearest<CR>
-nmap <silent> <leader>t :TestFile<CR>
+nmap <silent> <leader>t :TestNearest<CR>
+nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>A :RSpec<CR>
 nmap <silent> <leader>l :TestLast<CR>
@@ -27,33 +37,62 @@ let test#strategy = 'neoterm'
 " silent exe "g:flog_enable"
 " map <leader>f :call FlogToggle()<cr>
 " Plug 'skammer/vim-ruby-complexity'
+
 Plug 'szw/vim-tags'
 let g:vim_tags_auto_generate = 0
 " let g:vim_tags_use_vim_dispatch = 1
+" Plug 'lukaszkorecki/CoffeeTags'
+
+Plug 'majutsushi/tagbar'
+
 Plug 'kassio/neoterm'
 let g:neoterm_size = 10
+
 Plug 'austintaylor/vim-indentobject'
-Plug 'mattn/emmet-vim'
+
+" Plug 'mattn/emmet-vim'
+
 Plug 'edsono/vim-matchit'
+
 Plug 'jreybert/vimagit'
+
 Plug 'airblade/vim-gitgutter'
+
 Plug 'scrooloose/nerdtree'
-Plug 'gregsexton/gitv'
+
+Plug 'junegunn/gv.vim'
+
 Plug 'low-ghost/nerdtree-fugitive'
+
 Plug 'Xuyuanp/nerdtree-git-plugin'
+function! NERDTreeToggleInCurDir()
+  " If NERDTree is open in the current buffer
+  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+    exe ":NERDTreeClose"
+  else
+    if (expand("%:t") != '')
+      exe ":NERDTreeFind"
+    else
+      exe ":NERDTreeToggle"
+    endif
+  endif
+endfunction
 let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeHijackNetrw=0
 nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
+" nnoremap <leader>nf :call NERDTreeToggleInCurDir()<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
+
 Plug 'calebsmith/vim-lambdify'
+
 Plug 'flazz/vim-colorschemes'
+
 Plug 'bling/vim-airline'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_left_alt_sep=''
 let g:airline_right_alt_sep=''
-" let g:airline_section_a = (crypt, paste, iminsert)
 let g:airline_inactive_collapse=1
 let g:airline_section_y='' " Remove encoding and newline
 " enable/disable showing only non-zero hunks.
@@ -64,18 +103,34 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#close_symbol = '✖'
+
 Plug 'slim-template/vim-slim'
+
+Plug 'mtscout6/vim-cjsx'
+
 Plug 'kchmck/vim-coffee-script'
+
 Plug 'rking/ag.vim'
+
 Plug 'tpope/vim-dispatch'
+
 Plug 'radenling/vim-dispatch-neovim'
+
 Plug 'vim-ruby/vim-ruby'
+let ruby_no_expensive = 1
+
 Plug 'tpope/vim-rails'
+
 Plug 'tpope/vim-bundler'
+
 Plug 'tpope/vim-surround'
+
 Plug 'tpope/vim-commentary'
+
 Plug 'tpope/vim-repeat'
+
 Plug 'tpope/vim-abolish'
+
 Plug 'tpope/vim-fugitive'
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gc :Gcommit<cr>
@@ -97,7 +152,7 @@ let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
-" NeoSnippet
+" {{{ NeoSnippet
 Plug 'Shougo/neosnippet.vim'
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -152,6 +207,8 @@ nnoremap <silent> <Leader><Enter> :call fzf#run({
       \   'options':     '+m',
       \   'tmux_height': '40%'
       \ })<CR>
+" }}}
+
 call plug#end()
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -162,7 +219,7 @@ colorscheme Tomorrow-Night
 
 set guifont=PragmataPro:h13
 set number
-set relativenumber
+" set relativenumber
 set nowrap
 set ruler
 set tabstop=2 softtabstop=2 shiftwidth=2
@@ -220,12 +277,12 @@ set listchars+=extends:❯
 set listchars+=precedes:❮
 set listchars+=trail:⋅
 set listchars+=nbsp:⋅
-set listchars+=tab:÷⋅
+set listchars+=tab:·\ "
 
 set pastetoggle=<F2>
 noremap <silent> <F2> setlocal paste!<cr>
 
-nnoremap <silent> <bs> :setlocal hlsearch!<cr>
+" nnoremap <silent> <bs> :setlocal hlsearch!<cr>
 
 nnoremap <silent> <up>    <nop>
 nnoremap <silent> <down>  <nop>
@@ -323,6 +380,6 @@ nnoremap <silent> <C-o> <C-o>zz
 nnoremap <silent> <C-i> <C-i>zz
 
 " Quick reindent
-nmap <tab> mrgg=Gg`rzz
+nmap === mrgg=Gg`rzz
 " tnoremap <leader><esc> <C-\><C-n>
 tnoremap <esc><esc> <C-\><C-n>

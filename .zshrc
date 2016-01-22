@@ -99,6 +99,9 @@ alias mysql='/usr/local/mysql/bin/mysql'
 alias v="vagrant"
 alias vagrant="/opt/vagrant/bin/vagrant"
 alias vimrc="vim ~/.vimrc"
+alias nvimrc="vim ~/.config/nvim/init.vim"
+alias vi="`which vim`"
+alias vim="nvim"
 
 export PATH=./bin:${PATH}:/usr/local/mysql/bin
 . `brew --prefix`/etc/profile.d/z.sh
