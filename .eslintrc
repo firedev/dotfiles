@@ -1,21 +1,22 @@
 {
-    "parser": "babel-eslint",
-    "env": {
-        "browser": true,
-        "node": true
-    },
-    "settings": {
-        "ecmascript": 6,
-        "jsx": true
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "strict": 0,
-        "quotes": 0,
-        "no-unused-vars": 0,
-        "camelcase": 0,
-        "no-underscore-dangle": 0
-    }
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    "func-names": [0],
+    "semi": [2, "never"],
+    "no-unexpected-multiline": [2],
+    "no-shadow": [1],
+    "react/display-name": [1, { "acceptTranspilerName": true }],
+    "react/jsx-no-duplicate-props": [2]
+  },
+  "env": {
+    "phantomjs": true,
+    "jasmine": true,
+  },
+  "globals": {
+    "Sagamore": true,
+    "_": true,
+    "sagamore": true,
+    "faker": true,
+  },
 }

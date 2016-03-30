@@ -1,9 +1,12 @@
 let mapleader=' '
 
 call plug#begin('~/.config/nvim/plugged')
-Plug 'godlygeek/tabular'
 
+Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_folding_disabled = 1
+
+Plug 'ap/vim-css-color'
 
 Plug 'AndrewRadev/vim-eco'
 
@@ -13,10 +16,37 @@ let g:switch_mapping = "-"
 Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'benekastah/neomake'
+" let g:neomake_javascript_eslint_marker = {
+"       \ 'args': ['--fix']
+"       \ }
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_error_sign = {
+      \ 'texthl': 'ErrorMsg',
+      \ }
+" let g:neomake_ft_jsx_enabled_makers = ['eslint']
+" let g:neomake_open_list=2
+" let g:neomake_list_height=1
+Plug 'Shougo/deoplete.nvim'
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete_start_length = 3
+" inoremap <silent><expr> <Tab>
+" \ pumvisible() ? "\<C-n>" :
+" \ deoplete#mappings#manual_complete()
+function! Multiple_cursors_before()
+  let b:deoplete_disable_auto_complete = 1
+endfunction
+
+function! Multiple_cursors_after()
+  let b:deoplete_disable_auto_complete = 0
+endfunction
+
+Plug 'Shougo/echodoc.vim'
+set noshowmode
+let g:echodoc_enable_at_startup = 1
 
 Plug 'terryma/vim-expand-region'
-
-Plug 'unblevable/quick-scope'
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 Plug 'easymotion/vim-easymotion'
 nmap s <Plug>(easymotion-s)
@@ -50,7 +80,10 @@ let g:neoterm_size = 10
 
 Plug 'austintaylor/vim-indentobject'
 
-" Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
+
+Plug 'jpalardy/vim-slime'
+let g:slime_target = "tmux"
 
 Plug 'edsono/vim-matchit'
 
@@ -63,6 +96,14 @@ Plug 'scrooloose/nerdtree'
 Plug 'junegunn/gv.vim'
 
 Plug 'low-ghost/nerdtree-fugitive'
+
+Plug 'kana/vim-textobj-user'
+Plug 'nelstrom/vim-textobj-rubyblock'
+
+Plug 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_auto_colors = 0
+" autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=red
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=black ctermbg=black
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
 function! NERDTreeToggleInCurDir()
@@ -84,25 +125,30 @@ nnoremap <leader>nf :NERDTreeFind<cr>
 " nnoremap <leader>nf :call NERDTreeToggleInCurDir()<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
 
-Plug 'calebsmith/vim-lambdify'
-
 Plug 'flazz/vim-colorschemes'
 
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_left_alt_sep=''
 let g:airline_right_alt_sep=''
 let g:airline_inactive_collapse=1
-let g:airline_section_y='' " Remove encoding and newline
+let g:airline_section_y=''
+" Remove encoding and newline
 " enable/disable showing only non-zero hunks.
 let g:airline#extensions#hunks#non_zero_only=1
 " because of TmuxlineSnapshot
 let g:airline#extensions#tmuxline#enabled=0
-let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#enabled=0
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#close_symbol = '✖'
+
+Plug 'pangloss/vim-javascript'
+
+Plug 'mxw/vim-jsx'
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 
 Plug 'slim-template/vim-slim'
 
@@ -111,6 +157,7 @@ Plug 'mtscout6/vim-cjsx'
 Plug 'kchmck/vim-coffee-script'
 
 Plug 'rking/ag.vim'
+ca Ag Ag!
 
 Plug 'tpope/vim-dispatch'
 
@@ -119,6 +166,8 @@ Plug 'radenling/vim-dispatch-neovim'
 Plug 'vim-ruby/vim-ruby'
 let ruby_no_expensive = 1
 
+Plug 'tpope/vim-rsi'
+
 Plug 'tpope/vim-rails'
 
 Plug 'tpope/vim-bundler'
@@ -126,6 +175,11 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-surround'
 
 Plug 'tpope/vim-commentary'
+
+Plug 'tpope/vim-ragtag'
+inoremap <M-o>       <Esc>o
+inoremap <C-j>       <Down>
+let g:ragtag_global_maps = 1
 
 Plug 'tpope/vim-repeat'
 
@@ -151,6 +205,8 @@ let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
+
+Plug 'wellle/targets.vim'
 
 " {{{ NeoSnippet
 Plug 'Shougo/neosnippet.vim'
@@ -219,7 +275,7 @@ colorscheme Tomorrow-Night
 
 set guifont=PragmataPro:h13
 set number
-" set relativenumber
+set relativenumber
 set nowrap
 set ruler
 set tabstop=2 softtabstop=2 shiftwidth=2
@@ -234,6 +290,8 @@ set nobackup
 set nowritebackup
 call matchadd('ColorColumn', '\%' . &textwidth . 'v', 81)
 set nospell
+set ignorecase
+set smartcase
 
 set complete=.,w,b,u,U,i,d,t
 set completeopt=menu,longest
@@ -383,3 +441,11 @@ nnoremap <silent> <C-i> <C-i>zz
 nmap === mrgg=Gg`rzz
 " tnoremap <leader><esc> <C-\><C-n>
 tnoremap <esc><esc> <C-\><C-n>
+
+" Expand %% to current directory
+" http://vimcasts.org/e/14
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+cnoremap w!! %!sudo tee > /dev/null %
+nnoremap <leader><leader> :b#<cr>
+nnoremap <leader>w :w<cr>
+nnoremap q: :q

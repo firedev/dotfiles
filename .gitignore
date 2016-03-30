@@ -4,3 +4,5 @@
 /nvim/spell
 /.vim
 /tags
+/nvim/.init.vim-rplugin~
+/nvim/autoload/plug.vim.old
