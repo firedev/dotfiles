@@ -20,6 +20,7 @@ Plug 'benekastah/neomake'
 "       \ 'args': ['--fix']
 "       \ }
 let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_json_enabled_makers = ['jsonlint']
 let g:neomake_error_sign = {
       \ 'texthl': 'ErrorMsg',
       \ }
@@ -149,6 +150,8 @@ Plug 'pangloss/vim-javascript'
 
 Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+Plug 'Chiel92/vim-autoformat'
 
 Plug 'slim-template/vim-slim'
 
@@ -295,7 +298,7 @@ set smartcase
 
 set complete=.,w,b,u,U,i,d,t
 set completeopt=menu,longest
-
+set conceallevel=0
 set showmatch
 " set showcmd
 " set cursorline
@@ -372,6 +375,7 @@ augroup files
   au!
   " au BufEnter * if &buftype == 'terminal' | highlight TermCursor ctermfg=red guifg=red | :startinsert | endif
   au BufEnter * if &buftype == 'terminal' | highlight TermCursor ctermfg=red guifg=red | endif
+  au BufEnter * hi MatchParen ctermfg=yellow ctermbg=black
   au BufWritePost * Neomake
   " When editing a file, always jump to the last known cursor position.
   " Don't do it for commit messages, when the position is invalid, or when
@@ -384,6 +388,7 @@ augroup files
 augroup END
 au! BufWritePost init.vim source %
 
+autocmd BufWritePre *.md :%s//\r/ge
 autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
 
