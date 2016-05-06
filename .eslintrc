@@ -1,22 +1,34 @@
-{
-  "parser": "babel-eslint",
-  "extends": "airbnb",
-  "rules": {
-    "func-names": [0],
-    "semi": [2, "never"],
-    "no-unexpected-multiline": [2],
-    "no-shadow": [1],
-    "react/display-name": [1, { "acceptTranspilerName": true }],
-    "react/jsx-no-duplicate-props": [2]
-  },
-  "env": {
-    "phantomjs": true,
-    "jasmine": true,
-  },
-  "globals": {
-    "Sagamore": true,
-    "_": true,
-    "sagamore": true,
-    "faker": true,
-  },
-}
+parser: babel-eslint
+extends: airbnb
+rules:
+    func-names: 0
+    semi: [2, never]
+    no-unexpected-multiline: 2
+    no-shadow: 1
+    space-infix-ops: 0 # because flowtype https://github.com/eslint/eslint/issues/5211
+
+    import/no-duplicates: 2
+    import/no-commonjs: 2
+    import/imports-first: 2
+
+    react/display-name: 1
+    react/jsx-no-duplicate-props: 2
+
+    flowtype/space-after-type-colon: 2
+    flowtype/space-before-type-colon: 2
+
+    # change to 2 when flowtype is everywhere:
+    flowtype/require-parameter-type: 0
+    flowtype/require-return-type: 0
+env:
+    phantomjs: true
+    jasmine: true
+plugins:
+    - import
+    - flowtype
+settings:
+    import/ignore:
+        - node_modules
+        - \.coffee$
+        - \.(scss|less|css)$
+    import/resolver: webpack

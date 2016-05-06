@@ -6,3 +6,9 @@ AsciiComments:
   Enabled: false
 DotPosition:
   EnforcedStyle: leading
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+  Enabled: true
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+  Enabled: true

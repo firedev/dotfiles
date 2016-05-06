@@ -27,7 +27,10 @@ let g:neomake_error_sign = {
 " let g:neomake_ft_jsx_enabled_makers = ['eslint']
 " let g:neomake_open_list=2
 " let g:neomake_list_height=1
-Plug 'Shougo/deoplete.nvim'
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_start_length = 3
 " inoremap <silent><expr> <Tab>
@@ -145,6 +148,8 @@ let g:airline#extensions#tabline#enabled=0
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#close_symbol = '✖'
+" for FZF
+let g:airline#extensions#branch#enabled = 0
 
 Plug 'pangloss/vim-javascript'
 
@@ -212,19 +217,19 @@ let g:multi_cursor_quit_key='<Esc>'
 Plug 'wellle/targets.vim'
 
 " {{{ NeoSnippet
-Plug 'Shougo/neosnippet.vim'
-" Plugin key-mappings.
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+" Plug 'Shougo/neosnippet.vim'
+" " Plugin key-mappings.
+" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)"
-      \: "\<TAB>"
+" imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"       \ "\<Plug>(neosnippet_expand_or_jump)"
+"       \: pumvisible() ? "\<C-n>" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"       \ "\<Plug>(neosnippet_expand_or_jump)"
+"       \: "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
@@ -243,31 +248,28 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'honza/vim-snippets'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-set rtp+=~/.fzf
 nnoremap <silent> <c-p> :FZF -m<CR>
 
 nnoremap <silent> <Leader>s :call fzf#run({ 'tmux_height': winheight('.') / 2, 'sink': 'botright split' })<CR>
 nnoremap <silent> <Leader>v :call fzf#run({ 'tmux_width': winwidth('.') / 2, 'sink': 'vertical botright split' })<CR>
 
-function! BufList()
+function! s:buflist()
   redir => ls
   silent ls
   redir END
   return split(ls, '\n')
 endfunction
 
-function! BufOpen(e)
-  execute 'buffer '. matchstr(a:e, '^[ 0-9]*')
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
 nnoremap <silent> <Leader><Enter> :call fzf#run({
-      \   'source':      reverse(BufList()),
-      \   'sink':        function('BufOpen'),
-      \   'options':     '+m',
-      \   'tmux_height': '40%'
-      \ })<CR>
-" }}}
-
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
 call plug#end()
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
