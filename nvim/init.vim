@@ -21,6 +21,7 @@ Plug 'benekastah/neomake'
 "       \ }
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_json_enabled_makers = ['jsonlint']
+let g:neomake_css_enabled_makers = ['csslint']
 let g:neomake_error_sign = {
       \ 'texthl': 'ErrorMsg',
       \ }
@@ -43,10 +44,6 @@ endfunction
 function! Multiple_cursors_after()
   let b:deoplete_disable_auto_complete = 0
 endfunction
-
-Plug 'Shougo/echodoc.vim'
-set noshowmode
-let g:echodoc_enable_at_startup = 1
 
 Plug 'terryma/vim-expand-region'
 vmap v <Plug>(expand_region_expand)
@@ -131,37 +128,38 @@ nnoremap <leader>nc :NERDTreeCWD<cr>
 
 Plug 'flazz/vim-colorschemes'
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_left_alt_sep=''
-let g:airline_right_alt_sep=''
-let g:airline_inactive_collapse=1
-let g:airline_section_y=''
-" Remove encoding and newline
-" enable/disable showing only non-zero hunks.
-let g:airline#extensions#hunks#non_zero_only=1
-" because of TmuxlineSnapshot
-let g:airline#extensions#tmuxline#enabled=0
-let g:airline#extensions#tabline#enabled=0
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#tab_min_count = 2
-let g:airline#extensions#tabline#close_symbol = '✖'
-" for FZF
-let g:airline#extensions#branch#enabled = 0
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" let g:airline_left_sep=''
+" let g:airline_right_sep=''
+" let g:airline_left_alt_sep=''
+" let g:airline_right_alt_sep=''
+" let g:airline_inactive_collapse=1
+" let g:airline_section_y=''
+" " Remove encoding and newline
+" " enable/disable showing only non-zero hunks.
+" let g:airline#extensions#hunks#non_zero_only=1
+" " because of TmuxlineSnapshot
+" let g:airline#extensions#tmuxline#enabled=0
+" let g:airline#extensions#tabline#enabled=0
+" let g:airline#extensions#tabline#show_buffers = 0
+" let g:airline#extensions#tabline#tab_min_count = 2
+" let g:airline#extensions#tabline#close_symbol = '✖'
+" " for FZF
+" let g:airline#extensions#branch#enabled = 0
 
 Plug 'pangloss/vim-javascript'
 
-Plug 'mxw/vim-jsx'
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-
-Plug 'Chiel92/vim-autoformat'
-
 Plug 'slim-template/vim-slim'
 
+" JAVASCRIPT
 Plug 'mtscout6/vim-cjsx'
-
+Plug 'mxw/vim-jsx'
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+Plug 'othree/yajs.vim', { 'for': 'javascript' }
+Plug 'othree/es.next.syntax.vim'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'gavocanov/vim-js-indent'
 Plug 'kchmck/vim-coffee-script'
 
 Plug 'rking/ag.vim'
@@ -231,21 +229,21 @@ Plug 'wellle/targets.vim'
 "       \ "\<Plug>(neosnippet_expand_or_jump)"
 "       \: "\<TAB>"
 
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-" Enable snipMate compatibility feature.
-let g:neosnippet#enable_snipmate_compatibility = 1
+" " For snippet_complete marker.
+" if has('conceal')
+"   set conceallevel=2 concealcursor=niv
+" endif
+" " Enable snipMate compatibility feature.
+" let g:neosnippet#enable_snipmate_compatibility = 1
 
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+" " Tell Neosnippet about the other snippets
+" let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
-" NeoSnippet-Snippets
-Plug 'Shougo/neosnippet-snippets'
+" " NeoSnippet-Snippets
+" Plug 'Shougo/neosnippet-snippets'
 
-" Vim-Snippets
-Plug 'honza/vim-snippets'
+" " Vim-Snippets
+" Plug 'honza/vim-snippets'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 nnoremap <silent> <c-p> :FZF -m<CR>
@@ -396,6 +394,54 @@ autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
 
 set background=dark
 
+hi clear StatusLine
+hi clear StatusLineNC
+hi StatusLine   term=bold cterm=bold ctermfg=236 ctermbg=236
+hi StatusLineNC term=bold cterm=bold ctermfg=236 ctermbg=236
+"
+" highlight values in terminal vim, colorscheme solarized
+hi User1                      ctermbg=236 ctermfg=4          guifg=#40ffff            " Identifier
+hi User2                      ctermbg=236 ctermfg=2 gui=bold guifg=#ffff60            " Statement
+hi User3 term=bold cterm=bold ctermbg=236 ctermfg=1          guifg=White   guibg=Red  " Error
+hi User4                      ctermbg=236 ctermfg=1          guifg=Orange             " Special
+hi User5                      ctermbg=236 ctermfg=10         guifg=#80a0ff            " Comment
+hi User6 term=bold cterm=bold ctermbg=236 ctermfg=1          guifg=Red                " WarningMsg
+
+function! WindowNumber()
+  return tabpagewinnr(tabpagenr())
+endfunction
+
+" recalculate when idle, and after saving
+augroup statline_trail
+  autocmd!
+  autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
+augroup END
+
+set statusline=
+set statusline+=%6*%m%r%*                          " modified, readonly
+set statusline+= 
+set statusline+=%5*%{expand('%:h')}/               " relative path to file's directory
+set statusline+=%1*%t%*                            " file name
+set statusline+= 
+set statusline+=%<                                 " truncate here if needed
+" set statusline+=%5*%L\ lines%*                     " number of lines
+
+set statusline+=%=                                 " switch to RHS
+set statusline+=%5*%c%*                      " column
+set statusline+= 
+set statusline+=%2*\%y                                  "FileType
+" set statusline+=%5*%-3.l%*                      "line
+" set statusline+=%5*\ %=\%l/%L\ (%03p%%)\             "Rownumber/total (%)
+" set statusline+=%5*\ %=\%l/%L\             "Rownumber/total (%)
+" set statusline+=%5*c%-3.c%*                      " column
+set statusline+= 
+" set statusline+=%2*b%-3n%*                      " buffer number
+set statusline+=%2*b%n%*                      " buffer number
+set statusline+= 
+" set statusline+=%2*w%-3.3{WindowNumber()}%*     " window number
+set statusline+=%2*w%{WindowNumber()}%*     " window number
+set statusline+= 
+
 " screen line scroll
 map <silent> j gj
 map <silent> k gk
@@ -456,3 +502,4 @@ cnoremap w!! %!sudo tee > /dev/null %
 nnoremap <leader><leader> :b#<cr>
 nnoremap <leader>w :w<cr>
 nnoremap q: :q
+map <leader>bp f}%cSBBj:s/,/,\r/g<CR>viB==

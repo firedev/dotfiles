@@ -17,6 +17,7 @@
 	excludesfile = /Users/pain/.gitignore
 	pager = less -r
 	editor = vim
+	ignorecase = false
 [diff]
 	algorithm = patience
 [pull]
