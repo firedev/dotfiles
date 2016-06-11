@@ -103,7 +103,7 @@ Plug 'nelstrom/vim-textobj-rubyblock'
 
 Plug 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_auto_colors = 0
-" autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=red
+" autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=red ctermbg=red
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=black ctermbg=black
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -128,39 +128,42 @@ nnoremap <leader>nc :NERDTreeCWD<cr>
 
 Plug 'flazz/vim-colorschemes'
 
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
-" let g:airline_left_sep=''
-" let g:airline_right_sep=''
-" let g:airline_left_alt_sep=''
-" let g:airline_right_alt_sep=''
-" let g:airline_inactive_collapse=1
-" let g:airline_section_y=''
-" " Remove encoding and newline
-" " enable/disable showing only non-zero hunks.
-" let g:airline#extensions#hunks#non_zero_only=1
-" " because of TmuxlineSnapshot
-" let g:airline#extensions#tmuxline#enabled=0
-" let g:airline#extensions#tabline#enabled=0
-" let g:airline#extensions#tabline#show_buffers = 0
-" let g:airline#extensions#tabline#tab_min_count = 2
-" let g:airline#extensions#tabline#close_symbol = '✖'
-" " for FZF
-" let g:airline#extensions#branch#enabled = 0
-
-Plug 'pangloss/vim-javascript'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_left_alt_sep=''
+let g:airline_right_alt_sep=''
+let g:airline_inactive_collapse=1
+let g:airline_section_y=''
+" Remove encoding and newline
+" enable/disable showing only non-zero hunks.
+let g:airline#extensions#hunks#non_zero_only=1
+" because of TmuxlineSnapshot
+let g:airline#extensions#tmuxline#enabled=0
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#close_symbol = '✖'
+" for FZF
+let g:airline#extensions#branch#enabled = 0
 
 Plug 'slim-template/vim-slim'
 
 " JAVASCRIPT
-Plug 'mtscout6/vim-cjsx'
-Plug 'mxw/vim-jsx'
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }"
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-Plug 'othree/yajs.vim', { 'for': 'javascript' }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+let g:javascript_enable_domhtmlcss = 1
+" Plug 'gavocanov/vim-js-indent'
+" Plug 'mxw/vim-jsx'
+" Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'othree/es.next.syntax.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'gavocanov/vim-js-indent'
+let g:used_javascript_libs = 'jquery,underscore,backbone,react,jasmine'
+
 Plug 'kchmck/vim-coffee-script'
+Plug 'mtscout6/vim-cjsx'
 
 Plug 'rking/ag.vim'
 ca Ag Ag!
@@ -183,8 +186,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
 Plug 'tpope/vim-ragtag'
-inoremap <M-o>       <Esc>o
-inoremap <C-j>       <Down>
+inoremap <M-o> <Esc>o
+inoremap <C-j> <Down>
 let g:ragtag_global_maps = 1
 
 Plug 'tpope/vim-repeat'
@@ -211,15 +214,17 @@ let g:multi_cursor_next_key='<C-n>'
 let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
+nnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
+vnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
 
 Plug 'wellle/targets.vim'
 
 " {{{ NeoSnippet
 " Plug 'Shougo/neosnippet.vim'
 " " Plugin key-mappings.
-" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k>     <Plug>(neosnippet_expand_target)
+" imap <C-k> <Plug>(neosnippet_expand_or_jump)
+" smap <C-k> <Plug>(neosnippet_expand_or_jump)
+" xmap <C-k> <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
 " imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
@@ -231,7 +236,7 @@ Plug 'wellle/targets.vim'
 
 " " For snippet_complete marker.
 " if has('conceal')
-"   set conceallevel=2 concealcursor=niv
+" set conceallevel=2 concealcursor=niv
 " endif
 " " Enable snipMate compatibility feature.
 " let g:neosnippet#enable_snipmate_compatibility = 1
@@ -263,11 +268,11 @@ function! s:bufopen(e)
 endfunction
 
 nnoremap <silent> <Leader><Enter> :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
+      \   'source': reverse(<sid>buflist()),
+      \   'sink': function('<sid>bufopen'),
+      \   'options': '+m',
+      \   'down': len(<sid>buflist()) + 2
+      \ })<CR>
 call plug#end()
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -285,10 +290,10 @@ set tabstop=2 softtabstop=2 shiftwidth=2
 set expandtab
 set hidden
 set noswapfile
-set undodir=~/.vim/undo         " where to save undo histories
-set undofile                    " Save undo's after file closes
-set undolevels=1000             " How many undos
-set undoreload=10000            " number of lines to save for undo
+set undodir=~/.vim/undo " where to save undo histories
+set undofile " Save undo's after file closes
+set undolevels=1000 " How many undos
+set undoreload=10000 " number of lines to save for undo
 set nobackup
 set nowritebackup
 call matchadd('ColorColumn', '\%' . &textwidth . 'v', 81)
@@ -345,9 +350,9 @@ noremap <silent> <F2> setlocal paste!<cr>
 
 " nnoremap <silent> <bs> :setlocal hlsearch!<cr>
 
-nnoremap <silent> <up>    <nop>
-nnoremap <silent> <down>  <nop>
-nnoremap <silent> <left>  <nop>
+nnoremap <silent> <up> <nop>
+nnoremap <silent> <down> <nop>
+nnoremap <silent> <left> <nop>
 nnoremap <silent> <right> <nop>
 nnoremap Q <nop>
 nnoremap <F1> <ESC>
@@ -394,55 +399,57 @@ autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
 
 set background=dark
 
-hi clear StatusLine
-hi clear StatusLineNC
-hi StatusLine   term=bold cterm=bold ctermfg=236 ctermbg=236
-hi StatusLineNC term=bold cterm=bold ctermfg=236 ctermbg=236
-"
-" highlight values in terminal vim, colorscheme solarized
-hi User1                      ctermbg=236 ctermfg=4          guifg=#40ffff            " Identifier
-hi User2                      ctermbg=236 ctermfg=2 gui=bold guifg=#ffff60            " Statement
-hi User3 term=bold cterm=bold ctermbg=236 ctermfg=1          guifg=White   guibg=Red  " Error
-hi User4                      ctermbg=236 ctermfg=1          guifg=Orange             " Special
-hi User5                      ctermbg=236 ctermfg=10         guifg=#80a0ff            " Comment
-hi User6 term=bold cterm=bold ctermbg=236 ctermfg=1          guifg=Red                " WarningMsg
+" hi clear StatusLine
+" hi clear StatusLineNC
+" hi StatusLine term=bold cterm=bold ctermfg=gray ctermbg=240
+" hi StatusLineNC term=bold cterm=bold ctermfg=240 ctermbg=240
+" "
+" " highlight values in terminal vim, colorscheme solarized
+" hi User1 cterm=bold ctermbg=240 ctermfg=gray guifg=#40ffff " Identifier
+" hi User2 ctermbg=240 ctermfg=black gui=bold guifg=#ffff60 " Statement
+" hi User3 term=bold cterm=bold ctermbg=240 ctermfg=1 guifg=White guibg=Red " Error
+" hi User4 ctermbg=240 ctermfg=1 guifg=Orange " Special
+" hi User5 ctermbg=240 ctermfg=10 guifg=#80a0ff " Comment
+" hi User6 term=bold cterm=bold ctermbg=240 ctermfg=1 guifg=Red " WarningMsg
+" hi User9 ctermbg=240 ctermfg=240 guifg=#40ffff " Invisible
 
-function! WindowNumber()
-  return tabpagewinnr(tabpagenr())
-endfunction
+" function! WindowNumber()
+"   return tabpagewinnr(tabpagenr())
+" endfunction
 
-" recalculate when idle, and after saving
-augroup statline_trail
-  autocmd!
-  autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
-augroup END
+" " recalculate when idle, and after saving
+" augroup statline_trail
+"   autocmd!
+"   autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
+" augroup END
 
-set statusline=
-set statusline+=%6*%m%r%*                          " modified, readonly
-set statusline+= 
-set statusline+=%5*%{expand('%:h')}/               " relative path to file's directory
-set statusline+=%1*%t%*                            " file name
-set statusline+= 
-set statusline+=%<                                 " truncate here if needed
-" set statusline+=%5*%L\ lines%*                     " number of lines
+" set statusline=
+" set statusline+=%6*%m%r%* " modified, readonly
+" set statusline+= 
+" set statusline+=%2*%{expand('%:h')}/ " relative path to file's directory
+" set statusline+=%1*%t%* " file name
+" set statusline+= 
+" set statusline+=%< " truncate here if needed
+" set statusline+=%9*%= " switch to RHS
+" set statusline+=%2*%c%* " column
+" set statusline+= 
+" set statusline+=%2*\%y "FileType
+" set statusline+= 
+" set statusline+=%2*b%n%* " buffer number
+" set statusline+= 
+" set statusline+=%2*w%{WindowNumber()}%* " window number
+" set statusline+= 
 
-set statusline+=%=                                 " switch to RHS
-set statusline+=%5*%c%*                      " column
-set statusline+= 
-set statusline+=%2*\%y                                  "FileType
-" set statusline+=%5*%-3.l%*                      "line
+" Experiments
+" set statusline+=%5*%L\ lines%* " number of lines
+" set statusline+=%5*%-3.l%* "line
 " set statusline+=%5*\ %=\%l/%L\ (%03p%%)\             "Rownumber/total (%)
 " set statusline+=%5*\ %=\%l/%L\             "Rownumber/total (%)
-" set statusline+=%5*c%-3.c%*                      " column
-set statusline+= 
-" set statusline+=%2*b%-3n%*                      " buffer number
-set statusline+=%2*b%n%*                      " buffer number
-set statusline+= 
-" set statusline+=%2*w%-3.3{WindowNumber()}%*     " window number
-set statusline+=%2*w%{WindowNumber()}%*     " window number
-set statusline+= 
-
+" set statusline+=%5*c%-3.c%* " column
+" set statusline+=%2*b%-3n%* " buffer number
+" set statusline+=%2*w%-3.3{WindowNumber()}%* " window number
 " screen line scroll
+
 map <silent> j gj
 map <silent> k gk
 
@@ -491,7 +498,7 @@ nnoremap <silent> <C-o> <C-o>zz
 nnoremap <silent> <C-i> <C-i>zz
 
 " Quick reindent
-nmap === mrgg=Gg`rzz
+nmap <leader>= mrgg=Gg`rzz
 " tnoremap <leader><esc> <C-\><C-n>
 tnoremap <esc><esc> <C-\><C-n>
 
@@ -500,6 +507,11 @@ tnoremap <esc><esc> <C-\><C-n>
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 cnoremap w!! %!sudo tee > /dev/null %
 nnoremap <leader><leader> :b#<cr>
-nnoremap <leader>w :w<cr>
+" nnoremap <leader>w :w<cr>
+" clean double whitespace and save
+nnoremap <leader>w :silent! :%s/\v([^\ ])\ \ +([^\ ])/\1 \2/g<cr>:w<cr>
 nnoremap q: :q
 map <leader>bp f}%cSBBj:s/,/,\r/g<CR>viB==
+vmap <leader>s :sort ui<cr>
+command! Bro :enew | setl buftype=nofile |  0put =v:oldfiles | nnoremap <buffer> <CR> gf | 1
+map <leader>bb :Bro<CR>
