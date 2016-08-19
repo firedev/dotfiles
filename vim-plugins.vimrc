@@ -22,7 +22,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 let g:jsx_ext_required = 0
 Plug 'othree/yajs.vim'
-Plug 'szw/vim-tags'
+" Plug 'szw/vim-tags'
 " Plug 'xolox/vim-misc'
 " Plug 'xolox/vim-easytags'
 " " disables all automatic tags highlighting

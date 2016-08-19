@@ -14,12 +14,13 @@
 	status = auto
 [core]
 	quotepath = false
-	excludesfile = /Users/pain/.gitignore
-	pager = less -r
+	excludesfile = ~/.gitignore
+	pager = diff-so-fancy | less --tabs=4 -RFX
 	editor = vim
 	ignorecase = false
 [diff]
 	algorithm = patience
+	compactionHeuristic = true
 [pull]
 	rebase = false
 [fetch]
@@ -30,12 +31,6 @@
 	smudge = git media smudge %f
 [push]
 	default = simple
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [http]
 	postBuffer = 524288000
 [init]
@@ -46,3 +41,8 @@
 	required = true
 [clean]
 	requireForce = false
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22

@@ -90,12 +90,11 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-alias bu="brew update && brew upgrade --all"
+alias bu="brew update && brew upgrade --all && brew cleanup && brew doctor"
 alias d="git push && cap deploy"
 alias diff="colordiff"
 alias fuck='$(thefuck $(fc -ln -1))'
 alias gc='git diff --name-only | if xargs grep -q -nr -e "focus: true"; then; git commit; else echo "rejected commit" fi; fi'
-alias mysql='/usr/local/mysql/bin/mysql'
 alias v="vagrant"
 alias vagrant="/opt/vagrant/bin/vagrant"
 alias vimrc="vim ~/.vimrc"
@@ -114,5 +113,4 @@ export FZF_DEFAULT_COMMAND='ag -l -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 stty -ixon
 source ~/.zshrc.local
-
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

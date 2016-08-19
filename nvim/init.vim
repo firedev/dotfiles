@@ -14,8 +14,9 @@ Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = "-"
 
 Plug 'AndrewRadev/splitjoin.vim'
-
+Plug 'metakirby5/codi.vim'
 Plug 'benekastah/neomake'
+" Plug 'benjie/neomake-local-eslint.vim'
 " let g:neomake_javascript_eslint_marker = {
 "       \ 'args': ['--fix']
 "       \ }
@@ -81,10 +82,10 @@ let g:neoterm_size = 10
 
 Plug 'austintaylor/vim-indentobject'
 
-Plug 'mattn/emmet-vim'
+" Plug 'mattn/emmet-vim'
 
-Plug 'jpalardy/vim-slime'
-let g:slime_target = "tmux"
+" Plug 'jpalardy/vim-slime'
+" let g:slime_target = "tmux"
 
 Plug 'edsono/vim-matchit'
 
@@ -127,7 +128,7 @@ nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
 
 Plug 'flazz/vim-colorschemes'
-
+" Plug 'robertmeta/nofrils'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_left_sep=''
@@ -135,28 +136,28 @@ let g:airline_right_sep=''
 let g:airline_left_alt_sep=''
 let g:airline_right_alt_sep=''
 let g:airline_inactive_collapse=1
-let g:airline_section_y=''
+let g:airline_section_a='' " mode, etc
+let g:airline_section_y='' " encoding/filetype
 " Remove encoding and newline
 " enable/disable showing only non-zero hunks.
 let g:airline#extensions#hunks#non_zero_only=1
 " because of TmuxlineSnapshot
 let g:airline#extensions#tmuxline#enabled=0
-let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#enabled=0
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#close_symbol = '✖'
 " for FZF
-let g:airline#extensions#branch#enabled = 0
+let g:airline#extensions#branch#enabled = 1
 
 Plug 'slim-template/vim-slim'
 
 " JAVASCRIPT
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }"
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
-let g:javascript_enable_domhtmlcss = 1
-" Plug 'gavocanov/vim-js-indent'
-" Plug 'mxw/vim-jsx'
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
+" let g:javascript_enable_domhtmlcss = 1
+Plug 'gavocanov/vim-js-indent'
 " Plug 'othree/yajs.vim', { 'for': 'javascript' }
 Plug 'othree/es.next.syntax.vim'
 Plug 'othree/javascript-libraries-syntax.vim'
@@ -218,6 +219,20 @@ nnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
 vnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
 
 Plug 'wellle/targets.vim'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-n>"
+    endif
+endfunction
+inoremap <expr> <tab> InsertTabWrapper()
+inoremap <s-tab> <c-p>
 
 " {{{ NeoSnippet
 " Plug 'Shougo/neosnippet.vim'
@@ -280,6 +295,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " set t_Co=256
 set background=dark
 colorscheme Tomorrow-Night
+" colorscheme nofrils
 
 set guifont=PragmataPro:h13
 set number
@@ -300,7 +316,7 @@ call matchadd('ColorColumn', '\%' . &textwidth . 'v', 81)
 set nospell
 set ignorecase
 set smartcase
-
+set synmaxcol=160
 set complete=.,w,b,u,U,i,d,t
 set completeopt=menu,longest
 set conceallevel=0
@@ -398,6 +414,8 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
 
 set background=dark
+" hi CursorLine ctermbg=#000000
+" hi CursorColumn ctermbg=#000000
 
 " hi clear StatusLine
 " hi clear StatusLineNC
