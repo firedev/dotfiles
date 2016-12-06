@@ -2,6 +2,7 @@ let mapleader=' '
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'junegunn/vim-emoji'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 let g:vim_markdown_folding_disabled = 1
@@ -32,6 +33,8 @@ let g:neomake_error_sign = {
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
+Plug 'Chiel92/vim-autoformat'
+Plug 'carlitux/deoplete-ternjs'
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_start_length = 3
@@ -41,7 +44,6 @@ let g:deoplete#auto_complete_start_length = 3
 function! Multiple_cursors_before()
   let b:deoplete_disable_auto_complete = 1
 endfunction
-
 function! Multiple_cursors_after()
   let b:deoplete_disable_auto_complete = 0
 endfunction
@@ -50,18 +52,22 @@ Plug 'terryma/vim-expand-region'
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-Plug 'easymotion/vim-easymotion'
-nmap s <Plug>(easymotion-s)
+Plug 'haya14busa/vim-auto-programming'
+" Plug 'easymotion/vim-easymotion'
+" nmap s <Plug>(easymotion-s)
+
+Plug 'justinmk/vim-sneak'
 
 Plug 'janko-m/vim-test'
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>A :RSpec<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 let test#strategy = 'neoterm'
 
+Plug 'machakann/vim-highlightedyank'
+hi HighlightedyankRegion ctermbg=white ctermfg=black guibg=white guifg=black
 " Plug '907th/vim-auto-save'
 " let g:auto_save = 1
 " let g:auto_save_in_insert_mode = 0
@@ -75,8 +81,6 @@ let g:vim_tags_auto_generate = 0
 " let g:vim_tags_use_vim_dispatch = 1
 " Plug 'lukaszkorecki/CoffeeTags'
 
-Plug 'majutsushi/tagbar'
-
 Plug 'kassio/neoterm'
 let g:neoterm_size = 10
 
@@ -86,8 +90,6 @@ Plug 'austintaylor/vim-indentobject'
 
 " Plug 'jpalardy/vim-slime'
 " let g:slime_target = "tmux"
-
-Plug 'edsono/vim-matchit'
 
 Plug 'jreybert/vimagit'
 
@@ -101,7 +103,7 @@ Plug 'low-ghost/nerdtree-fugitive'
 
 Plug 'kana/vim-textobj-user'
 Plug 'nelstrom/vim-textobj-rubyblock'
-
+Plug 'neovim/python-client'
 Plug 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_auto_colors = 0
 " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=red ctermbg=red
@@ -128,9 +130,14 @@ nnoremap <leader>nf :NERDTreeFind<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
 
 Plug 'flazz/vim-colorschemes'
+Plug 'owickstrom/vim-colors-paramount'
 " Plug 'robertmeta/nofrils'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.notexists = '+'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_left_alt_sep=''
@@ -153,6 +160,7 @@ let g:airline#extensions#branch#enabled = 1
 Plug 'slim-template/vim-slim'
 
 " JAVASCRIPT
+Plug 'jparise/vim-graphql'
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx'] }"
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 " Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx'] }
@@ -166,34 +174,29 @@ let g:used_javascript_libs = 'jquery,underscore,backbone,react,jasmine'
 Plug 'kchmck/vim-coffee-script'
 Plug 'mtscout6/vim-cjsx'
 
-Plug 'rking/ag.vim'
-ca Ag Ag!
-
-Plug 'tpope/vim-dispatch'
+Plug 'mhinz/vim-grepper'
+nnoremap <leader>ag :Grepper -tool ag -grepprg ag --vimgrep <cr>
+nnoremap <leader>*   :Grepper -tool ag -cword -noprompt<cr>
+command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
 
 Plug 'radenling/vim-dispatch-neovim'
 
 Plug 'vim-ruby/vim-ruby'
 let ruby_no_expensive = 1
 
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-rsi'
-
 Plug 'tpope/vim-rails'
-
 Plug 'tpope/vim-bundler'
-
 Plug 'tpope/vim-surround'
-
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
 
 Plug 'tpope/vim-ragtag'
 inoremap <M-o> <Esc>o
 inoremap <C-j> <Down>
 let g:ragtag_global_maps = 1
-
-Plug 'tpope/vim-repeat'
-
-Plug 'tpope/vim-abolish'
 
 Plug 'tpope/vim-fugitive'
 nnoremap <leader>gs :Gstatus<cr>
@@ -291,15 +294,23 @@ nnoremap <silent> <Leader><Enter> :call fzf#run({
 call plug#end()
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " set t_Co=256
+"
+" Enable term 24 bit colour in latest neovim
+" https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
+" if (has('termguicolors'))
+"   set termguicolors
+" endif
+
 set background=dark
 colorscheme Tomorrow-Night
+" colorscheme preto
+" colorscheme monochrome
 " colorscheme nofrils
 
 set guifont=PragmataPro:h13
 set number
-set relativenumber
+" set relativenumber
 set nowrap
 set ruler
 set tabstop=2 softtabstop=2 shiftwidth=2
@@ -319,10 +330,13 @@ set smartcase
 set synmaxcol=160
 set complete=.,w,b,u,U,i,d,t
 set completeopt=menu,longest
+set completefunc=autoprogramming#complete
 set conceallevel=0
+set noshowmode
+set shortmess+=c
 set showmatch
 " set showcmd
-" set cursorline
+set cursorline
 
 set splitbelow
 set splitright
@@ -432,13 +446,13 @@ set background=dark
 " hi User9 ctermbg=240 ctermfg=240 guifg=#40ffff " Invisible
 
 " function! WindowNumber()
-"   return tabpagewinnr(tabpagenr())
+" return tabpagewinnr(tabpagenr())
 " endfunction
 
 " " recalculate when idle, and after saving
 " augroup statline_trail
-"   autocmd!
-"   autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
+" autocmd!
+" autocmd cursorhold,bufwritepost * unlet! b:statline_trailing_space_warning
 " augroup END
 
 " set statusline=
@@ -475,7 +489,6 @@ set foldenable
 set foldlevelstart=10
 set foldnestmax=10
 set foldmethod=indent
-nnoremap <leader><space> za
 " Yank
 " Yank till the end of line
 nnoremap Y y$
@@ -524,12 +537,33 @@ tnoremap <esc><esc> <C-\><C-n>
 " http://vimcasts.org/e/14
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 cnoremap w!! %!sudo tee > /dev/null %
-nnoremap <leader><leader> :b#<cr>
 " nnoremap <leader>w :w<cr>
 " clean double whitespace and save
 nnoremap <leader>w :silent! :%s/\v([^\ ])\ \ +([^\ ])/\1 \2/g<cr>:w<cr>
 nnoremap q: :q
-map <leader>bp f}%cSBBj:s/,/,\r/g<CR>viB==
+map <leader>bp f}%cSBBj:s/,/,\r/g<CR>viB==:set nohl<cr>
 vmap <leader>s :sort ui<cr>
-command! Bro :enew | setl buftype=nofile |  0put =v:oldfiles | nnoremap <buffer> <CR> gf | 1
+" last open files
+command! Bro :enew | setl buftype=nofile | 0put =v:oldfiles | nnoremap <buffer> <CR> gf | 1
 map <leader>bb :Bro<CR>
+" <number><CR> to go to the line
+nnoremap <expr> <cr> v:count == 0 ? "\<cr>" : "G"
+" reselect pasted
+nnoremap gp `[v`]
+" " gitgutter
+" let g:gitgutter_sign_added = emoji#for('small_blue_diamond')
+" let g:gitgutter_sign_modified = emoji#for('small_orange_diamond')
+" let g:gitgutter_sign_removed = emoji#for('small_red_triangle')
+" let g:gitgutter_sign_modified_removed = emoji#for('collision')
+
+" NetRW
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
+let g:netrw_winsize = 25
+let g:netrw_altv = 1
+" augroup ProjectDrawer
+" autocmd!
+" autocmd VimEnter * :Vexplore
+" augroup END
+nnoremap <leader><leader> <C-^>

@@ -48,11 +48,11 @@ ZSH_THEME="bira"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # plugins=(osx git sublime tmux tmuxinator vundle rails ruby heroku)
-plugins=(brew colored-man colorize git heroku knife osx rails ruby tmux tmuxinator vagrant virtualenv vundle zsh-syntax-highlighting)
+plugins=(brew colored-man colorize git heroku docker osx rails ruby tmux tmuxinator vagrant virtualenv vundle zsh-syntax-highlighting)
 # github
 
 # export ZSH_TMUX_AUTOSTART=true
-export TERM=xterm-256color
+# export TERM=screen-256color
 
 source $ZSH/oh-my-zsh.sh
 
@@ -90,7 +90,7 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-alias bu="brew update && brew upgrade --all && brew cleanup && brew doctor"
+alias bu="brew update && brew upgrade && brew cleanup && brew doctor"
 alias d="git push && cap deploy"
 alias diff="colordiff"
 alias fuck='$(thefuck $(fc -ln -1))'
@@ -102,6 +102,7 @@ alias nvimrc="vim ~/.config/nvim/init.vim"
 alias vi="`which vim`"
 alias vim="nvim"
 alias e="nvim"
+alias mux="tmuxinator"
 
 export PATH=./bin:${PATH}:/usr/local/mysql/bin
 . `brew --prefix`/etc/profile.d/z.sh
@@ -109,8 +110,14 @@ export PATH=./bin:${PATH}:/usr/local/mysql/bin
 export BUNDLER_EDITOR=vim
 export LC_COLLATE=C
 export LC_CTYPE="en_US.UTF-8"
+export LANG="en_US.UTF-8"
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 stty -ixon
 source ~/.zshrc.local
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+export PATH="$HOME/.yarn/bin:$PATH"
+# export RUBYOPT=--enable-frozen-string-literal
+# source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# export DOCKER_HOST=tcp://127.0.0.1:4243

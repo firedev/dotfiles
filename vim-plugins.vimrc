@@ -92,7 +92,7 @@ Plug 'terryma/vim-multiple-cursors'
 " COMPLETION
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'ervandew/supertab'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
