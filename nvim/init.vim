@@ -268,6 +268,9 @@ inoremap <s-tab> <c-p>
 " " Vim-Snippets
 " Plug 'honza/vim-snippets'
 
+Plug 'Alok/notational-fzf-vim'
+let g:nv_directories = ['~/notes', './notes']
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 nnoremap <silent> <c-p> :FZF -m<CR>
 
@@ -567,3 +570,8 @@ let g:netrw_altv = 1
 " autocmd VimEnter * :Vexplore
 " augroup END
 nnoremap <leader><leader> <C-^>
+" use // to search for selected text
+" http://vim.wikia.com/wiki/Search_for_visually_selected_text
+vnoremap <expr> // 'y/\V'.escape(@",'\').'<CR>'
+" http://vi.stackexchange.com/questions/2816/how-to-prevent-vim-from-scrolling-buffers-when-i-open-split
+nnoremap <C-W>s Hmx`` \|:split<CR>`xzt``
