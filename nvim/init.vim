@@ -15,8 +15,12 @@ Plug 'AndrewRadev/switch.vim'
 let g:switch_mapping = "-"
 
 Plug 'AndrewRadev/splitjoin.vim'
+let g:splitjoin_html_attributes_bracket_on_new_line=1
 Plug 'metakirby5/codi.vim'
-Plug 'benekastah/neomake'
+Plug 'w0rp/ale'
+let g:ale_fixers = { 'javascript': ['eslint'] }
+let g:ale_fix_on_save = 1
+" Plug 'benekastah/neomake'
 " Plug 'benjie/neomake-local-eslint.vim'
 " let g:neomake_javascript_eslint_marker = {
 "       \ 'args': ['--fix']
@@ -35,23 +39,27 @@ function! DoRemote(arg)
 endfunction
 Plug 'Chiel92/vim-autoformat'
 Plug 'carlitux/deoplete-ternjs'
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'Shougo/deoplete-rct'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_start_length = 3
-" inoremap <silent><expr> <Tab>
-" \ pumvisible() ? "\<C-n>" :
-" \ deoplete#mappings#manual_complete()
 function! Multiple_cursors_before()
-  let b:deoplete_disable_auto_complete = 1
+let b:deoplete_disable_auto_complete = 1
 endfunction
 function! Multiple_cursors_after()
-  let b:deoplete_disable_auto_complete = 0
+let b:deoplete_disable_auto_complete = 0
 endfunction
-
+" Plug 'roxma/nvim-completion-manager'
+" Plug 'roxma/nvim-cm-tern', {'do': 'npm install'}
 Plug 'terryma/vim-expand-region'
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
-
 Plug 'haya14busa/vim-auto-programming'
 " Plug 'easymotion/vim-easymotion'
 " nmap s <Plug>(easymotion-s)
@@ -67,7 +75,7 @@ nmap <silent> <leader>g :TestVisit<CR>
 let test#strategy = 'neoterm'
 
 Plug 'machakann/vim-highlightedyank'
-hi HighlightedyankRegion ctermbg=white ctermfg=black guibg=white guifg=black
+highlight HighlightedyankRegion ctermbg=white ctermfg=black guibg=white guifg=black
 " Plug '907th/vim-auto-save'
 " let g:auto_save = 1
 " let g:auto_save_in_insert_mode = 0
@@ -86,7 +94,7 @@ let g:neoterm_size = 10
 
 Plug 'austintaylor/vim-indentobject'
 
-" Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 
 " Plug 'jpalardy/vim-slime'
 " let g:slime_target = "tmux"
@@ -107,7 +115,7 @@ Plug 'neovim/python-client'
 Plug 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_auto_colors = 0
 " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=red ctermbg=red
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=black ctermbg=black
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=236
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
 function! NERDTreeToggleInCurDir()
@@ -128,10 +136,10 @@ nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 " nnoremap <leader>nf :call NERDTreeToggleInCurDir()<cr>
 nnoremap <leader>nc :NERDTreeCWD<cr>
-
 Plug 'flazz/vim-colorschemes'
-Plug 'owickstrom/vim-colors-paramount'
 " Plug 'robertmeta/nofrils'
+" Plug 'fxn/vim-monochrome'
+Plug 'owickstrom/vim-colors-paramount'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 if !exists('g:airline_symbols')
@@ -143,8 +151,17 @@ let g:airline_right_sep=''
 let g:airline_left_alt_sep=''
 let g:airline_right_alt_sep=''
 let g:airline_inactive_collapse=1
-let g:airline_section_a='' " mode, etc
-let g:airline_section_y='' " encoding/filetype
+" let g:airline_section_a (mode, crypt, paste, spell, iminsert)
+let g:airline_section_a=''
+" let g:airline_section_b (hunks, branch)
+" let g:airline_section_c (bufferline or filename)
+" let g:airline_section_gutter (readonly, csv)
+" let g:airline_section_x (tagbar, filetype, virtualenv)
+" let g:airline_section_y (fileencoding, fileformat)
+let g:airline_section_y=''
+" let g:airline_section_z (percentage, line number, column number)
+" let g:airline_section_error (ycm_error_count, syntastic-err, eclim)
+" let g:airline_section_warning (ycm_warning_count, syntastic-warn, whitespace)
 " Remove encoding and newline
 " enable/disable showing only non-zero hunks.
 let g:airline#extensions#hunks#non_zero_only=1
@@ -156,6 +173,13 @@ let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#close_symbol = '✖'
 " for FZF
 let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#default#section_truncate_width = {
+  \ 'b': 120,
+  \ 'x': 100,
+  \ 'z': 100,
+  \ 'warning': 0,
+  \ 'error': 0,
+  \ }
 
 Plug 'slim-template/vim-slim'
 
@@ -176,7 +200,7 @@ Plug 'mtscout6/vim-cjsx'
 
 Plug 'mhinz/vim-grepper'
 nnoremap <leader>ag :Grepper -tool ag -grepprg ag --vimgrep <cr>
-nnoremap <leader>*   :Grepper -tool ag -cword -noprompt<cr>
+nnoremap <leader>* :Grepper -tool ag -cword -noprompt<cr>
 command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
 
 Plug 'radenling/vim-dispatch-neovim'
@@ -192,6 +216,7 @@ Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
 
 Plug 'tpope/vim-ragtag'
 inoremap <M-o> <Esc>o
@@ -203,6 +228,8 @@ nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gr :Gread<cr>
+" https://vi.stackexchange.com/questions/13433/how-to-load-list-of-files-in-commit-into-quickfix
+command! -nargs=? -bar Gload call setqflist(map(systemlist("git show --pretty='' --name-only <args>"), '{"filename": v:val, "lnum": 1}'))
 
 " Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-unimpaired'
@@ -237,40 +264,6 @@ endfunction
 inoremap <expr> <tab> InsertTabWrapper()
 inoremap <s-tab> <c-p>
 
-" {{{ NeoSnippet
-" Plug 'Shougo/neosnippet.vim'
-" " Plugin key-mappings.
-" imap <C-k> <Plug>(neosnippet_expand_or_jump)
-" smap <C-k> <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k> <Plug>(neosnippet_expand_target)
-
-" SuperTab like snippets behavior.
-" imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"       \ "\<Plug>(neosnippet_expand_or_jump)"
-"       \: pumvisible() ? "\<C-n>" : "\<TAB>"
-" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"       \ "\<Plug>(neosnippet_expand_or_jump)"
-"       \: "\<TAB>"
-
-" " For snippet_complete marker.
-" if has('conceal')
-" set conceallevel=2 concealcursor=niv
-" endif
-" " Enable snipMate compatibility feature.
-" let g:neosnippet#enable_snipmate_compatibility = 1
-
-" " Tell Neosnippet about the other snippets
-" let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-
-" " NeoSnippet-Snippets
-" Plug 'Shougo/neosnippet-snippets'
-
-" " Vim-Snippets
-" Plug 'honza/vim-snippets'
-
-Plug 'Alok/notational-fzf-vim'
-let g:nv_directories = ['~/notes', './notes']
-
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 nnoremap <silent> <c-p> :FZF -m<CR>
 
@@ -296,22 +289,22 @@ nnoremap <silent> <Leader><Enter> :call fzf#run({
       \ })<CR>
 call plug#end()
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " set t_Co=256
 "
 " Enable term 24 bit colour in latest neovim
 " https://github.com/neovim/neovim/wiki/Following-HEAD#20160511
 " if (has('termguicolors'))
-"   set termguicolors
+" set termguicolors
 " endif
 
+set mouse=a
 set background=dark
-colorscheme Tomorrow-Night
+" colorscheme Tomorrow-Night
 " colorscheme preto
 " colorscheme monochrome
 " colorscheme nofrils
-
-set guifont=PragmataPro:h13
+colorscheme paramount
+hi Constant ctermfg=white
 set number
 " set relativenumber
 set nowrap
@@ -338,7 +331,7 @@ set conceallevel=0
 set noshowmode
 set shortmess+=c
 set showmatch
-" set showcmd
+set noshowcmd
 set cursorline
 
 set splitbelow
@@ -414,7 +407,7 @@ augroup files
   " au BufEnter * if &buftype == 'terminal' | highlight TermCursor ctermfg=red guifg=red | :startinsert | endif
   au BufEnter * if &buftype == 'terminal' | highlight TermCursor ctermfg=red guifg=red | endif
   au BufEnter * hi MatchParen ctermfg=yellow ctermbg=black
-  au BufWritePost * Neomake
+  " au BufWritePost * Neomake
   " When editing a file, always jump to the last known cursor position.
   " Don't do it for commit messages, when the position is invalid, or when
   " inside an event handler (happens when dropping a file on gvim).
@@ -575,3 +568,17 @@ nnoremap <leader><leader> <C-^>
 vnoremap <expr> // 'y/\V'.escape(@",'\').'<CR>'
 " http://vi.stackexchange.com/questions/2816/how-to-prevent-vim-from-scrolling-buffers-when-i-open-split
 nnoremap <C-W>s Hmx`` \|:split<CR>`xzt``
+
+highlight Todo cterm=NONE
+
+augroup suffixes
+    autocmd!
+
+    let associations = [
+      \["javascript.jsx", ".js,.json"],
+    \]
+
+    for ft in associations
+        execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+    endfor
+augroup END

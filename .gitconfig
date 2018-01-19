@@ -16,11 +16,11 @@
 	quotepath = false
 	excludesfile = ~/.gitignore
 	pager = diff-so-fancy | less --tabs=4 -RFX
-	editor = vim
 	ignorecase = false
 [diff]
 	algorithm = patience
 	compactionHeuristic = true
+	renameLimit = 1024
 [pull]
 	rebase = false
 [fetch]

@@ -31,6 +31,8 @@ npm-debug.log
 .byebug_history
 _sr
 sr
-bundle.js
+bundle*.js
 Session.vim
-Icon
+Icon
+/.vscode
+.happypack

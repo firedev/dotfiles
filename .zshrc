@@ -103,6 +103,7 @@ alias vi="`which vim`"
 alias vim="nvim"
 alias e="nvim"
 alias mux="tmuxinator"
+alias uuid="uuidgen | tr -d '\n-' | tr '[:upper:]' '[:lower:]' | pbcopy && pbpaste && echo"
 
 export PATH=./bin:${PATH}:/usr/local/mysql/bin
 . `brew --prefix`/etc/profile.d/z.sh
@@ -121,3 +122,11 @@ export PATH="$HOME/.yarn/bin:$PATH"
 # export RUBYOPT=--enable-frozen-string-literal
 # source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # export DOCKER_HOST=tcp://127.0.0.1:4243
+
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/pain/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/pain/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/pain/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/pain/google-cloud-sdk/completion.zsh.inc'; fi

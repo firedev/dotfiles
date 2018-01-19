@@ -4,10 +4,14 @@
       "name": "Default profile",
       "selected": true,
       "simple_modifications": {
-        "caps_lock": "left_control"
+        "caps_lock": "left_control",
+        "return_or_enter": "left_control",
+        "space": "left_control"
       },
       "standalone_keys": {
-        "caps_lock": "escape"
+        "caps_lock": "escape",
+        "return_or_enter": "return_or_enter",
+        "space": "space"
       }
     }
   ]

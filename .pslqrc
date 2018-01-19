@@ -1,0 +1,23 @@
+\set QUIET 1
+\pset null '¤'
+
+-- Customize prompts
+\set PROMPT1 '%[%033[1m%][%/] # '
+\set PROMPT2 '... # '
+
+-- Show how long each query takes to execute
+\timing
+
+-- Use best available output format
+\x auto
+
+-- Verbose error reports
+\set VERBOSITY verbose
+
+-- Use a separate history file per-database
+\set HISTFILE ~/.psql_history- :DBNAME
+\set HISTCONTROL ignoredups
+
+-- Autocomplete keywords in upper-case even if started lowercase
+\set COMP_KEYWORD_CASE upper
+\unset QUIET
