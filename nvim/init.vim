@@ -16,9 +16,10 @@ let g:switch_mapping = "-"
 
 Plug 'AndrewRadev/splitjoin.vim'
 let g:splitjoin_html_attributes_bracket_on_new_line=1
-Plug 'metakirby5/codi.vim'
+
 Plug 'w0rp/ale'
-let g:ale_fixers = { 'javascript': ['eslint'] }
+let g:ale_fixers = { 'javascript': ['eslint'] } " , 'ruby': ['rubocop'] }
+nmap <silent> <leader>f :!eslint --fix %<CR>
 let g:ale_fix_on_save = 1
 " Plug 'benekastah/neomake'
 " Plug 'benjie/neomake-local-eslint.vim'
@@ -60,7 +61,8 @@ endfunction
 Plug 'terryma/vim-expand-region'
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
-Plug 'haya14busa/vim-auto-programming'
+" Plug 'haya14busa/vim-auto-programming', { 'branch': 'neovim' }
+Plug 'blueyed/vim-auto-programming', { 'branch': 'neovim' }
 " Plug 'easymotion/vim-easymotion'
 " nmap s <Plug>(easymotion-s)
 
@@ -72,7 +74,7 @@ nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
-let test#strategy = 'neoterm'
+let test#strategy = 'neovim'
 
 Plug 'machakann/vim-highlightedyank'
 highlight HighlightedyankRegion ctermbg=white ctermfg=black guibg=white guifg=black
@@ -198,10 +200,7 @@ let g:used_javascript_libs = 'jquery,underscore,backbone,react,jasmine'
 Plug 'kchmck/vim-coffee-script'
 Plug 'mtscout6/vim-cjsx'
 
-Plug 'mhinz/vim-grepper'
-nnoremap <leader>ag :Grepper -tool ag -grepprg ag --vimgrep <cr>
-nnoremap <leader>* :Grepper -tool ag -cword -noprompt<cr>
-command! -nargs=* -complete=file Ag Grepper -tool ag -query <args>
+Plug 'jremmen/vim-ripgrep'
 
 Plug 'radenling/vim-dispatch-neovim'
 
@@ -240,13 +239,6 @@ nnoremap <leader>gr :Gread<cr>
 
 " Mutliple cursors
 Plug 'terryma/vim-multiple-cursors'
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_next_key='<C-n>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
-nnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
-vnoremap <silent> <M-j> :MultipleCursorsFind <C-R>/<CR>
 
 Plug 'wellle/targets.vim'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -333,6 +325,7 @@ set shortmess+=c
 set showmatch
 set noshowcmd
 set cursorline
+set inccommand=nosplit
 
 set splitbelow
 set splitright
@@ -424,6 +417,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 autocmd BufWritePre * :silent! g/^\_$\n\_^$/d
 
 set background=dark
+hi Normal ctermbg=Black
 " hi CursorLine ctermbg=#000000
 " hi CursorColumn ctermbg=#000000
 
@@ -576,6 +570,7 @@ augroup suffixes
 
     let associations = [
       \["javascript.jsx", ".js,.json"],
+      \["coffee", ".coffee,.js"],
     \]
 
     for ft in associations
