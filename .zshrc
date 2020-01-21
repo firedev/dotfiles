@@ -48,7 +48,7 @@ ZSH_THEME="bira"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # plugins=(osx git sublime tmux tmuxinator vundle rails ruby heroku)
-plugins=(brew colored-man colorize git heroku docker osx rails ruby tmux tmuxinator vagrant virtualenv vundle zsh-syntax-highlighting)
+# plugins=(brew colored-man colorize git heroku docker osx rails ruby tmux tmuxinator vagrant virtualenv vundle zsh-syntax-highlighting)
 # github
 
 # export ZSH_TMUX_AUTOSTART=true
@@ -62,7 +62,6 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH="./bin:./node_modules/.bin:/Users/pain/.rbenv/shims:/Users/pain/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/local/share/npm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/share/zsh-completions"
 export EDITOR='vim'
-alias viber=/Applications/Viber.app/Contents/MacOS/Viber
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
@@ -90,7 +89,7 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-alias bu="brew update && brew upgrade && brew cleanup && brew doctor"
+alias bu="brew update && brew upgrade && brew cask upgrade && brew cleanup && brew doctor"
 alias d="git push && cap deploy"
 alias diff="colordiff"
 alias fuck='$(thefuck $(fc -ln -1))'
@@ -104,6 +103,56 @@ alias vim="nvim"
 alias e="nvim"
 alias mux="tmuxinator"
 alias uuid="uuidgen | tr -d '\n-' | tr '[:upper:]' '[:lower:]' | pbcopy && pbpaste && echo"
+alias gst="git status"
+alias did="vim +'normal Go' +'r!date' ~/did.txt"
+alias commitdiff="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative HEAD..$1"
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+
+gf() {
+  is_in_git_repo &&
+    git -c color.status=always status --short |
+    fzf --height 40% -m --ansi --nth 2..,.. | awk '{print $2}'
+}
+
+gb() {
+  is_in_git_repo &&
+    git branch -a -vv --color=always | grep -v '/HEAD\s' |
+    fzf --height 40% --ansi --multi --tac | sed 's/^..//' | awk '{print $1}' |
+    sed 's#^remotes/[^/]*/##'
+}
+
+gt() {
+  is_in_git_repo &&
+    git tag --sort -version:refname |
+    fzf --height 40% --multi
+}
+
+gh() {
+  is_in_git_repo &&
+    git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph |
+    fzf --height 40% --ansi --no-sort --reverse --multi | grep -o '[a-f0-9]\{7,\}'
+}
+
+gr() {
+  is_in_git_repo &&
+    git remote -v | awk '{print $1 " " $2}' | uniq |
+    fzf --height 40% --tac | awk '{print $1}'
+}
+
+bindkey '\er' redraw-current-line
+
+zle -N gf
+bindkey '^g^f' gf
+zle -N gb
+bindkey '^g^b' gb
+zle -N gt
+bindkey '^g^t' gt
+zle -N gh
+bindkey '^g^h' gh
+zle -N gr
+bindkey '^g^r' gr
 
 export PATH=./bin:${PATH}:/usr/local/mysql/bin
 . `brew --prefix`/etc/profile.d/z.sh
@@ -115,7 +164,6 @@ export LANG="en_US.UTF-8"
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 stty -ixon
-source ~/.zshrc.local
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 export PATH="$HOME/.yarn/bin:$PATH"
@@ -130,3 +178,12 @@ if [ -f '/Users/pain/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/pain/
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/pain/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/pain/google-cloud-sdk/completion.zsh.inc'; fi
+
+source ~/.zshenv
+source ~/.zshrc.local
+export PATH="/usr/local/opt/node@10/bin:$PATH"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/mc mc
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"

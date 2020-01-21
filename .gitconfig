@@ -39,6 +39,7 @@
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f
 	required = true
+	process = git-lfs filter-process
 [clean]
 	requireForce = false
 [color "diff-highlight"]
