@@ -19,8 +19,8 @@ let g:splitjoin_html_attributes_bracket_on_new_line=1
 
 Plug 'dense-analysis/ale'
 let g:ale_fixers = {
-      \ 'javascript': ['eslint'],
-      \ 'javascript.jsx': ['eslint'],
+      \ 'javascript': ['prettier', 'eslint'],
+      \ 'javascript.jsx': ['prettier', 'eslint'],
       \ 'ruby': ['rubocop'],
       \ }
 let g:ale_fix_on_save = 1
@@ -55,6 +55,7 @@ Plug 'justinmk/vim-sneak'
 """"""""""""""""""""""""
 " coc start
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " if hidden not set, TextEdit might fail.
 set hidden
 
@@ -415,7 +416,7 @@ set background=dark
 colorscheme paramount
 hi Constant ctermfg=white
 set number
-" set relativenumber
+set relativenumber
 set nowrap
 set ruler
 set tabstop=2 softtabstop=2 shiftwidth=2
@@ -443,9 +444,6 @@ set showmatch
 set noshowcmd
 set cursorline
 set inccommand=nosplit
-
-set splitbelow
-set splitright
 
 " set wildmenu wildmode=longest:full
 set wildoptions=tagfile

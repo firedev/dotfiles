@@ -1,17 +1,86 @@
+require: rubocop-rspec
+
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.6
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Exclude:
+    - "db/schema.rb"
+
 Documentation:
   Enabled: false
-AsciiComments:
-  Enabled: false
-DotPosition:
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: yes
+Lint/RaiseException:
+  Enabled: yes
+Lint/StructNewOverride:
+  Enabled: yes
+Style/ExponentialNotation:
+  Enabled: yes
+Style/HashEachMethods:
+  Enabled: yes
+Style/HashTransformKeys:
+  Enabled: yes
+Style/HashTransformValues:
+  Enabled: yes
+Layout/ClosingParenthesisIndentation:
+  Enabled: yes
+  EnforcedStyle: with_fixed_indentation
+Layout/HashAlignment:
+  EnforcedLastArgumentHashStyle: always_ignore
+Layout/ParameterAlignment:
+  EnforcedStyle: with_fixed_indentation
+Layout/CaseIndentation:
+  EnforcedStyle: end
+Layout/ClassStructure:
+  Enabled: true
+Layout/DotPosition:
   EnforcedStyle: leading
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: comma
-  Enabled: true
-Style/TrailingCommaInArrayLiteral:
-  EnforcedStyleForMultiline: comma
-  Enabled: true
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+  AutoCorrect: true
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
+  AutoCorrect: true
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+  AutoCorrect: true
+Layout/MultilineAssignmentLayout:
+  EnforcedStyle: same_line
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+Layout/MultilineMethodCallBraceLayout:
+  EnforcedStyle: new_line
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Metrics/BlockLength:
+  Exclude:
+    - "**/*_spec.rb"
+    - "spec/factories"
+    - "db/migrate"
+
+Security/YAMLLoad:
+  Enabled: false # Breaks loading configs with `<<`
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
-  Enabled: true
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+RSpec/DescribeClass:
+  Exclude:
+    - "spec/features/**/*_spec.rb"
+RSpec/MultipleExpectations:
+  Exclude:
+    - "spec/features/**/*_spec.rb"
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/ExampleLength:
+  Exclude:
+    - "spec/features/**/*_spec.rb"
+
+Capybara/FeatureMethods:
+  EnabledMethods: [scenario]
